@@ -1,17 +1,39 @@
+const config = require('./config.json');
+
 var express = require('express');
 const Web3 = require('web3');
 var util = require('ethereumjs-util');
 var tx = require('ethereumjs-tx');
+var contract = require('truffle-contract');
+const sqlite3 = require('sqlite3').verbose();
 
-const config = require('./config.json');
+var HAS_BILL;
 
-var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/1de4b23aea044238ab6c8500d2420f87"));
+var provider = new Web3.providers.HttpProvider("http://localhost:7545");
 
-var address = config.address;
-var key = config.privatekey;
-var privateKey = new Buffer(key, 'hex');
 
-web3.eth.getTransactionCount(address).then(_nonce => {
+if(config.test_env){
+  var web3 = new Web3(provider);
+  console.log("USING LOCAL NETWORK");
+} else {
+  var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/1de4b23aea044238ab6c8500d2420f87"));
+  console.log("USING ROPSTEN NETWORK");
+}
+
+var MMETokenArtifact = require('./MMEToken');
+
+var contracts = {};
+
+// load MMEToken contract
+contracts.MMEToken = contract(MMETokenArtifact);
+// Set the provider for our contract.
+contracts.MMEToken.setProvider(provider);
+
+var privateKey = new Buffer(config.privatekey, 'hex');
+
+/*
+// Example for ETH-Transaction
+web3.eth.getTransactionCount(config.address).then(_nonce => {
     nonce = _nonce.toString(16);
     var txParams = {
       nonce: '0x'+nonce,
@@ -26,24 +48,26 @@ web3.eth.getTransactionCount(address).then(_nonce => {
   transaction.sign(privateKey);
 
   var serializedTx = transaction.serialize().toString('hex');
-  //web3.eth.sendSignedTransaction('0x'+serializedTx).on('receipt',console.log);
-});
-const sqlite3 = require('sqlite3').verbose();
 
-function hasNewBill() {
-  // TODO: do this
-  return true;
+  web3.eth.sendSignedTransaction('0x'+serializedTx).on('receipt',console.log);
+});
+*/
+async function checkIfBill() {
+  var MMETokenInstance = await contracts.MMEToken.deployed();
+  HAS_BILL = await MMETokenInstance.hasBill(config.address);
+  await console.log("User has bill: ",HAS_BILL);
 }
+checkIfBill();
 
 function getBillData() {
   // TODO
+  // read contract function (getData or so) with argument config.address
   return {
-    energy_needed: 1234,
+    energy_needed: 1234, // or pay_amount or so
     tokens_earned: 10,
     price_per_unit: 10
   };
 }
-
 
 let db = new sqlite3.Database('../database.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
@@ -54,23 +78,39 @@ let db = new sqlite3.Database('../database.db', sqlite3.OPEN_READWRITE, (err) =>
 
 var app = express();
 
+// Serve static files
 app.use("/css", express.static(__dirname + '/css'));
 app.use("/js", express.static(__dirname + '/js'));
 
+// Set template manager to pug
 app.set('view engine', 'pug');
 
+// Serve index page (with overview)
 app.route('/').get(function(req, res) {
   res.render('index');
 });
 
+// Serve page for the new invoice
 app.route('/bill').get(function(req, res) {
-  if(hasNewBill()) {
+  if(HAS_BILL) {
+    // user has new bill, call function for data to submit
     res.render('bill',getBillData());
   } else {
+    // user has no new bill
     res.render('no_bill');
   }
-})
+});
 
+// wait for call when users pays
+app.route('/pay').get(function(req, res){
+  var params = req.query;
+
+  var toFond = params['fond'];
+  console.log(toFond);
+  res.send("");
+});
+
+// serve data for display
 app.route('/api').get(function(req, res) {
   var params = req.query;
   var returnData = [];
@@ -83,4 +123,5 @@ app.route('/api').get(function(req, res) {
   });
 });
 
-app.listen(3000);
+// listen on port
+app.listen(config.port);
