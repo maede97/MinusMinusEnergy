@@ -1,18 +1,18 @@
 #include "datahandler.hpp"
-#include <stdio.h>
+#include <cstdio>
+using std::printf;
 int main(){
 	sqlite3 *db;
 
 	sqlite3_stmt *stmt;
 	sqlite3_open("../DB_Template.db", &db);
 	printf("Performing query...\n");
-
+	
 	sqlite3_prepare_v2(db, "select * from sensor_data", -1, &stmt, NULL);
-
+	
 	while (sqlite3_step(stmt) != SQLITE_DONE) {
-		int i;
 		int num_cols = sqlite3_column_count(stmt);
-		for (i = 0; i < num_cols; i++){
+		for (int i = 0; i < num_cols; i++){
 			switch (sqlite3_column_type(stmt, i)){
 			case (SQLITE3_TEXT):
 				printf("%s, ", sqlite3_column_text(stmt, i));
