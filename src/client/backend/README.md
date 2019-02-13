@@ -1,2 +1,1 @@
-BETH19-Challenge<br/>
-Rewarding system for good energy economies.
+Backend written in C++, used to handle sensor data and send to Token Obtainer contract.
