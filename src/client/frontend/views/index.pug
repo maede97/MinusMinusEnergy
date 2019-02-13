@@ -1,0 +1,24 @@
+extends base
+
+append styles
+  link(href='css/datetimepicker.css', rel='stylesheet')
+  title EnergyCH
+
+append content
+  h1 Your energy consumption
+  div.row
+    div.col-sm-6
+      h3 Start-Date
+      input#startDate
+    div.col-sm-6
+      h3 End-Date
+      input#endDate
+  hr
+  button.btn.btn-default#showData Show graph
+  div#chart
+
+append scripts
+  script(src='https://code.highcharts.com/highcharts.js')
+  script(src='js/datetimepicker.js')
+  script= s_data
+  script(src='js/functions.js')
