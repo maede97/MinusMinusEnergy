@@ -1,4 +1,22 @@
-document.addEventListener('DOMContentLoaded', function () {
+function dateFormat(d) {
+  return  d.getFullYear() +"-"+ ("0"+(d.getMonth()+1)).slice(-2)+"-"+("0" + d.getDate()).slice(-2)+" " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2)+ ":00";
+}
+
+var pickerOptions = {format:'d.m.Y H:i',inline:true,lang:'en'}
+
+$('#startDate').datetimepicker(pickerOptions);
+$('#endDate').datetimepicker(pickerOptions);
+
+$('#showData').click(function(){
+  var begin = $('#startDate').datetimepicker('getValue');
+  var end = $('#endDate').datetimepicker('getValue');
+  $.ajax({url:'./api',method:'GET',data:{begin:dateFormat(begin),end:dateFormat(end)}}).done(function(respData) {
+    var cats = [];
+    var points = [];
+    for(var i in respData) {
+      cats.push(respData[i]['time']);
+      points.push(parseInt(respData[i]['data']));
+    }
     var myChart = Highcharts.chart('chart', {
         chart: {
             type: 'column'
@@ -7,8 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             text: 'Energy'
         },
         xAxis: {
-          categories: CHART_CATEGORIES
-
+          categories: cats
         },
         yAxis: {
           title: {
@@ -21,11 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             borderWidth: 0
           }
         },
-        series: CHART_DATA
+        series: [{data:points,step:'center',name:'E'}]
     });
-});
-
-var pickerOptions = {format:'d.m.Y H:i',inline:true,lang:'en'}
-
-$('#startDate').datetimepicker(pickerOptions);
-$('#endDate').datetimepicker(pickerOptions);
+  });
+})
