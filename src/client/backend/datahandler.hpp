@@ -1,10 +1,14 @@
 #ifndef DATAHANDLER_HPP
 #define DATAHANDLER_HPP
-
+#include <tuple>
 /* PRE:  Data on energy consumption sent by sensor
  * POST: Data stored internally
  */
-bool readData();
+
+template<typename... T>
+std::tuple<T...> readData(std::string filename, unsigned int line){
+	
+}
 
 // POST: Data signed using public key
 bool signData();
