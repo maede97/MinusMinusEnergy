@@ -3,13 +3,36 @@
 #include <iostream>
 #include <fstream>
 #include <tuple>
+#include <string>
+#include <vector>
+#include <cstring>
 #include <sqlite3.h>
 /* PRE:  Data on energy consumption sent by sensor
 * POST: Data stored internally
 */
 
 
-
+inline std::vector<std::string> queryMonth(const std::string& filename, std::pair<unsigned, unsigned> month){
+	sqlite3 *db;
+	sqlite3_stmt *stmt;
+	sqlite3_open("../DB_Template.db", &db);
+	std::string month_string = std::to_string(month.first) + "-" + std::to_string(month.second);
+	std::string month_begin = std::to_string(month.first) + "-" + std::to_string(month.second) + "-01 00:00:00";
+	std::vector<std::string> ret;
+	month.second++;
+	if(month.second == 13){
+		month.first++;
+		month.second = 1;
+	}
+	std::string month_end = std::to_string(month.first) + "-" + std::to_string(month.second) + "-01 00:00:00"; + " 00:00:00";
+	std::string statstring = "";
+	statstring += "select * from sensor_data WHERE time >= " + month_begin + " and time < " + month_end;
+	sqlite3_prepare_v2(db, statstring.c_str(), -1, &stmt, NULL);
+	while (sqlite3_step(stmt) != SQLITE_DONE) {
+		ret.push_back(std::string((const char*)sqlite3_column_text(stmt, 2)));
+	}
+	return ret;
+}
 /*template<typename... T>
 std::tuple<T...> readLine(const std::string& arg){
 	std::tuple<T...> return_value;
