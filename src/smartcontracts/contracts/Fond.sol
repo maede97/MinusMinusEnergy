@@ -22,5 +22,4 @@ contract Fond {
       investors[invs[i]] = 0;
     delete invs;
   }
-
 }
