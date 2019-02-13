@@ -5,9 +5,12 @@
 #include <tuple>
 #include <sqlite3.h>
 /* PRE:  Data on energy consumption sent by sensor
- * POST: Data stored internally
- */
-template<typename... T>
+* POST: Data stored internally
+*/
+
+
+
+/*template<typename... T>
 std::tuple<T...> readLine(const std::string& arg){
 	std::tuple<T...> return_value;
 	const unsigned int size = std::tuple_size<std::tuple<T...>>::value;
@@ -28,7 +31,7 @@ std::tuple<T...> readData(const std::string& filename, const unsigned int line){
 	}
 	return readLine<T...>(line_n);
 }
-
+*/
 // POST: Data signed using public key
 bool signData();
 
