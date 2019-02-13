@@ -41,8 +41,8 @@ The front-end is a web interface written in JavaScript that is used by the consu
 It currently has the following features:
 - Displaying a consumer's energy usage over a selectable time period
 - Notifying a customer of a new energy invoice
--- The invoice screen features a payment tool (Ethereum integrated)
--- Selection tool: How much of the saved money does the consumer want to give to the reward fond contract?
+  - The invoice screen features a payment tool (Ethereum integrated)
+  - Selection tool: How much of the saved money does the consumer want to give to the reward fond contract?
 
 Installing the front-end server:
 ```sh
