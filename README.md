@@ -1,16 +1,23 @@
 # MinusMinusEnergy
 #### A BETH2019 project
+Further Information is available here:
 
-**Project Report is available [here](#).**
-**Pitch Presentation is available [here](#).**
-**Demo Application is available [here](#).**
+**[Project Report](#)**
+
+**[Pitch Presentation](#)**
+
+**[Demo Application](#)**
 
 
 # The Team
 Matthias Busenhart
+
 Philip Wiese
+
 Marie-Louise Achart
+
 Yannick Niedermayr
+
 Manuel Winkler
 
 # Components
@@ -34,8 +41,8 @@ The front-end is a web interface written in JavaScript that is used by the consu
 It currently has the following features:
 - Displaying a consumer's energy usage over a selectable time period
 - Notifying a customer of a new energy invoice
--- The invoice screen features a payment tool (Ethereum integrated)
--- Selection tool: How much of the saved money does the consumer want to give to the reward fond contract?
+  - The invoice screen features a payment tool (Ethereum integrated)
+  - Selection tool: How much of the saved money does the consumer want to give to the reward fond contract?
 
 Installing the front-end server:
 ```sh
@@ -45,3 +52,19 @@ Running the front-end server:
 ```sh
 $ npm run dev
 ```
+
+### Blockchain interactions
+There are a total of three smart contracts that are used by the system.
+
+#### Token Bank
+This smart contract is responsible to hand out tokens to a consumer upon receiving sensor data at the end of a billing cycle.
+Depending on how much energy has been saved by the consumer, more tokens will be available to the consumer.
+
+#### Fond Contract
+#### Billing Contract
+
+# TODOs
+- Implement a voting system that takes into account how many tokens a certain consumer has contributed to the total amount.
+    - More contributions = more voting weight
+    - some form of entry mask to bring new project ideas to the table
+- build system to simplify installation process
