@@ -1,0 +1,23 @@
+html
+  head
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+    link(href='css/datetimepicker.css', rel='stylesheet')
+
+    title= title
+  body
+    div.container
+      h1= message
+      div.row
+        div.col-sm-6
+          input#startDate
+        div.col-sm-6
+          input#endDate
+      button.btn.btn-default Show me
+      div#chart
+    footer
+      script(src='https://code.highcharts.com/highcharts.js')
+      script(src='js/jquery.min.js')
+      script(src='js/datetimepicker.js')
+
+      script= s_data
+      script(src='js/functions.js')
