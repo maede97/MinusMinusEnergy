@@ -2,7 +2,7 @@
 #include <cstdio>
 using std::printf;
 int main(){
-	sqlite3 *db;
+	/*sqlite3 *db;
 
 	sqlite3_stmt *stmt;
 	sqlite3_open("../DB_Template.db", &db);
@@ -30,6 +30,8 @@ int main(){
 		printf("\n");
 	}
 
-	printf("Got results:\n");
+	printf("Got results:\n");*/
+	auto vec = queryMonth("../DB_Template.db", std::make_pair<unsigned int, unsigned int>(2017, 1));
+	std::cout << vec[0];
 	return 0;
 }

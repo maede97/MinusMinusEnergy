@@ -12,7 +12,7 @@
 */
 
 
-inline std::vector<std::string> queryMonth(const std::string& filename, std::pair<unsigned, unsigned> month){
+inline std::vector<std::string> queryMonth(const std::string& filename, std::pair<unsigned int, unsigned int> month){
 	sqlite3 *db;
 	sqlite3_stmt *stmt;
 	sqlite3_open("../DB_Template.db", &db);
@@ -26,9 +26,11 @@ inline std::vector<std::string> queryMonth(const std::string& filename, std::pai
 	}
 	std::string month_end = std::to_string(month.first) + "-" + std::to_string(month.second) + "-01 00:00:00"; + " 00:00:00";
 	std::string statstring = "";
-	statstring += "select * from sensor_data WHERE time >= " + month_begin + " and time < " + month_end;
+	statstring += "select * from sensor_data WHERE time >= '" + month_begin + "' and time < '" + month_end + "'";
+	//std::cout << statstring << std::endl;
 	sqlite3_prepare_v2(db, statstring.c_str(), -1, &stmt, NULL);
 	while (sqlite3_step(stmt) != SQLITE_DONE) {
+		//std::cout << (int*)sqlite3_column_text(stmt, 2) << std::endl;
 		ret.push_back(std::string((const char*)sqlite3_column_text(stmt, 2)));
 	}
 	return ret;
