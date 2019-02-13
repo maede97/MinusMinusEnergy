@@ -11,9 +11,13 @@ Further Information is available here:
 
 # The Team
 Matthias Busenhart
+
 Philip Wiese
+
 Marie-Louise Achart
+
 Yannick Niedermayr
+
 Manuel Winkler
 
 # Components
