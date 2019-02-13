@@ -31,7 +31,10 @@ int main(){
 	}
 
 	printf("Got results:\n");*/
-	auto vec = queryMonth("../DB_Template.db", std::make_pair<unsigned int, unsigned int>(2017, 1));
-	std::cout << vec[0];
+	auto vec = sumMonth("../DB_Template.db", std::make_pair<unsigned int, unsigned int>(2018, 1));
+	/*for(const auto& : vec){
+		
+	}*/
+	std::cout << vec;
 	return 0;
 }
