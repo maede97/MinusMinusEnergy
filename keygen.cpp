@@ -25,7 +25,7 @@ mpz_class random_mpz(unsigned int size){
 template<unsigned int size = 2048>
 complete_keyPair<mpz_class, size> generateKeypair(){
 	static_assert(!((size) & (size - 1)), "Size must be a power of two");
-	mpz_class a = random_mpz(size / 2 + 1), b = random_mpz(size / 2 + 1);
+	mpz_class a = random_mpz(size / 2), b = random_mpz(size / 2);
 	mpz_class N = a * b;
 	mpz_class phi_N = (a - 1) * (b - 1);
 	mpz_class public_key = random_mpz(size / 2);
@@ -34,9 +34,13 @@ complete_keyPair<mpz_class, size> generateKeypair(){
 }
 template<typename number_t, bool complete, unsigned int size>
 std::vector<char> encrypt(const keyPair<number_t, complete, size>& key, const std::string& text){
+	return encrypt(key, std::vector<char>(text.begin(), text.end()));
+}
+template<typename number_t, bool complete, unsigned int size>
+std::vector<char> encrypt(const keyPair<number_t, complete, size>& key, const std::vector<char>& text){
 	static_assert(!((size) & (size - 1)), "Size must be a power of two");
 	assert(text.size() > 0);
-	std::string expanded((size / 8) * ((text.size() - 1) / (size / 8) + 1), 'a');
+	std::vector<char> expanded((size / 8) * ((text.size() - 1) / (size / 8) + 1), 'a');
 	for(unsigned int i = 0;i < text.size();i++){
 		expanded[i] = text[i];
 	}
@@ -44,12 +48,11 @@ std::vector<char> encrypt(const keyPair<number_t, complete, size>& key, const st
 	std::vector<char> chiffrat (expanded.size(), 'a');
 	for(unsigned int i = 0;i < expanded.size();i += size / 8){
 		mpz_class chif;
-		mpz_import(chif.get_mpz_t(), size / 8, 1, sizeof(decltype(expanded[0])), 0, 0, expanded.c_str() + i);
+		mpz_import(chif.get_mpz_t(), size / 8, 1, sizeof(decltype(expanded[0])), 0, 0, expanded.data() + i);
 		mpz_class exc;
 		mpz_powm (exc.get_mpz_t(), chif.get_mpz_t(), key.public_key.get_mpz_t(), key.N.get_mpz_t());
 		size_t _size = (mpz_sizeinbase (exc.get_mpz_t(), 2) + CHAR_BIT - 1) / CHAR_BIT;
-		//size_t ptrval = (size_t)(chiffrat.data() + i);
-		//void* nonconstptr = (void*)ptrval;
+		std::cout << _size << std::endl;
 		mpz_export(chiffrat.data() + i, &_size, 1, 1, 0, 0, exc.get_mpz_t());
 	}
 	
@@ -61,11 +64,13 @@ int main(){
 	
 	std::mt19937_64 gen = ProperlySeededRandomEngine();
 	complete_keyPair<mpz_class, 2048> kp = generateKeypair();
-	std::vector<char> f = encrypt(kp, "sdfsdfsdf");
+	std::vector<char> randData(8192 << 4);
+	std::generate(randData.begin(), randData.end(), std::ref(gen));
+	std::vector<char> f = encrypt(kp, randData);
 	for(int i = 0;i < f.size();i++){
-		std::cout << (int)f[i] << ", ";
+		//std::cout << (int)f[i] << ", ";
 	}
+	std::cout << "\n";
 	gmp_randclear(state);
-	std::cin.get();
 	return 0;
 }
