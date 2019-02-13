@@ -41,7 +41,7 @@ inline unsigned int sumMonth(const std::string& filename, std::pair<unsigned int
 	sqlite3_open("../database.db", &db);
 	std::string month_string = std::to_string(month.first) + "-" + std::to_string(month.second);
 	std::string month_begin = std::to_string(month.first) + "-" + std::to_string(month.second) + "-01 00:00:00";
-	unsigned int ret;
+	unsigned int ret = 0;
 	month.second++;
 	if(month.second == 13){
 		month.first++;
@@ -52,7 +52,8 @@ inline unsigned int sumMonth(const std::string& filename, std::pair<unsigned int
 	statstring += "select SUM(data) from (select * from sensor_data WHERE time >= '" + month_begin + "' and time < '" + month_end + "')";
 	//std::cout << statstring << std::endl;
 	sqlite3_prepare_v2(db, statstring.c_str(), -1, &stmt, NULL);
-	while (sqlite3_step(stmt) != SQLITE_DONE) {
+	sqlite3_step(stmt);
+	if (sqlite3_step(stmt) != SQLITE_DONE) {
 		ret += sqlite3_column_int(stmt, 0);
 	}
 	return ret;
