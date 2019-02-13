@@ -1,9 +1,12 @@
 # MinusMinusEnergy
 #### A BETH2019 project
+Further Information is available here:
 
-**Project Report is available [here](#).**
-**Pitch Presentation is available [here](#).**
-**Demo Application is available [here](#).**
+**[Project Report](#)**
+
+**[Pitch Presentation](#)**
+
+**[Demo Application](#)**
 
 
 # The Team
