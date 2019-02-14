@@ -62,8 +62,8 @@ def avg(iter,delay):
         # Main loop
         sum = 0
         for i in range(iter):
-	    temp = rc_time(pin_to_circuit,delay)
-	    print(temp)
+            temp = rc_time(pin_to_circuit,delay)
+            print(temp)
             sum += temp
         return sum // iter # takes the average
     except KeyboardInterrupt:
