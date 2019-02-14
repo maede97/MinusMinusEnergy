@@ -1,20 +1,19 @@
-const MMETokenContract = artifacts.require("MMEToken")
+const MMETokenContract = artifacts.require("MMEToken");
 const BillContract = artifacts.require("Bill");
 const FondContract = artifacts.require("Fond");
 
 module.exports = function(deployer) {
   // Deploy BillContract, then deploy FondContract, passing in BillContract address
-  deployer
-    .deploy(MMETokenContract)
+  MMETokenContract.deployed()
     .then(function(MMETokenInstance) {
-    deployer
-      .deploy(FondContract)
+    FondContract.deployed()
       .then(function(FondContractInstance) {
-        deployer
-          .deploy(BillContract, MMETokenContract.address, FondContract.address)
+        BillContract.deployed()
           .then(function(BillContractInstance) {
             MMETokenInstance.setBillContract(BillContractInstance.address);
             MMETokenInstance.setFondContract(FondContractInstance.address);
+            BillContract.setFondContract(FondContractInstance.address);
+            BillContract.setMMETokenContract(MMETokenInstance.address);
         });
     });
   })
