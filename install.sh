@@ -6,8 +6,8 @@ sqlite3 src/client/database.db "CREATE TABLE 'sensor_data' (id INTEGER, time TIM
 # compile back-end data handler
 bepath=src/client/backend
 mkdir ${bepath}/build
-cmake -H${bepath} -B${bepath}/build >/dev/null
-make -C ${bepath}/build >/dev/null
+cmake -H${bepath} -B${bepath}/build
+make -C ${bepath}/build
 
 mv ${bepath}/build/datahandler ${bepath}
 rm -rf ${bepath}/build
@@ -18,12 +18,11 @@ dir=$(pwd)
 crontab -l > newcron
 crontab newcron
 #echo new cron into cron file
-(crontab -l && echo -e "*/2 * * * * python3 ${dir}/src/client/sensorDataHandler.py\n 0 * * * * ${dir}/src/client/backend/datahandler") > newcron
+(crontab -l && echo -e "*/2 * * * * python3 ${dir}/${bepath}/sensorDataHandler.py\n 0 * * * * ${dir}/${bepath}/datahandler") > newcron
 #install new cron file
 crontab newcron
 rm newcron
 
-# initialize frontend server
+# initialize webserver server
 cd src/client/frontend
 npm install
-node app.js
