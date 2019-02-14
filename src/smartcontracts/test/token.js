@@ -21,7 +21,6 @@ contract('Token', (accounts) => {
         type: "uint256",
         value: nonce
     }).toString("hex");
-    console.log(hash);
     return web3.eth.sign(hash, web3.eth.defaultAccount);
   }
 
@@ -32,7 +31,6 @@ contract('Token', (accounts) => {
 
     // Calculate Signature for claim
     const signature = await signClaim(amount, nonce);
-    console.log(web3.eth.defaultAccount);
 
     MMETokenInstance.claimToken(
       web3.eth.defaultAccount,

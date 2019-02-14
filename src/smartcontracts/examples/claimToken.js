@@ -10,8 +10,6 @@ const MMETOKEN_ABI = "../build/contracts/MMEToken.json"
 
 const MNEMONIC = "extra topple scout old light cherry ginger either coast grape spoon purchase";
 
-
-
 // Local Ganache Provider
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 // Ropsten testnet
