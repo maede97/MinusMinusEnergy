@@ -33,7 +33,7 @@ def main():
     """
     Fills bulk data in a sine wave form into the database throughout the entirety of 2019.
     """
-    database = "./database.db"
+    database = "../database.db"
 
     # create a database connection
     conn = create_connection(database)
