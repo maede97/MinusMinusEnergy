@@ -24,8 +24,8 @@ contract('Token', (accounts) => {
     return web3.eth.sign(hash, web3.eth.defaultAccount);
   }
 
-  it.only('Claim Token', async () => {
-    const MMETokenInstance = await MMEToken.at("0x6112C28Ad790Bc7EFd2Df4C573D9574631445fAB");
+  it('Claim Token', async () => {
+    const MMETokenInstance = await MMEToken.deployed();
     const amount = 100;
     const nonce = 0;
 
