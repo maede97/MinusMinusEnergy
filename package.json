@@ -1,0 +1,42 @@
+{
+  "name": "mmenergy",
+  "version": "1.0.0",
+  "description": "A BETH2019 project for the SwissEnergy Challenge",
+  "main": "",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "postinstall": "npm-recursive-install --skip-root",
+    "test": "node src/demo/run.js",
+    "start": "node src/client/webserver/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maede97/MinusMinusEnergy.git"
+  },
+  "keywords": [
+    "beth19",
+    "iot",
+    "ethereum",
+    "swissenergy",
+    "solidity"
+  ],
+  "author": "Matthias Busenhart (https://github.com/maede97)",
+  "contributors": [
+    "Matthias Busenhart (https://github.com/maede97)",
+    "Philip Wiese (https://github.com/Xeratec) ",
+    "Marie-Louise Achart (https://github.com/MarieLouiseAchart)",
+    "Yannick Niedermayr (https://github.com/guetzli32)",
+    "Manuel Winkler (https://github.com/manuel5975p)"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maede97/MinusMinusEnergy/issues"
+  },
+  "homepage": "https://github.com/maede97/MinusMinusEnergy#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "recursive-install": "^1.4.0"
+  }
+}
