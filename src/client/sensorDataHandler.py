@@ -7,6 +7,7 @@ from sqlite3 import Error
 import RPi.GPIO as GPIO #import the GPIO package thus we can communicate with the GPIO pins.
 import time #import the time package to put the script to sleep when needed.GPIO.setmode(GPIO.BOARD) #all the numbering we use in this script will refer to the physical numbering of the pins.#define the pin that goes to the circuit
 from datetime import datetime
+import os.path
 
 
 def create_connection(db_file):
@@ -63,7 +64,6 @@ def avg(iter,delay):
         sum = 0
         for i in range(iter):
             temp = rc_time(pin_to_circuit,delay)
-            print(temp)
             sum += temp
         return sum // iter # takes the average
     except KeyboardInterrupt:
@@ -75,7 +75,8 @@ def main():
     """
     Connects to database, receives sensor data and stores the data in the database.
     """
-    database = "./database.db"
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    database = os.path.join(BASE_DIR, "database.db")
 
     # create a database connection
     conn = create_connection(database)
