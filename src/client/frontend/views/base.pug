@@ -1,0 +1,26 @@
+html
+  head
+    block styles
+      link(href='css/bootstrap.min.css', rel='stylesheet')
+  nav.navbar.navbar-default
+    div.container
+      div.navbar-header
+        button.navbar-toggle.collapsed(data-toggle='collapse',data-target="#nav")
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href="#") EnergyCH
+      div.collapse.navbar-collapse#nav
+        ul.nav.navbar-nav
+          li
+            a(href="/") Home
+          li
+            a(href="/bill") Bills
+  body
+    div.container
+      block content
+  footer
+    block scripts
+      script(src='js/jquery.min.js')
+      script(src='js/bootstrap.min.js')

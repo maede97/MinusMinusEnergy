@@ -1,0 +1,28 @@
+extends base
+
+append styles
+  title Bill
+
+append content
+  h1 New Invoice
+  hr
+  h2 Details
+  ul
+    li Energy needed:
+      span#energy=energy_needed
+    li Tokends earned:
+      span#tokens= tokens_earned
+    li Price for a unit energy:
+      span#ppu= price_per_unit
+  hr
+  h2 Where my money is going:
+  <input type="range" min="0" max="100" value="50" id="slider" step="0.1">
+  p To Fond:
+    span#fond
+  p To me (my bill):
+    span#bill
+  hr
+  button#sendMoney.btn.btn-default Send Money
+
+append scripts
+  script(src='js/billCalc.js')
