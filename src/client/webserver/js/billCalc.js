@@ -22,7 +22,9 @@ $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
       contracts.Bill.deployed().then(function(BillInstance){
         var payAmount = web3.toBigNumber($("#invoiceAmount").html()).minus(web3.toBigNumber($("#bill").html()));
 
-        BillInstance.payBill($('#fond').html(),{gas: 2000000, value: payAmount}).then(console.log);
+        BillInstance.payBill($('#fond').html(),{gas: 2000000, value: payAmount}).then(function(){
+          location.reload();
+        });
       });
     });
   });
