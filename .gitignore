@@ -6,7 +6,7 @@ src/smartcontracts/build/*
 **/package-lock.json
 
 # Artifacts
-src/client/webserver/tokens/*
+src/client/webserver/tokens/*.json
 
 # Config
 config.json
