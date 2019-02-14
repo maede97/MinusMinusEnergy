@@ -10,16 +10,18 @@ append content
   table
     tr
       td Energy needed/Invoice amount:
-      td span#invoiceAmount=energy_needed
+      td
+        span#invoiceAmount Loading...
     tr
       td Tokens earned:
-      td span#tokens= tokens_earned
+      td
+        span#tokens Loading...
   hr
   h2 Where my money is going:
   <input type="range" min="0" max="100" value="50" id="slider" step="0.1">
-  p To Fond:
+  p Use Tokens to spend to Fond:
     span#fond
-  p To me (my bill):
+  p Use Tokens to reduce my bill:
     span#bill
   hr
   button#sendMoney.btn.btn-default Send Money

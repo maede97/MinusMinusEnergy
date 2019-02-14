@@ -5,6 +5,8 @@ import "./Fond.sol";
 
 contract Bill {
 
+  event AddEnergyProducer(address producer);
+
   // Contract owner who can add new energy provider
   address public _owner;
   Fond private _fondContract;
@@ -33,6 +35,7 @@ contract Bill {
   function addEnergyProducer(address producer) public {
     require(msg.sender == _owner);
     trustedProducers[producer] = true;
+    emit AddEnergyProducer(producer);
   }
 
   function createBill(address customer, uint amount) public {
@@ -54,15 +57,15 @@ contract Bill {
 
   function payBill(uint toFond) public payable {
     // Check for open bill
-    require(this.hasBill(msg.sender));
+    require(this.hasBill(msg.sender),"sender needs bill");
 
     uint tokenAmount = _tokenContract.balanceOf(msg.sender);
 
     // Check for sufficant tokens
-    require(toFond <= tokenAmount);
+    require(toFond <= tokenAmount,"enough tokens to give to fond");
 
     // Check for sufficant ehter
-    require(msg.value+toFond <= openBills[msg.sender].amount);
+    require(msg.value+toFond <= openBills[msg.sender].amount,"not sufficient ether");
 
     // Reduce bill with tokens
     openBills[msg.sender].amount -= tokenAmount-toFond;
@@ -70,6 +73,8 @@ contract Bill {
 
     // Pay ether to issuer
     //openBills[msg.sender].issuer.transfer(openBills[msg.sender].amount);
+    //openBills[msg.sender].amount -= msg.value;
+    openBills[msg.sender].amount = 0;
 
     // Pay ether to fond
     _fondContract.invest.value(toFond)(msg.sender);
