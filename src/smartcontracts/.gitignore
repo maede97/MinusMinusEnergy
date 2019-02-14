@@ -78,3 +78,8 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Compiled SmartContracts
+
+# TypeScript v1 declaration files
+build/

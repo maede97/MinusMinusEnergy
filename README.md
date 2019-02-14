@@ -68,3 +68,16 @@ Depending on how much energy has been saved by the consumer, more tokens will be
     - More contributions = more voting weight
     - some form of entry mask to bring new project ideas to the table
 - build system to simplify installation process
+=======
+
+**Project Report is available [here](#).**
+
+**Demo Application is available [here](#).**
+
+
+# Team
+Matthias Busenhart <br/>
+Philip Wiese <br/>
+Marie-Louise Achart <br/>
+Yannick Niedermayr<br/>
+Manuel Winkler

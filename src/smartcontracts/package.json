@@ -11,11 +11,10 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "openzeppelin-solidity": "^2.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "ethereumjs-wallet": "^0.6.3",
+    "openzeppelin-solidity": "^2.1.2",
+    "truffle-assertions": "^0.8.0",
     "truffle-hdwallet-provider": "^1.0.3"
   }
 }
