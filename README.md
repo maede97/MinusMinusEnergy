@@ -7,13 +7,9 @@
 
 #### Further Information is available here:
 
-**[Project Report](#)**
-
-**[Pitch Presentation](#)**
-
-**[Demo Application](#)**
-
-**[Github wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
+* **[Project Report](#)**
+* **[Pitch Presentation](https://github.com/maede97/MinusMinusEnergy/blob/master/doc/presentation/presentationMinusMinusEnergy.pdf)**
+* **[Github wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
 
 # The Team
 **Matthias Busenhart**  
@@ -31,7 +27,8 @@
 **Manuel Winkler**  
 *Database (C++)* - [manuel5975p](https://github.com/manuel5975p)  
 
-# Using the project
+# Usage
+### Dependencies
 The project has the following dependencies, make sure you have them all installed:
 - Make
 - Cmake 3.1
@@ -42,12 +39,17 @@ The project has the following dependencies, make sure you have them all installe
 - Python 3
 - Ganache
 
-To run example
+### Demo
+To demo run demo
 ```sh
+$ git clone https://github.com/maede97/MinusMinusEnergy.git
+$ cd MinusMinusEnergy
 $ npm install
 $ npm test
+$ npm start
 ```
 
+### Installation
 On a Raspberry Pi, run the following commands:
 ```sh
 $ git clone https://github.com/maede97/MinusMinusEnergy.git
@@ -55,7 +57,7 @@ $ cd MinusMinusEnergy
 $ ./install.sh
 ```
 
-# Compiling the presentation & report
+# Presentation & Report
 ### Presentation
 Compile the presentation with:
 ```sh
