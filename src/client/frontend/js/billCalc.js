@@ -14,6 +14,7 @@ var address = web3.eth.accounts[0];
 $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
   $.getJSON("./tokens/Bill.json",function(BillArtifact) {
     var contracts = {};
+    console.log(MMETokenArtifact);
     contracts.MMEToken = TruffleContract(MMETokenArtifact);
     contracts.Bill = TruffleContract(BillArtifact);
     contracts.MMEToken.setProvider(provider);
@@ -21,8 +22,9 @@ $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
 
     $('#sendMoney').click(function() {
       contracts.Bill.deployed().then(function(BillInstance){
-        var payAmount = parseInt($("#energy").html()) + parseInt($("#fond").html()); //TODO
-        BillInstance.payBill($('#fond').html(),{from: address, gas: 2000000, value: web3.toWei(payAmount, "milliether")}).then(console.log);
+        var payAmount = web3.toBigNumber($("#invoiceAmount").html()).minus(web3.toBigNumber($("#bill").html()));
+        console.log(payAmount);
+        BillInstance.payBill($('#fond').html(),{from: address, gas: 2000000, value: payAmount}).then(console.log);
       });
     });
   });
@@ -36,7 +38,7 @@ function updateVals() {
 
 $(document).on('input', '#slider', updateVals);
 
-$(document).ready(
+$(document).ready(function(){
   $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
     $.getJSON("./tokens/Bill.json",function(BillArtifact) {
       var contracts = {};
@@ -47,15 +49,16 @@ $(document).ready(
       contracts.Bill.deployed().then(function(BillInstance){
         contracts.MMEToken.deployed().then(function(MMETokenInstance){
           // get Token amount
-          MMETokenInstance.getBalance(address).then(function(tokenAmount){
+          MMETokenInstance.balanceOf(web3.eth.accounts[0]).then(function(tokenAmount){
             BillInstance.getInvoiceAmount().then(function(invoiceAmount){
-              $("#tokens").html(tokenAmount);
-              $("#invoiceAmount").html(invoiceAmount);
+              $("#tokens").html(tokenAmount.toNumber());
+              $("#invoiceAmount").html(invoiceAmount.toNumber());
+              updateVals();
             });
           });
         });
       });
     });
   });
-  updateVals();
+  }
 ); // update numbers on startup

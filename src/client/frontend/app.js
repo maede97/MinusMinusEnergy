@@ -5,7 +5,7 @@ var express = require('express');
 const Web3 = require('web3');
 var util = require('ethereumjs-util');
 var tx = require('ethereumjs-tx');
-var contract = require('truffle-contract');
+//var contract = require('truffle-contract');
 const sqlite3 = require('sqlite3').verbose();
 
 var provider = null;
@@ -24,28 +24,25 @@ var MMETokenABI = JSON.parse(fs.readFileSync("./tokens/MMEToken.json"));
 var BillABI = JSON.parse(fs.readFileSync("./tokens/Bill.json"));
 
 var contracts = {}
-contracts.MMEToken = new web3.eth.Contract(MMETokenABI.abi, MMETokenABI.networks['5777'].address);
-contracts.Bill = new web3.eth.Contract(BillABI.abi, BillABI.networks['5777'].address);
+contracts.MMEToken = new web3.eth.Contract(MMETokenABI.abi, config.MMETokenAddress);
+contracts.Bill = new web3.eth.Contract(BillABI.abi, config.BillAddress);
 
 // Demo Call
-contracts.Bill.methods
-  .hasBill("0x2f69667255E1334924df25225D2fAcB10E5de247")
-  .call(
-    {from: "0x2f69667255E1334924df25225D2fAcB10E5de247"},
-    (err, res) => {
-      console.log(res);
-    })
+// contracts.Bill.methods
+//   .hasBill(config.address)
+//   .call(
+//     {from: config.address, gas: "4000000"},
+//     (err, res) => {
+//       console.log(res);
+//     });
 
 var privateKey = new Buffer(config.privatekey, 'hex');
 
 async function checkIfBill() {
-  await contracts.Bill.methods
-    .hasBill(config.address)
-    .call(
-      {from: config.address},
-      (err, res) => {
-        return res;
-      })
+  return await contracts.Bill.methods.hasBill(config.address).call(
+    {from: config.address},function(err, res) {
+      return res;
+    });
 }
 
 let db = new sqlite3.Database('../database.db', sqlite3.OPEN_READWRITE, (err) => {

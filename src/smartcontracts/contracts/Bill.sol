@@ -73,6 +73,7 @@ contract Bill {
 
     // Pay ether to issuer
     //openBills[msg.sender].issuer.transfer(openBills[msg.sender].amount);
+    openBills[msg.sender].amount -= msg.value;
 
     // Pay ether to fond
     _fondContract.invest.value(toFond)(msg.sender);
