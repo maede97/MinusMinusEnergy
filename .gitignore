@@ -1,0 +1,9 @@
+# Compiled SmartContracts
+src/smartcontracts/build/*
+
+# Node modules
+**/node_modules/*
+**/package-lock.json
+
+# Artifacts
+src/client/webserver/tokens/*

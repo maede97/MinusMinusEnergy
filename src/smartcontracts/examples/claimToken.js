@@ -1,36 +1,44 @@
+/*
+
+Example script to claim token for consumer with keypair defined below
+
+change the lines between the EDIT tag
+
+if you claimed some tokens, add 1 to nonce, otherwise your call will be rejected
+
+*/
+
 // IMPORTS
 const fs = require('fs');
 const Web3 = require("web3");
-var HDWalletProvider = require("truffle-hdwallet-provider");
+
+// EDIT HERE
+const config = {
+  address: "0xF7ab068c56c233c9869BeD1e00658D13271477C5",
+  privatekey: "0xfc3d5ea8f82f4e0839cd9867be98ec1a226e59e485fc58a216df5ecfbb89e547"
+};
+var amount = web3.utils.toWei("1","ether");
+var nonce = 0;
+// STOP EDIT
 
 // SETTINGS
-const PRIVATE_KEY = "0x5b48a68bed1b56ef47ad84f52d37c3d3f48f38a6ddedbf8252dfee85f3d81030";
-const MMETOKEN_ADDR = "0x6112C28Ad790Bc7EFd2Df4C573D9574631445fAB"
-const MMETOKEN_ABI = "../build/contracts/MMEToken.json"
-
-const MNEMONIC = "extra topple scout old light cherry ginger either coast grape spoon purchase";
+const MMETOKEN_ABI = "./tokens/MMEToken.json"
 
 // Local Ganache Provider
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
-// Ropsten testnet
-// var ropsten = new HDWalletProvider(MNEMONIC, "https://ropsten.infura.io/v3/1de4b23aea044238ab6c8500d2420f87");
-// const web3 = new Web3(ropsten);
 
 // Read and parse ABI from file
 var jsonFile = MMETOKEN_ABI;
 var parsed= JSON.parse(fs.readFileSync(jsonFile));
 var abi = parsed.abi;
 
-var MMEToken = new web3.eth.Contract(abi, MMETOKEN_ADDR);
+var MMEToken = new web3.eth.Contract(abi, config.MMETokenAddress);
 // Enough gas to prevent revert of contract
 MMEToken.defaultGas = 6721975;
 
 // Import private key
-const defaultAccount = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
+const defaultAccount = web3.eth.accounts.privateKeyToAccount(config.privatekey);
 web3.eth.defaultAccount = defaultAccount.address;
-
-var amount = 100;
-var nonce = 0;
 
 // Calculate Signature for claim
 var signature = signClaim(amount, nonce);
