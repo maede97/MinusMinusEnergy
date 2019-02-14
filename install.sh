@@ -4,17 +4,18 @@
 sqlite3 src/client/database.db "CREATE TABLE 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data INTEGER NOT NULL, PRIMARY KEY(id));"
 
 # compile back-end data handler
-mkdir src/client/backend/build
-cmake -Hsrc/client/backend -Bsrc/client/backend/build >/dev/null
-make -C src/client/backend/build >/dev/null
+bepath=src/client/backend
+mkdir ${bepath}/build
+cmake -H${bepath} -B${bepath}/build >/dev/null
+make -C ${bepath}/build >/dev/null
 
-mv src/client/backend/build/datahandler src/client/backend/
-rm -rf src/client/backend/build
+mv ${bepath}/build/datahandler ${bepath}
+rm -rf ${bepath}/build
 
 # initialize frontend server
 cd src/client/frontend
 npm install
-npm run dev
+node app.js
 
 # create the cronjobs
 dir=$(pwd)
