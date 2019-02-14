@@ -35,7 +35,7 @@ contract Bill {
     return billAmounts[msg.sender];
   }
 
-  function payBill() public payable{
+  function payBill(address receiver) public payable{
     require(trustedProducers[msg.sender]);
     require(nodeHasBill[receiver]);
 
@@ -43,7 +43,7 @@ contract Bill {
 
     //wie viel tokens im bill-topf?
 
-    tokenAddress.call()
+    //tokenAddress.call();
 
 
     nodeHasBill[receiver] = false;
