@@ -7,13 +7,13 @@ append content
   h1 New Invoice
   hr
   h2 Details
-  ul
-    li Energy needed:
-      span#energy=energy_needed
-    li Tokens earned:
-      span#tokens= tokens_earned
-    li Price for a unit energy:
-      span#ppu= price_per_unit
+  table
+    tr
+      td Energy needed/Invoice amount:
+      td span#invoiceAmount=energy_needed
+    tr
+      td Tokens earned:
+      td span#tokens= tokens_earned
   hr
   h2 Where my money is going:
   <input type="range" min="0" max="100" value="50" id="slider" step="0.1">

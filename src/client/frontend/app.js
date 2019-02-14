@@ -9,76 +9,35 @@ const sqlite3 = require('sqlite3').verbose();
 
 var HAS_BILL;
 
-var provider = new Web3.providers.HttpProvider("http://localhost:7545");
-
+var provider;
 
 if(config.test_env){
+  provider = new Web3.providers.HttpProvider("http://localhost:7545");
   var web3 = new Web3(provider);
   console.log("USING LOCAL NETWORK");
 } else {
-  var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/1de4b23aea044238ab6c8500d2420f87"));
+  provider = new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/1de4b23aea044238ab6c8500d2420f87");
+  var web3 = new Web3(provider);
   console.log("USING ROPSTEN NETWORK");
 }
 
 var MMETokenArtifact = require('./tokens/MMEToken');
+var BillArtifact = require('./tokens/Bill');
 
 var contracts = {};
 
 // load MMEToken contract
 contracts.MMEToken = contract(MMETokenArtifact);
+contracts.Bill = contract(BillArtifact);
 // Set the provider for our contract.
 contracts.MMEToken.setProvider(provider);
+contracts.Bill = contract(provider);
 
 var privateKey = new Buffer(config.privatekey, 'hex');
 
-/*
-// Example for ETH-Transaction
-web3.eth.getTransactionCount(config.address).then(_nonce => {
-    nonce = _nonce.toString(16);
-    var txParams = {
-      nonce: '0x'+nonce,
-      gasPrice: '0x1312D00',
-      gasLimit: '0x52080',
-      to: '0x6f687DF4B652d7f2A69B4500A478E830d096EebA',
-      value: '0xDE0B6B3A7640000',
-      data: '0x0'
-    }
-
-  var transaction = new tx(txParams);
-  transaction.sign(privateKey);
-
-  var serializedTx = transaction.serialize().toString('hex');
-
-  web3.eth.sendSignedTransaction('0x'+serializedTx).on('receipt',console.log);
-});
-*/
 async function checkIfBill() {
-  var MMETokenInstance = await contracts.MMEToken.deployed();
-  return await MMETokenInstance.hasBill(config.address);
-}
-
-async function getBillAmount() {
-  var MMETokenInstance = await contracts.MMEToken.deployed();
-  return await MMETokenInstance.getAmount(config.address);
-}
-async function getTokenAmount() {
-  var MMETokenInstance = await contracts.MMEToken.deployed();
-  return await MMETokenInstance.getTokenAmount(config.address);
-}
-
-async function payBill(tokensToFond) {
-  var MMETokenInstance = await contracts.MMEToken.deployed();
-  return await MMETokenInstance.payBill(config.address, tokensToFond);
-}
-
-async function getBillData() {
-  // TODO
-  // read contract function (getData or so) with argument config.address
-  return {
-    energy_needed: await getBillAmount(), // or pay_amount or so
-    tokens_earned: await getTokenAmount(),
-    price_per_unit: 10
-  };
+  var BillInstance = await contracts.Bill.deployed();
+  return await BillInstance.hasBill(config.address);
 }
 
 let db = new sqlite3.Database('../database.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -107,23 +66,10 @@ app.route('/').get(function(req, res) {
 app.route('/bill').get(function(req, res) {
   checkIfBill().then(function(result){
     if(result) {
-      getBillData().then(function(data) {
-        res.render('bill',data);
-      });
-
+        res.render('bill');
     } else {
       res.render('no_bill');
     }
-  });
-});
-
-// wait for call when users pays
-app.route('/pay').get(function(req, res){
-  var params = req.query;
-  var toFond = params['fond'];
-  payBill(toFond).then(function(result){
-    console.log(result);
-    res.send("Bill payed");
   });
 });
 

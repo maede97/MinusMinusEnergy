@@ -9,21 +9,22 @@ if (typeof web3 !== 'undefined') {
   web3 = new Web3(App.web3Provider);
 }
 
+var address = web3.eth.accounts[0];
+
 $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
-  var contracts = {};
-  contracts.MMEToken = TruffleContract(MMETokenArtifact);
-  contracts.MMEToken.setProvider(provider);
+  $.getJSON("./tokens/Bill.json",function(BillArtifact) {
+    var contracts = {};
+    contracts.MMEToken = TruffleContract(MMETokenArtifact);
+    contracts.Bill = TruffleContract(BillArtifact);
+    contracts.MMEToken.setProvider(provider);
+    contracts.Bill.setProvider(provider);
 
-
-  $('#sendMoney').click(function() {
-    contracts.MMEToken.deployed().then(function(MMETokenInstance){
-      var payAmount = parseInt($("#energy").html()) + parseInt($("#fond").html());
-      MMETokenInstance.payBill($('#fond').html(),{from: web3.eth.accounts[0], gas: 2000000, value: web3.toWei(payAmount, "milliether")}).then(console.log);
+    $('#sendMoney').click(function() {
+      contracts.Bill.deployed().then(function(BillInstance){
+        var payAmount = parseInt($("#energy").html()) + parseInt($("#fond").html()); //TODO
+        BillInstance.payBill($('#fond').html(),{from: address, gas: 2000000, value: web3.toWei(payAmount, "milliether")}).then(console.log);
+      });
     });
-    // console.log("PAY BILL");
-    // $.ajax({url:'./pay',method:'GET',data:{bill:$('#bill').html(),fond:$('#fond').html()}}).done(function(respData) {
-    //   console.log(respData);
-    // });
   });
 });
 
@@ -35,4 +36,26 @@ function updateVals() {
 
 $(document).on('input', '#slider', updateVals);
 
-$(document).ready(updateVals); // update numbers on startup
+$(document).ready(
+  $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
+    $.getJSON("./tokens/Bill.json",function(BillArtifact) {
+      var contracts = {};
+      contracts.MMEToken = TruffleContract(MMETokenArtifact);
+      contracts.Bill = TruffleContract(BillArtifact);
+      contracts.MMEToken.setProvider(provider);
+      contracts.Bill.setProvider(provider);
+      contracts.Bill.deployed().then(function(BillInstance){
+        contracts.MMEToken.deployed().then(function(MMETokenInstance){
+          // get Token amount
+          MMETokenInstance.getBalance(address).then(function(tokenAmount){
+            BillInstance.getInvoiceAmount().then(function(invoiceAmount){
+              $("#tokens").html(tokenAmount);
+              $("#invoiceAmount").html(invoiceAmount);
+            });
+          });
+        });
+      });
+    });
+  });
+  updateVals();
+); // update numbers on startup
