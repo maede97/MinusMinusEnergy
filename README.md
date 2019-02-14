@@ -1,5 +1,7 @@
 # MinusMinusEnergy
 #### A BETH2019 project
+![Full Demo](doc/demo/fullDemo.gif)
+
 Further Information is available here:
 
 **[Project Report](#)**
