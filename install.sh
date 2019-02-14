@@ -12,18 +12,18 @@ make -C ${bepath}/build >/dev/null
 mv ${bepath}/build/datahandler ${bepath}
 rm -rf ${bepath}/build
 
-# initialize frontend server
-cd src/client/frontend
-npm install
-node app.js
-
 # create the cronjobs
 dir=$(pwd)
 #write out current crontab
 crontab -l > newcron
 crontab newcron
 #echo new cron into cron file
-(crontab -l && echo -e "*/2 * * * * ${dir}/src/client/sensorDataHandler.py \n 0 * * * * ${dir}/src/client/backend/datahandler") > newcron
+(crontab -l && echo -e "*/2 * * * * python3 ${dir}/src/client/sensorDataHandler.py\n 0 * * * * ${dir}/src/client/backend/datahandler") > newcron
 #install new cron file
 crontab newcron
 rm newcron
+
+# initialize frontend server
+cd src/client/frontend
+npm install
+node app.js

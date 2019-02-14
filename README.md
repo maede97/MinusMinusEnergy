@@ -21,6 +21,16 @@ Yannick Niedermayr
 Manuel Winkler
 
 # Using the project
+The project has the following dependencies, make sure you have them all installed:
+- Make
+- Cmake 3.1
+- A C++ compiler such as gcc or clang
+- libsqlite3-dev
+- sqlite3
+- nodeJS
+- web3js
+- Python 3
+
 On a Raspberry Pi, run the following commands:
 ```sh
 $ git clone https://github.com/maede97/MinusMinusEnergy.git
