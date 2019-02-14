@@ -1,5 +1,8 @@
 const config = require('./config.json');
 const fs = require('fs');
+const process = require("process");
+
+process.chdir( __dirname );
 
 var express = require('express');
 const Web3 = require('web3');

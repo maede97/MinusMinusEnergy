@@ -1,8 +1,11 @@
 # MinusMinusEnergy
-#### A BETH2019 project
-![Full Demo](doc/demo/fullDemo.gif)
 
-Further Information is available here:
+### A BETH2019 project for the SwissEnergy Challenge
+
+![Full Demo](doc/demo/fullDemo.gif)
+#### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fond
+
+#### Further Information is available here:
 
 **[Project Report](#)**
 
@@ -13,20 +16,20 @@ Further Information is available here:
 **[Github wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
 
 # The Team
-Matthias Busenhart
+**Matthias Busenhart**  
+*Webserver (JS), Blockchain (Solidity)* - [maede97](https://github.com/maede97)  
 
-Philip Wiese
+**Philip Wiese**  
+*Webserver (JS), Blockchain (Solidity)* - [Xeratec](https://github.com/Xeratec)  
 
-Marie-Louise Achart
+**Marie-Louise Achart**  
+*Backend (Python), Documentation (LaTeX)* - [MarieLouiseAchart](https://github.com/MarieLouiseAchart)
 
-Yannick Niedermayr
+**Yannick Niedermayr**  
+*Database (C++), Misc.* - [guetzli32](https://github.com/guetzli32)  
 
-Manuel Winkler
-
-# Feature demo
-
-### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fond:
-![billPayment](doc/demo/billPayment.gif)
+**Manuel Winkler**  
+*Database (C++)* - [manuel5975p](https://github.com/manuel5975p)  
 
 # Using the project
 The project has the following dependencies, make sure you have them all installed:
@@ -36,8 +39,14 @@ The project has the following dependencies, make sure you have them all installe
 - libsqlite3-dev
 - sqlite3
 - nodeJS
-- web3js
 - Python 3
+- Ganache
+
+To run example
+```sh
+$ npm install
+$ npm test
+```
 
 On a Raspberry Pi, run the following commands:
 ```sh
