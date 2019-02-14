@@ -7,3 +7,6 @@ src/smartcontracts/build/*
 
 # Artifacts
 src/client/webserver/tokens/*
+
+# Config
+**/config.json
