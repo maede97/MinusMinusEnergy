@@ -9,4 +9,7 @@ src/smartcontracts/build/*
 src/client/webserver/tokens/*
 
 # Config
-**/config.json
+config.json
+
+# Binaires
+*.out

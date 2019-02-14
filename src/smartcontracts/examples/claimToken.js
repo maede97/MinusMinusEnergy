@@ -11,21 +11,19 @@ if you claimed some tokens, add 1 to nonce, otherwise your call will be rejected
 // IMPORTS
 const fs = require('fs');
 const Web3 = require("web3");
+const config = require("./config.json");
+// Local Ganache Provider
+const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+
 
 // EDIT HERE
-const config = {
-  address: "0xF7ab068c56c233c9869BeD1e00658D13271477C5",
-  privatekey: "0xfc3d5ea8f82f4e0839cd9867be98ec1a226e59e485fc58a216df5ecfbb89e547"
-};
 var amount = web3.utils.toWei("1","ether");
 var nonce = 0;
 // STOP EDIT
 
 // SETTINGS
-const MMETOKEN_ABI = "./tokens/MMEToken.json"
+const MMETOKEN_ABI = "./build/contracts/MMEToken.json"
 
-// Local Ganache Provider
-const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 
 // Read and parse ABI from file
 var jsonFile = MMETOKEN_ABI;
