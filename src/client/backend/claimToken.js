@@ -1,39 +1,30 @@
 // IMPORTS
 const fs = require('fs');
 const Web3 = require("web3");
-const config = require('./config.json');
-
-
-var requestedCash = process.argv[0];//Read first argument to int, which will be the 
-									//number of tokens that have to be awarded for the last evaluation
 
 
 // SETTINGS
-const MMETOKEN_ABI = "./tokens/MMEToken.json"
+const PRIVATE_KEY = "0xa16ff85a83155ec35ec7988c0785e4fe298af07f8b486cef2a6a418cffd696e6";
+const MMETOKEN_ADDR = "0x569A1D329176e83159174D9FeD58cB0450D57EB9"
+const MMETOKEN_ABI = "../frontend/tokens/MMEToken.json"
 
-// Local Ganache Provider
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
-// Ropsten testnet
-// var ropsten = new HDWalletProvider(MNEMONIC, "https://ropsten.infura.io/v3/1de4b23aea044238ab6c8500d2420f87");
-// const web3 = new Web3(ropsten);
 
 // Read and parse ABI from file
 var jsonFile = MMETOKEN_ABI;
 var parsed= JSON.parse(fs.readFileSync(jsonFile));
 var abi = parsed.abi;
 
-var MMEToken = new web3.eth.Contract(abi, config.MMETokenAddress);
+var MMEToken = new web3.eth.Contract(abi, MMETOKEN_ADDR);
 // Enough gas to prevent revert of contract
 MMEToken.defaultGas = 6721975;
 
 // Import private key
-const defaultAccount = web3.eth.accounts.privateKeyToAccount(config.privatekey);
+const defaultAccount = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
 web3.eth.defaultAccount = defaultAccount.address;
 
-console.log(web3.eth.defaultAccount);
-
-var amount = web3.utils.toWei("1","ether");
-var nonce = parseInt(process.argv[1]);
+var amount = process.argv[2];
+var nonce = parseInt(process.argv[3]);
 
 // Calculate Signature for claim
 var signature = signClaim(amount, nonce);
