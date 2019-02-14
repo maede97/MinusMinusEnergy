@@ -36,6 +36,7 @@ inline std::vector<std::string> queryMonth(const std::string& filename, std::pai
 	}
 	return ret;
 }
+
 inline unsigned int sumMonth(const std::string& filename, std::pair<unsigned int, unsigned int> month){
 	sqlite3 *db;
 	sqlite3_stmt *stmt;

@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <string>
 #include <cassert>
+#include <chrono>
 #include <ctime>
 #include "pstream.h"
 std::string paddedInt(unsigned int a, unsigned int length = 10){
@@ -22,6 +23,10 @@ int main(int argc, char** args){
 	}
 	std::time_t t = std::time(0);   // get time now
     std::tm* now = std::localtime(&t);
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	std::time_t t2 = std::time(0);   // get time now
+    std::tm* now2 = std::localtime(&t);
+	unsigned int 
 	unsigned int year = now->tm_year + 1900;
 	unsigned int mon = now->tm_mon + 1;
 	unsigned int day = now->tm_mday;
