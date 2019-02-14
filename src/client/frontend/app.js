@@ -1,4 +1,5 @@
 const config = require('./config.json');
+const fs = require('fs');
 
 var express = require('express');
 const Web3 = require('web3');
@@ -19,23 +20,32 @@ if(config.test_env){
   console.log("USING ROPSTEN NETWORK");
 }
 
-var MMETokenArtifact = require('./tokens/MMEToken');
-var BillArtifact = require('./tokens/Bill');
+var MMETokenABI = JSON.parse(fs.readFileSync("./tokens/MMEToken.json"));
+var BillABI = JSON.parse(fs.readFileSync("./tokens/Bill.json"));
 
-var contracts = {};
+var contracts = {}
+contracts.MMEToken = new web3.eth.Contract(MMETokenABI.abi, MMETokenABI.networks['5777'].address);
+contracts.Bill = new web3.eth.Contract(BillABI.abi, BillABI.networks['5777'].address);
 
-// load MMEToken contract
-contracts.MMEToken = contract(MMETokenArtifact);
-contracts.Bill = contract(BillArtifact);
-// Set the provider for our contract.
-contracts.MMEToken.setProvider(provider);
-contracts.Bill = contract(provider);
+// Demo Call
+contracts.Bill.methods
+  .hasBill("0x2f69667255E1334924df25225D2fAcB10E5de247")
+  .call(
+    {from: "0x2f69667255E1334924df25225D2fAcB10E5de247"},
+    (err, res) => {
+      console.log(res);
+    })
 
 var privateKey = new Buffer(config.privatekey, 'hex');
 
 async function checkIfBill() {
-  var BillInstance = await contracts.Bill.deployed();
-  return await BillInstance.hasBill(config.address);
+  await contracts.Bill.methods
+    .hasBill(config.address)
+    .call(
+      {from: config.address},
+      (err, res) => {
+        return res;
+      })
 }
 
 let db = new sqlite3.Database('../database.db', sqlite3.OPEN_READWRITE, (err) => {
