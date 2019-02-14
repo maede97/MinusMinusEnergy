@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/env python3
 import random
 import sqlite3
 from sqlite3 import Error
@@ -25,14 +25,12 @@ def create_datum(conn, datum):
     """
     Create a new data point into the data table
     :param conn:
-    :param datapoint:
-    :return: project id
+    :param datum:
     """
     sql = ''' INSERT INTO sensor_data(time,data)
               VALUES(?,?) '''
     cur = conn.cursor()
     cur.execute(sql, datum)
-    return cur.lastrowid
 
 def rc_time (pin_to_circuit):
     count = 0    #Output on the pin for
@@ -71,4 +69,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
