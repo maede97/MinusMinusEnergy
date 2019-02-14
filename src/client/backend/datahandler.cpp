@@ -2,8 +2,13 @@
 #include <cstdio>
 #include <string>
 #include <cassert>
+#include <tuple>
+#include <fstream>
 #include <ctime>
+#include <set>
 #include "pstream.h"
+template<typename... Ts>
+using table = std::set<std::tuple<Ts...>>;
 std::string paddedInt(unsigned int a, unsigned int length = 10){
 	std::string k = std::to_string(a);
 	while(k.size() < length){
@@ -22,18 +27,38 @@ int main(int argc, char** args){
 	}
 	std::time_t t = std::time(0);   // get time now
     std::tm* now = std::localtime(&t);
+	std::tm last;
+	std::ifstream ifs("lastdate");
+	if(ifs.good()){
+		ifs >> last.tm_year;
+		ifs >> last.tm_mon;
+		ifs >> last.tm_mday;
+		ifs >> last.tm_hour;
+		ifs >> last.tm_min;
+		ifs >> last.tm_sec;
+	}
+	ifs.close();
 	unsigned int year = now->tm_year + 1900;
-	unsigned int mon = now->tm_mon + 1;
-	unsigned int day = now->tm_mday;
+	unsigned int mon = now->  tm_mon + 1;
+	unsigned int day = now-> tm_mday;
 	unsigned int hour = now->tm_hour;
-	unsigned int minute = now->tm_min;
-	unsigned int second = now->tm_sec;
+	unsigned int minute=now->tm_min ;
+	unsigned int second=now->tm_sec ;
+	std::ofstream ofs("lastdate");
+	ofs << now->tm_year+1900<<"\n";
+	ofs << now->tm_mon +1<<"\n";
+	ofs << now->tm_mday<<"\n";
+	ofs << now->tm_hour<<"\n";
+	ofs << now->tm_min <<"\n";
+	ofs << now->tm_sec <<std::endl;
+	ofs.close();
 	mon--;
 	if(mon < 1){
 		year--;
 		mon = 12;
 	}
-	unsigned int energyConsumed = sumMonth(database_path, {year, mon});
+	unsigned int energyConsumed = sumInterval(database_path, {now,now});
+	std::cout << "Consumed: " << energyConsumed << std::endl;
 	std::string commandarg = std::to_string(energyConsumed);
 	std::string timestamp = "";
 	timestamp += std::to_string(year);
@@ -50,8 +75,16 @@ int main(int argc, char** args){
 	redi::ipstream in("ls *.js");
 	std::string str;
 	in >> str;
-	redi::ipstream JS(std::string("node ") + str + commandarg + timestamp);
+	std::cout << str << std::endl;
+	std::vector<std::string> jargs;
+	jargs.push_back(str);
+	jargs.push_back(commandarg);
+	jargs.push_back(timestamp);
+	redi::ipstream JS("node " + str + " " + commandarg + " " + timestamp);
 	//std::cout << (now->tm_year + 1900) << '-' << (now->tm_mon + 1) << '-' <<  now->tm_mday << std::endl;
-	
+	std::string errmsg;
+	while (std::getline(JS.err(), errmsg)) {
+		std::cerr << errmsg << std::endl;
+	}
 	return 0;
 }
