@@ -3,6 +3,11 @@ const fs = require('fs');
 const Web3 = require("web3");
 const config = require('./config.json');
 
+
+var requestedCash = process.argv[0];//Read first argument to int, which will be the 
+									//number of tokens that have to be awarded for the last evaluation
+
+
 // SETTINGS
 const MMETOKEN_ABI = "./tokens/MMEToken.json"
 
@@ -28,7 +33,7 @@ web3.eth.defaultAccount = defaultAccount.address;
 console.log(web3.eth.defaultAccount);
 
 var amount = web3.utils.toWei("1","ether");
-var nonce = 0;
+var nonce = parseInt(process.argv[1]);
 
 // Calculate Signature for claim
 var signature = signClaim(amount, nonce);
