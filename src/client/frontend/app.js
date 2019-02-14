@@ -20,7 +20,7 @@ if(config.test_env){
   console.log("USING ROPSTEN NETWORK");
 }
 
-var MMETokenArtifact = require('./MMEToken');
+var MMETokenArtifact = require('./tokens/MMEToken');
 
 var contracts = {};
 
@@ -54,17 +54,29 @@ web3.eth.getTransactionCount(config.address).then(_nonce => {
 */
 async function checkIfBill() {
   var MMETokenInstance = await contracts.MMEToken.deployed();
-  HAS_BILL = await MMETokenInstance.hasBill(config.address);
-  await console.log("User has bill: ",HAS_BILL);
+  return await MMETokenInstance.hasBill(config.address);
 }
-checkIfBill();
 
-function getBillData() {
+async function getBillAmount() {
+  var MMETokenInstance = await contracts.MMEToken.deployed();
+  return await MMETokenInstance.getAmount(config.address);
+}
+async function getTokenAmount() {
+  var MMETokenInstance = await contracts.MMEToken.deployed();
+  return await MMETokenInstance.getTokenAmount(config.address);
+}
+
+async function payBill(tokensToFond) {
+  var MMETokenInstance = await contracts.MMEToken.deployed();
+  return await MMETokenInstance.payBill(config.address, tokensToFond);
+}
+
+async function getBillData() {
   // TODO
   // read contract function (getData or so) with argument config.address
   return {
-    energy_needed: 1234, // or pay_amount or so
-    tokens_earned: 10,
+    energy_needed: await getBillAmount(), // or pay_amount or so
+    tokens_earned: await getTokenAmount(),
     price_per_unit: 10
   };
 }
@@ -81,6 +93,7 @@ var app = express();
 // Serve static files
 app.use("/css", express.static(__dirname + '/css'));
 app.use("/js", express.static(__dirname + '/js'));
+app.use("/tokens", express.static(__dirname + '/tokens'));
 
 // Set template manager to pug
 app.set('view engine', 'pug');
@@ -92,22 +105,26 @@ app.route('/').get(function(req, res) {
 
 // Serve page for the new invoice
 app.route('/bill').get(function(req, res) {
-  if(HAS_BILL) {
-    // user has new bill, call function for data to submit
-    res.render('bill',getBillData());
-  } else {
-    // user has no new bill
-    res.render('no_bill');
-  }
+  checkIfBill().then(function(result){
+    if(result) {
+      getBillData().then(function(data) {
+        res.render('bill',data);
+      });
+
+    } else {
+      res.render('no_bill');
+    }
+  });
 });
 
 // wait for call when users pays
 app.route('/pay').get(function(req, res){
   var params = req.query;
-
   var toFond = params['fond'];
-  console.log(toFond);
-  res.send("");
+  payBill(toFond).then(function(result){
+    console.log(result);
+    res.send("Bill payed");
+  });
 });
 
 // serve data for display

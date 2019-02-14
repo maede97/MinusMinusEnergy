@@ -10,7 +10,7 @@ append content
   ul
     li Energy needed:
       span#energy=energy_needed
-    li Tokends earned:
+    li Tokens earned:
       span#tokens= tokens_earned
     li Price for a unit energy:
       span#ppu= price_per_unit
@@ -25,4 +25,5 @@ append content
   button#sendMoney.btn.btn-default Send Money
 
 append scripts
+  script(src='js/truffle-contract.js')
   script(src='js/billCalc.js')
