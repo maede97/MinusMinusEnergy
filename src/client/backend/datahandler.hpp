@@ -11,7 +11,13 @@
 /* PRE:  Data on energy consumption sent by sensor
 * POST: Data stored internally
 */
-
+std::string paddedInt(unsigned int a, unsigned int length = 10){
+        std::string k = std::to_string(a);
+        while(k.size() < length){
+                k = "0" + k;
+        }
+        return k;
+}
 
 inline std::vector<std::string> queryMonth(const std::string& filename, std::pair<unsigned int, unsigned int> month){
 	sqlite3 *db;
@@ -66,7 +72,7 @@ inline std::string tmtostring(std::tm* now){
 	unsigned int hour = now->tm_hour;
 	unsigned int minute = now->tm_min;
 	unsigned int second = now->tm_sec;
-	return std::to_string(year) + "-" + std::to_string(mon) + "-" + std::to_string(day) + " " + std::to_string(hour) + ":" + std::to_string(minute) + ":" + std::to_string(second);
+	return std::to_string(year) + "-" + paddedInt(mon,2) + "-" + paddedInt(day,2) + " " + std::to_string(hour) + ":" + std::to_string(minute) + ":" + std::to_string(second);
 }
 inline unsigned int sumInterval(const std::string& filename, const std::pair<std::tm*,std::tm*>& time){
 	sqlite3 *db;
@@ -85,6 +91,7 @@ inline unsigned int sumInterval(const std::string& filename, const std::pair<std
 	sqlite3_prepare_v2(db, statstring.c_str(), -1, &stmt, NULL);
 	sqlite3_step(stmt);
 	ret += sqlite3_column_int(stmt, 0);
+	std::cout << "Returning: " << ret << std::endl;
 	return ret;
 }
 
