@@ -28,7 +28,7 @@ inline std::vector<std::string> queryMonth(const std::string& filename, std::pai
 	std::string month_end = std::to_string(month.first) + "-" + std::to_string(month.second) + "-01 00:00:00"; + " 00:00:00";
 	std::string statstring = "";
 	statstring += "select * from sensor_data WHERE time >= '" + month_begin + "' and time < '" + month_end + "'";
-	//std::cout << statstring << std::endl;
+	std::cout << statstring << std::endl;
 	sqlite3_prepare_v2(db, statstring.c_str(), -1, &stmt, NULL);
 	while (sqlite3_step(stmt) != SQLITE_DONE) {
 		std::cout << (int*)sqlite3_column_text(stmt, 2) << std::endl;
@@ -36,6 +36,7 @@ inline std::vector<std::string> queryMonth(const std::string& filename, std::pai
 	}
 	return ret;
 }
+
 inline unsigned int sumMonth(const std::string& filename, std::pair<unsigned int, unsigned int> month){
 	sqlite3 *db;
 	sqlite3_stmt *stmt;
@@ -52,7 +53,7 @@ inline unsigned int sumMonth(const std::string& filename, std::pair<unsigned int
 	std::string statstring = "";
 	statstring += "select SUM(data) from (select * from sensor_data WHERE time >= '" + month_begin + "' and time < '" + month_end + "')";
 	
-	std::cout << statstring << std::endl;
+	//std::cout << statstring << std::endl;
 	sqlite3_prepare_v2(db, statstring.c_str(), -1, &stmt, NULL);
 	sqlite3_step(stmt);
 	ret += sqlite3_column_int(stmt, 0);
