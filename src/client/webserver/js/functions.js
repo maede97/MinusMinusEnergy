@@ -14,14 +14,18 @@ $('#endDate').datetimepicker(pickerOptions);
 $('#showData').click(function(){
   var begin = $('#startDate').datetimepicker('getValue');
   var end = $('#endDate').datetimepicker('getValue');
+
+  console.log(dateFormat(begin));
+  console.log(dateFormat(end));
   // call api for data
   $.ajax({url:'./api',method:'GET',data:{begin:dateFormat(begin),end:dateFormat(end)}}).done(function(respData) {
+    console.log(respData);
     var cats = [];
     var points = [];
     for(var i in respData) {
       // parse data
       cats.push(respData[i]['time']);
-      points.push(parseInt(respData[i]['data']));
+      points.push(parseFloat(respData[i]['data']));
     }
     var myChart = Highcharts.chart('chart', {
         chart: {
@@ -44,7 +48,7 @@ $('#showData').click(function(){
             borderWidth: 0
           }
         },
-        series: [{data:points,step:'center',name:'E'}]
+        series: [{data:points,step:'center',name:'kWh'}]
     });
   });
 })
