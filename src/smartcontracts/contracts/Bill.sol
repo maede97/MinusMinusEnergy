@@ -18,10 +18,16 @@ contract Bill {
   mapping(address => bool) trustedProducers;
   mapping(address => Invoice) openBills;
 
-  constructor(address tokenContract, address fondContract) public {
+  constructor() public {
     _owner = msg.sender;
-    _tokenContract = MMEToken(tokenContract);
-    _fondContract = Fond(fondContract);
+  }
+
+  function setFondContract(address fond) public {
+    _fondContract = Fond(fond);
+  }
+
+  function setMMETokenContract(address mmeToken) public {
+    _tokenContract = MMEToken(mmeToken);
   }
 
   function addEnergyProducer(address producer) public {
