@@ -8,6 +8,7 @@ Further Information is available here:
 
 **[Demo Application](#)**
 
+[Github wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)
 
 # The Team
 Matthias Busenhart
