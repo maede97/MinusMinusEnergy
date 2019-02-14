@@ -7,9 +7,7 @@ var tx = require('ethereumjs-tx');
 var contract = require('truffle-contract');
 const sqlite3 = require('sqlite3').verbose();
 
-var HAS_BILL;
-
-var provider;
+var provider = null;
 
 if(config.test_env){
   provider = new Web3.providers.HttpProvider("http://localhost:7545");
