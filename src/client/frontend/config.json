@@ -1,8 +1,8 @@
 {
-    "address": "0x22C2FD79de9A389dF193B0819D8CB6DB81B37734",
-    "privatekey": "6f4d49b5d4d00d7454fa7c3468c90a108795521b31803a2d1d47ca6094e86f03",
+    "address": "0xF7ab068c56c233c9869BeD1e00658D13271477C5",
+    "privatekey": "0xfc3d5ea8f82f4e0839cd9867be98ec1a226e59e485fc58a216df5ecfbb89e547",
     "test_env":true,
     "port":3000,
-    "BillAddress":"0x742928f29604CA590A0d70C5b3D35c2A293C28AF",
-    "MMETokenAddress":"0x3C0Ef29308485A5C64eE20958747ad50c3Aa5029"
+    "BillAddress":"0x4e936a15a7D6371CAAeff860db19Cf9579Fd02a6",
+    "MMETokenAddress":"0x463542EC3a8e56Ac0274FB57b2de2bc3582df6Dd"
 }

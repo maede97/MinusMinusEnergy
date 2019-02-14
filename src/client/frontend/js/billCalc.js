@@ -9,12 +9,10 @@ if (typeof web3 !== 'undefined') {
   web3 = new Web3(App.web3Provider);
 }
 
-var address = web3.eth.accounts[0];
 
 $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
   $.getJSON("./tokens/Bill.json",function(BillArtifact) {
     var contracts = {};
-    console.log(MMETokenArtifact);
     contracts.MMEToken = TruffleContract(MMETokenArtifact);
     contracts.Bill = TruffleContract(BillArtifact);
     contracts.MMEToken.setProvider(provider);
@@ -23,8 +21,8 @@ $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
     $('#sendMoney').click(function() {
       contracts.Bill.deployed().then(function(BillInstance){
         var payAmount = web3.toBigNumber($("#invoiceAmount").html()).minus(web3.toBigNumber($("#bill").html()));
-        console.log(payAmount);
-        BillInstance.payBill($('#fond').html(),{from: address, gas: 2000000, value: payAmount}).then(console.log);
+
+        BillInstance.payBill($('#fond').html(),{gas: 2000000, value: payAmount}).then(console.log);
       });
     });
   });
