@@ -56,7 +56,7 @@ def main():
                 if len(minute) == 1:
                     minute = '0' + minute
                 timestamp = '2019-' + month + '-' + day + 'T' + hour + ':' + minute + ':00'
-                datum = (i+temp,timestamp,0.5*np.sin(0.001*(i+temp))+0.85)
+                datum = (i+temp,timestamp,0.5*np.sin(0.001*(i+temp))+0.85+random.uniform(-0.1,0.1))
                 create_datum(conn,datum)
             last = temp + monthDays[m]*1440
 
