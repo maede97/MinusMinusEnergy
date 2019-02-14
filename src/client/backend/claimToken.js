@@ -1,12 +1,13 @@
 // IMPORTS
 const fs = require('fs');
 const Web3 = require("web3");
+const config = require("../webserver/config.json");
 
 
-// SETTINGS
-const PRIVATE_KEY = "0xa16ff85a83155ec35ec7988c0785e4fe298af07f8b486cef2a6a418cffd696e6";
-const MMETOKEN_ADDR = "0x569A1D329176e83159174D9FeD58cB0450D57EB9"
-const MMETOKEN_ABI = "../frontend/tokens/MMEToken.json"
+// SETTING
+const PRIVATE_KEY = config.privatekey;
+const MMETOKEN_ADDR = config.MMETokenAddress;
+const MMETOKEN_ABI = "../webserver/tokens/MMEToken.json"
 
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 
