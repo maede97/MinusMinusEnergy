@@ -2,6 +2,7 @@
 import random
 import sqlite3
 from sqlite3 import Error
+import numpy as np
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
@@ -29,6 +30,9 @@ def create_datum(conn, datum):
     cur.execute(sql, datum)
 
 def main():
+    """
+    Fills bulk data in a sine wave form into the database throughout the entirety of 2019.
+    """
     database = "./database.db"
 
     # create a database connection
@@ -52,7 +56,7 @@ def main():
                 if len(minute) == 1:
                     minute = '0' + minute
                 timestamp = '2019-' + month + '-' + day + 'T' + hour + ':' + minute + ':00'
-                datum = (i+temp,timestamp,random.randint(0,255))
+                datum = (i+temp,timestamp,0.5*np.sin(0.001*(i+temp))+0.85)
                 create_datum(conn,datum)
             last = temp + monthDays[m]*1440
 
