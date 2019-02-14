@@ -27,7 +27,7 @@ std::string paddedInt(unsigned int a, unsigned int length = 10){
 }
 using std::printf;
 int main(int argc, char** args){
-	std::uint64_t nonce;
+	std::uint64_t nonce = 0;
 	std::string database_path;
 	if(argc == 1){
 		database_path = std::string("../database.db");
@@ -38,7 +38,7 @@ int main(int argc, char** args){
 	std::time_t t = std::time(0);   // get time now
     std::tm* now = std::localtime(&t);
 	std::tm last;
-	std::ifstream ifs("lastdate");
+	std::ifstream ifs("lastdate.dat");
 	if(ifs.good()){
 		ifs >> last.tm_year;
 		ifs >> last.tm_mon;
