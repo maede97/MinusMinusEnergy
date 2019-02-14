@@ -5,6 +5,7 @@
 #include <tuple>
 #include <fstream>
 #include <ctime>
+#include <set>
 #include "pstream.h"
 template<typename... Ts>
 using table = std::set<std::tuple<Ts...>>;
@@ -74,9 +75,16 @@ int main(int argc, char** args){
 	redi::ipstream in("ls *.js");
 	std::string str;
 	in >> str;
-	std::vector<std::string> args = {str, commandarg, timestamp};
-	redi::ipstream JS("node ", args);
+	std::cout << str << std::endl;
+	std::vector<std::string> jargs;
+	jargs.push_back(str);
+	jargs.push_back(commandarg);
+	jargs.push_back(timestamp);
+	redi::ipstream JS("node " + str + " " + commandarg + " " + timestamp);
 	//std::cout << (now->tm_year + 1900) << '-' << (now->tm_mon + 1) << '-' <<  now->tm_mday << std::endl;
-	
+	std::string errmsg;
+	while (std::getline(JS.err(), errmsg)) {
+		std::cerr << errmsg << std::endl;
+	}
 	return 0;
 }
