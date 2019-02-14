@@ -18,13 +18,6 @@ using table = std::set<std::tuple<Ts...>>;
 double timediff(std::pair<std::tm*, std::tm*> times){
 	return std::difftime(std::mktime(times.first), std::mktime(times.second)) - 3600;
 }
-std::string paddedInt(unsigned int a, unsigned int length = 10){
-	std::string k = std::to_string(a);
-	while(k.size() < length){
-		k = "0" + k;
-	}
-	return k;
-}
 using std::printf;
 int main(int argc, char** args){
 	std::uint64_t nonce = 0;
@@ -56,7 +49,7 @@ int main(int argc, char** args){
 	unsigned int hour = now->tm_hour;
 	unsigned int minute=now->tm_min ;
 	unsigned int second=now->tm_sec ;
-	std::ofstream ofs("lastdate");
+	std::ofstream ofs("lastdate.dat");
 	ofs << now->tm_year<<"\n";
 	ofs << now->tm_mon<<"\n";
 	ofs << now->tm_mday<<"\n";
@@ -70,22 +63,22 @@ int main(int argc, char** args){
 		year--;
 		mon = 12;
 	}
-	unsigned int energyConsumed = sumInterval(database_path, {now,now});
-	
+	unsigned int energyConsumed = sumInterval(database_path, {&last, now});
+
 	double avg_consumption = (double)energyConsumed / timediff({now, &last});
-	
+
 	std::uint64_t earned = relu(10.0 - avg_consumption) * 1e12;
 	//std::cout << "Consumed: " << energyConsumed << std::endl;
-	
+
 	std::string commandarg = std::to_string(earned);
-	
+
 	std::string timestamp = "";
-	
+
 	timestamp += std::to_string(year);
 	timestamp += ":";
-	timestamp += std::to_string(mon);
+	timestamp += paddedInt(mon);
 	timestamp += ":";
-	timestamp += std::to_string(day);
+	timestamp += paddedInt(day);
 	timestamp += ":";
 	timestamp += std::to_string(hour);
 	timestamp += ":";
@@ -100,7 +93,7 @@ int main(int argc, char** args){
 	jargs.push_back(str);
 	jargs.push_back(commandarg);
 	jargs.push_back(timestamp);
-	redi::ipstream JS("node " + str + " " + commandarg + " " + timestamp);
+	redi::ipstream JS(std::string("node ") + str + " " + commandarg + " " + std::to_string(nonce));
 	//std::cout << (now->tm_year + 1900) << '-' << (now->tm_mon + 1) << '-' <<  now->tm_mday << std::endl;
 	std::string errmsg;
 	while (std::getline(JS.err(), errmsg)) {
