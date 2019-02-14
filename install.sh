@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # create sensor database
-sqlite3 src/client/database.db "CREATE TABLE 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data INTEGER NOT NULL, PRIMARY KEY(id));"
+sqlite3 src/client/database.db "CREATE TABLE 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data NUMERIC NOT NULL, PRIMARY KEY(id));"
 
 # compile back-end data handler
 bepath=src/client/backend
@@ -24,5 +24,5 @@ crontab newcron
 rm newcron
 
 # initialize webserver server
-cd src/client/frontend
+cd src/client/webserver
 npm install
