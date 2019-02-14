@@ -5,14 +5,20 @@ contract Bill {
   // Contract owner who can add new energy provider
   address public contractOwner;
   address public tokenAddress;
+  address public fondContract
+
+  struct Invoice {
+    address issuer;
+    uint amount;
+  }
 
   mapping(address => bool) trustedProducers;
-  mapping(address => bool) nodeHasBill;
-  mapping(address => uint) billAmounts;
+  mapping(address => Invoice) openBills;
 
-  constructor(address MMEToken) public {
+  constructor(address MMEToken, address FC) public {
     contractOwner = msg.sender;
     tokenAddress = MMEToken;
+    fondContract = FC;
   }
 
   function addEnergyProducer(address producer) public {
@@ -20,34 +26,32 @@ contract Bill {
     trustedProducers[producer] = true;
   }
 
-  function createBill(address receiver, uint amount) public {
+  function createBill(address customer, uint amount) public {
     require(trustedProducers[msg.sender]);
-    require(!nodeHasBill[receiver]);
-    nodeHasBill[receiver] = true;
-    billAmounts[receiver] = amount;
+    //require(openBills[customer] == NULL);
+    // build struct
   }
 
   function hasBill() public view returns (bool) {
-    return nodeHasBill[msg.sender];
+    return //check struct
   }
 
-  function billAmount() public view returns (uint) {
-    return billAmounts[msg.sender];
+  function getInvoiceAmount() public view returns (uint) {
+    //require(hasBill());
+    //return billAmounts[msg.sender];
   }
 
-  function payBill(address receiver) public payable{
-    require(trustedProducers[msg.sender]);
-    require(nodeHasBill[receiver]);
+  function payBill(uint toFond) public payable {
+    require(hat Rechnung));
+    require(toFond <= ANZAHL_TOKENS);
+    require(msg.value+toFond <= Invoice.amount);
 
-    // require aufteilung von tokens
+    Rechnung kleiner um ANZAHL_TOKENS-toFond
 
-    //wie viel tokens im bill-topf?
+    Zahle an Invoice.issuer verbleibender Wert
 
-    //tokenAddress.call();
+    Zahle an Fond toFond
 
-
-    nodeHasBill[receiver] = false;
-    billAmounts[receiver] = 0;
   }
 
 }

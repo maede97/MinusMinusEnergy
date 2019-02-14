@@ -13,11 +13,16 @@ contract MMEToken is ERC20Detailed, ERC20Mintable {
   // Prevent Replay Attacks for claiming tokens
   mapping(address => mapping(uint256 => bool)) seenNonces;
 
+  address public billContract;
+  address public fondContract;
+  address public owner;
+
   constructor()
     ERC20Detailed('MinusMinusEnergy Coin', 'MME', 2)
     public
     {
       addMinter(address(this));
+      owner = msg.sender;
 
   }
 
@@ -42,11 +47,13 @@ contract MMEToken is ERC20Detailed, ERC20Mintable {
     _mint(signer, amount);
   }
 
-  function payBill() public {
-      // Call to BillContract
+  function setFondContract(address FC) public {
+    require(msg.sender == owner);
+    fondContract = FC;
   }
 
-  function setFondContract() public {
-
+  function setBillContract(address BC) public {
+    require(msg.sender == owner);
+    billContract = BC;
   }
 }

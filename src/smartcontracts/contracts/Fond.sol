@@ -3,23 +3,24 @@ contract Fond {
   mapping(address => uint) investors; // how much did each investors send to me?
   address[] invs;
 
-  address public billContractAddress; // stores address of bill contract
+  address public owner; // stores address of bill contract
 
-  constructor(address billContract) public{
-    billContractAddress = billContract;
+  constructor() public {
+    owner = msg.sender;
   }
 
-  function receiveTokens(address investor, uint amount) public {
-    require(msg.sender == billContractAddress);
-    investors[investor] += amount;
-    invs.push(investor);
+  function(address consumer) payable {
+    investors[consumer] += msg.value;
+    invs.push(consumer);
   }
 
   function releaseFond() public {
-    require(msg.sender == billContractAddress);
+    require(msg.sender == owner);
     // reset all tokens invested
     for (uint i = 0; i < invs.length; i++)
       investors[invs[i]] = 0;
     delete invs;
+
+    // send all money to owner
   }
 }
