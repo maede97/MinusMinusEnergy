@@ -8,6 +8,7 @@ Further Information is available here:
 
 **[Demo Application](#)**
 
+**[Github wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
 
 # The Team
 Matthias Busenhart
@@ -19,6 +20,11 @@ Marie-Louise Achart
 Yannick Niedermayr
 
 Manuel Winkler
+
+# Feature demo
+
+### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fond:
+![billPayment](doc/demo/billPayment.gif)
 
 # Using the project
 The project has the following dependencies, make sure you have them all installed:
