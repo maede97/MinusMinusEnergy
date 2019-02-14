@@ -15,7 +15,7 @@ using std::printf;
 int main(int argc, char** args){
 	std::string database_path;
 	if(argc == 1){
-		database_path = std::string("../database.db");
+		database_path = std::string("../bigdata.db");
 	}
 	if(argc >= 2){
 		database_path = std::string(args[1]);
@@ -34,6 +34,7 @@ int main(int argc, char** args){
 		mon = 12;
 	}
 	unsigned int energyConsumed = sumMonth(database_path, {year, mon});
+	std::cout << energyConsumed << std::endl;
 	std::string commandarg = std::to_string(energyConsumed);
 	std::string timestamp = "";
 	timestamp += std::to_string(year);
