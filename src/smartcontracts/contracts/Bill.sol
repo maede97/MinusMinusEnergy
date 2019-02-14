@@ -5,6 +5,8 @@ import "./Fond.sol";
 
 contract Bill {
 
+  event AddEnergyProducer(address producer);
+
   // Contract owner who can add new energy provider
   address public _owner;
   Fond private _fondContract;
@@ -33,6 +35,7 @@ contract Bill {
   function addEnergyProducer(address producer) public {
     require(msg.sender == _owner);
     trustedProducers[producer] = true;
+    emit AddEnergyProducer(producer);
   }
 
   function createBill(address customer, uint amount) public {
