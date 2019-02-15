@@ -4,7 +4,7 @@
 sqlite3 src/client/database.db "CREATE TABLE 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data NUMERIC NOT NULL, PRIMARY KEY(id));"
 
 # compile back-end data handler
-bepath=src/client/backend
+bepath=src/client/broker
 mkdir ${bepath}/build
 cmake -H${bepath} -B${bepath}/build
 make -C ${bepath}/build
