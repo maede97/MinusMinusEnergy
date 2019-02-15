@@ -114,3 +114,17 @@ $ pdflatex reportMinusMinusEnergy.tex
 * Security improvement
 * Voting system for Fond
 * Bug fixing
+* Tweak frontend appearance
+
+# Links for Developer
+**Ethereum**
+* [Ethereum Doc](http://ethdocs.org/en/latest/index.html#)
+* [Solidity Doc](https://solidity.readthedocs.io/en/v0.5.3/structure-of-a-contract.html#functions)
+* [Truffle Doc](https://truffleframework.com/docs/truffle/getting-started/running-migrations)
+* [OpenZeppelin Doc](https://docs.openzeppelin.org/docs/token_erc20_erc20#transfer)
+
+**Javascript**
+* [Web3.js Doc](https://web3js.readthedocs.io/en/1.0/web3.html)
+* [NodeJS Doc](https://nodejs.org/api/)
+* [PugJS Doc](https://pugjs.org/api/getting-started.html)
+* [Express JS Doc](http://expressjs.com/de/api.html)
