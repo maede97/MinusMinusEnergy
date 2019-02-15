@@ -5,7 +5,7 @@
 ![Full Demo](doc/demo/fullDemo.gif)
 #### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fond
 
-#### Demo ####
+# Demo #
 
 **Run Demo**
 * Run these commands
