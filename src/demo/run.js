@@ -21,24 +21,26 @@ console.log(chalk.blue.bold("            : Marie-Louise Achart, Yannick Niederma
 console.log("");
 console.log(chalk.blue.bold("======================================================================"));
 console.log("");
-console.log(chalk.yellow("(1) (Re)start Ganache and open Chrome"));
+
+console.log(chalk.yellow("(1) Startup"));
+console.log("    (Re)start Ganache and open Chrome");
+console.log("    In Chrome, go to \"localhost:3000\"");
+console.log("        (No connection possible)");
 
 askUser();
-console.log(chalk.yellow("(2) Please Reset MetaMask:"));
+console.log(chalk.yellow("(2) Reset MetaMask:"));
 console.log("   - Settings->Reset Account");
 console.log("   - Switch to another network");
 console.log("   - Switch back :-)");
 console.log("   - Select \"Account 3\"");
 askUser();
 
-console.log(chalk.yellow("(3) Setting up your contracts"));
+console.log(chalk.yellow("(3) Setting up contracts"));
 process.chdir("../smartcontracts");
 console.log("    Compiling...");
-// REMOVE
- console.log(child.execSync("truffle compile").toString());
+child.execSync("truffle compile", {stdio: 'ignore'});
 console.log("    Deploying...");
-// REMOVE
-console.log(child.execSync("truffle migrate --reset").toString());
+child.execSync("truffle migrate --reset", {stdio: 'ignore'});
 console.log("");
 console.log("    Getting Address of BillContract");
 var BillABI = require("../smartcontracts/build/contracts/Bill.json");
@@ -50,8 +52,8 @@ console.log("");
 
 console.log(chalk.yellow("(4) Keys / Address (use Keys from Ganache (eg. Account 3))"));
 
-var address = readline.question(chalk.green("    Please enter your address: (with 0x-prefix)\n")).toString();
-var key = readline.question(chalk.green("    Please enter your private key (without 0x-prefix)\n: ")).toString();
+var address = readline.question(chalk.green("    Please enter your address: (with 0x-prefix):\n")).toString();
+var key = readline.question(chalk.green("    Please enter your private key (without 0x-prefix):\n")).toString();
 console.log("");
 var json_content = {}
 json_content["port"] = 3000;
@@ -65,8 +67,7 @@ fs.writeFileSync('examples/config.json',JSON.stringify(json_content, null, "\t")
 console.log(chalk.yellow("(5) Creating Fake Data"));
 console.log("    Creating Fake Bill");
 try {
-  response = child.execSync("truffle exec examples/fakeBill.js");
-  console.log(response);
+  response = child.execSync("truffle exec examples/fakeBill.js", {stdio: 'ignore'});
 } catch (err) {
   console.log(chalk.red("   Error occured"));
 }
@@ -85,3 +86,4 @@ fs.writeFileSync('config.json',JSON.stringify(json_content,null,'\t'), 'utf8',fu
 console.log("");
 
 console.log(chalk.green("(Finished) Please run now 'npm start'!"));
+console.log("    Then, reload \"locahost:3000\" in Chrome");

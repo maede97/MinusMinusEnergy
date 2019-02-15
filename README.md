@@ -5,6 +5,17 @@
 ![Full Demo](doc/demo/fullDemo.gif)
 #### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fond
 
+#### Demo ####
+
+**Run Demo**
+```sh
+$ git clone https://github.com/maede97/MinusMinusEnergy.git
+$ cd MinusMinusEnergy
+$ npm install
+$ npm test
+$ npm start
+```
+
 #### Further Information is available here:
 
 * **[Project Report](#)**
@@ -57,15 +68,6 @@ The demo deploys the MMEToken, Bill and Fond contract on a local Ganache instanc
 The demo script also generates a signed transaction with the trusted private key of the sensor to claim MMETokens on the MMEToken contract for reduced energy consumption.
 
 On the webinterface the client can analyze his energy consumption and pay his bills. He can decide to use some of his MMEToken to pay for his bill or invest them into a fond. The money in the fond could be used to finance local clima-pro projects, optionally with a integrated voting system (not implemented).
-
-**To demo run demo**
-```sh
-$ git clone https://github.com/maede97/MinusMinusEnergy.git
-$ cd MinusMinusEnergy
-$ npm install
-$ npm test
-$ npm start
-```
 
 ##### Information
 * **Ganache**  
