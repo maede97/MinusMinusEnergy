@@ -35,12 +35,30 @@ The project has the following dependencies, make sure you have them all installe
 - A C++ compiler such as gcc or clang
 - libsqlite3-dev
 - sqlite3
-- nodeJS
 - Python 3
-- Ganache
+- nodeJS [Link](https://nodejs.org/en/)
+- npm [Link](https://www.npmjs.com/)
+- Ganache [Link](https://truffleframework.com/ganache)  
+
+**Arch Linux**  
+```sh
+arch$ sudo pacman -S sqlite3 make cmake python gcc
+```
+
+**Ubuntu**  
+```sh
+ubuntu$ sudo apt install sqlite3 libsqlite3-dev make cmake python3 gcc
+```
 
 ### Demo
-To demo run demo
+**Description**  
+The demo deploys the MMEToken, Bill and Fond contract on a local Ganache instance and adds an energy provider to the bill contract. The energy provider can issue new bills to a specific address.
+
+The demo script also generates a signed transaction with the trusted private key of the sensor to claim MMETokens on the MMEToken contract for reduced energy consumption.
+
+On the webinterface the client can analyze his energy consumption and pay his bills. He can decide to use some of his MMEToken to pay for his bill or invest them into a fond. The money in the fond could be used to finance local clima-pro projects, optionally with a integrated voting system (not implemented).
+
+**To demo run demo**
 ```sh
 $ git clone https://github.com/maede97/MinusMinusEnergy.git
 $ cd MinusMinusEnergy
@@ -48,6 +66,19 @@ $ npm install
 $ npm test
 $ npm start
 ```
+
+##### Information
+* **Ganache**  
+Port: 7545  
+Network ID: 5777  
+Number of Accounts: >=3  
+Account 1: Contract Owner (subsidize eg. government)  
+Account 2: Energy Provider (eg. EWZ)  
+Account 3: Client  
+* **Webserver**  
+URL: http://localhost:3000
+* **Metamask**  
+Selected Account: Account 3
 
 ### Installation
 On a Raspberry Pi, run the following commands:
@@ -70,3 +101,8 @@ Compile the final report with:
 $ cd /doc/report
 $ pdflatex mmenergy_report.tex
 ```
+
+# ToDo
+* Security improvement
+* Voting system for Fond
+* Bug fixing
