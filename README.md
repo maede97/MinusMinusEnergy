@@ -1,6 +1,7 @@
 # MinusMinusEnergy
 
 ### A BETH2019 project for the SwissEnergy Challenge
+MinusMinusEnergy is a blockchain project which was created in February 2019 during the BETH Hackathon at ETH Zurich.
 
 ![Full Demo](doc/demo/fullDemo.gif)
 #### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fond
