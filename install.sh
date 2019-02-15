@@ -1,7 +1,23 @@
 #!/usr/bin/env bash
 
-# create sensor database
-sqlite3 src/client/database.db "CREATE TABLE 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data NUMERIC NOT NULL, PRIMARY KEY(id));"
+# select database mode
+PS3='Do you want to use an empty or pre-filled database? '
+options=("1: empty database" "2: pre-generated data")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "1: empty database")
+            echo "The install will use a new, empty database."
+			sqlite3 database.db "DELETE FROM sensor_data;"
+			break
+            ;;
+        "2: pre-generated data")
+            echo "The install will use pre-generated data."
+			break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
 
 # compile back-end data handler
 bepath=src/client/broker
