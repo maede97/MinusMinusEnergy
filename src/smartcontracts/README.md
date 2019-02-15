@@ -6,7 +6,7 @@
 **Network ID:** 5777  
 **Hostname:** 127.0.0.1 - lo  
 **Number of Accounts:** >=3  
-**Account 1:** Contract Owner (subsidize eg. government)  
+**Account 1:** Contract Owner (subsidizer eg. government)  
 **Account 2:** Energy Provider (eg. EWZ)  
 **Account 3:** Client  
 
@@ -57,4 +57,4 @@ To successfully claim tokens you have to adjust **config.json** in ***src/smartc
 ```sh
 $ node examples/claimToken.js
 ```
-If you receive an *VM Exception while processing transaction: revert* message the signature of the data is probably wrong.
+If you receive an *VM Exception while processing transaction: revert* message the signature of the data is probably wrong or used two time the same nonce.
