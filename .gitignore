@@ -27,4 +27,6 @@ config.json
 *.fot
 *.cb
 *.cb2
+*.nav
+*.snm
 .*.lb
