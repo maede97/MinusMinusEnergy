@@ -21,8 +21,10 @@ $ npm start
 #### Further Information is available here:
 
 * **[Project Report](#)**
-* **[Pitch Presentation](https://github.com/maede97/MinusMinusEnergy/blob/master/doc/presentation/presentationMinusMinusEnergy.pdf)**
-* **[Repo wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
+* **[Pitch Presentation](blob/master/doc/presentation/presentationMinusMinusEnergy.pdf)**
+* **[Repo wiki](wiki/Client)**
+* [SmartContracts (how to use truffle)](src/smartcontracts/README.md)
+* [DataBroker](src/client/broker/README.md)
 
 # The Team
 **Matthias Busenhart**  
