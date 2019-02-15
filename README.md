@@ -22,7 +22,7 @@ $ npm start
 
 * **[Project Report](#)**
 * **[Pitch Presentation](https://github.com/maede97/MinusMinusEnergy/blob/master/doc/presentation/presentationMinusMinusEnergy.pdf)**
-* **[Github wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
+* **[Repo wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
 
 # The Team
 **Matthias Busenhart**  
