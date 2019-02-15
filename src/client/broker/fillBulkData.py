@@ -38,6 +38,9 @@ def main():
     # create a database connection
     conn = create_connection(database)
     with conn:
+        cur = conn.cursor()
+        cur.execute("CREATE TABLE IF NOT EXISTS 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data NUMERIC NOT NULL, PRIMARY KEY(id));")
+        cur.execute("DELETE FROM 'sensor_data';")
         monthDays = [31,28,31,30,31,30,31,31,30,31,30,31]
         last = 0
         for m in range(12):

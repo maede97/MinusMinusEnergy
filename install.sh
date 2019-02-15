@@ -3,7 +3,7 @@
 bepath=src/client/broker
 
 #setup database
-sqlite3 src/client/database.db "CREATE TABLE 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data NUMERIC NOT NULL, PRIMARY KEY(id));"
+sqlite3 src/client/database.db "CREATE TABLE IF NOT EXISTS 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data NUMERIC NOT NULL, PRIMARY KEY(id));"
 
 # select database mode
 PS3='Do you want to use an empty or pre-filled database? '
@@ -13,7 +13,7 @@ do
     case $opt in
         "1: empty database")
             echo "The install will use a new, empty database."
-			sqlite3 src/client/database.db "DELETE FROM sensor_data;"
+			sqlite3 src/client/database.db "DELETE FROM sensor_data;VACUUM;"
 			break
             ;;
         "2: pre-generated data")
@@ -26,7 +26,6 @@ do
         *) echo "invalid option $REPLY";;
     esac
 done
-
 # compile back-end data handler
 mkdir ${bepath}/build
 cmake -H${bepath} -B${bepath}/build
