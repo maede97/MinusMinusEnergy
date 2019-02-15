@@ -8,6 +8,7 @@
 #### Demo ####
 
 **Run Demo**
+* Run these commands
 ```sh
 $ git clone https://github.com/maede97/MinusMinusEnergy.git
 $ cd MinusMinusEnergy
@@ -15,6 +16,7 @@ $ npm install
 $ npm test
 $ npm start
 ```
+* Or watch the GIF above (shortened, hence the black flicker in the middle)
 
 #### Further Information is available here:
 
