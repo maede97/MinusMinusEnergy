@@ -97,13 +97,13 @@ $ ./install.sh
 Compile the presentation with:
 ```sh
 $ cd /doc/presentation
-$ pdflatex mmenergy_presentation.tex
+$ pdflatex presentationMinusMinusEnergy.tex
 ```
 ### Report
 Compile the final report with:
 ```sh
 $ cd /doc/report
-$ pdflatex mmenergy_report.tex
+$ pdflatex reportMinusMinusEnergy.tex
 ```
 
 # ToDo
