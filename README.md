@@ -27,19 +27,19 @@ $ npm start
 * [DataBroker](src/client/broker/README.md)
 
 # The Team
-**Matthias Busenhart**  
+**Matthias Busenhart** (ETHZ Bsc RW/CSE)  
 *Webserver (JS), Blockchain (Solidity)* - [maede97](https://github.com/maede97)  
 
-**Philip Wiese**  
+**Philip Wiese** (ETHZ Bsc ETIT)  
 *Webserver (JS), Blockchain (Solidity)* - [Xeratec](https://github.com/Xeratec)  
 
-**Marie-Louise Achart**  
+**Marie-Louise Achart** (ETHZ Bsc RW/CSE)  
 *Broker (Python), Documentation (LaTeX)* - [MarieLouiseAchart](https://github.com/MarieLouiseAchart)
 
-**Yannick Niedermayr**  
+**Yannick Niedermayr** (ETHZ Bsc RW/CSE)  
 *Broker (C++, Python), Misc.* - [guetzli32](https://github.com/guetzli32)  
 
-**Manuel Winkler**  
+**Manuel Winkler** (ETHZ Bsc RW/CSE)  
 *Broker (C++)* - [manuel5975p](https://github.com/manuel5975p)  
 
 # Usage
