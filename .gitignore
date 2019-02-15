@@ -30,3 +30,8 @@ config.json
 *.nav
 *.snm
 .*.lb
+
+**/CMakeCache.txt
+**/CMakeFiles/*
+**/Makefile
+*.cmake
