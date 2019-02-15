@@ -4,6 +4,7 @@
 #### Ganache has to be already running
 **Port:** 7545  
 **Network ID:** 5777  
+**RCP-Server:** http://127.0.0.1:7545
 **Number of Accounts:** >=3  
 **Account 1:** Contract Owner (subsidize eg. government)  
 **Account 2:** Energy Provider (eg. EWZ)  
