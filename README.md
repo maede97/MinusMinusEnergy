@@ -75,7 +75,7 @@ On the webinterface the client can analyze his energy consumption and pay his bi
 * **Ganache**  
 Port: 7545  
 Network ID: 5777  
-Hostname: 127.0.0.1 - lo
+Hostname: 127.0.0.1 - lo  
 Number of Accounts: >=3  
 Account 1: Contract Owner (subsidize eg. government)  
 Account 2: Energy Provider (eg. EWZ)  
