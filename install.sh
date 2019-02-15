@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+bepath=src/client/broker
+
+#setup database
+sqlite3 src/client/database.db "CREATE TABLE 'sensor_data' (id INTEGER, time TIMESTAMP UNIQUE NOT NULL, data NUMERIC NOT NULL, PRIMARY KEY(id));"
+
 # select database mode
 PS3='Do you want to use an empty or pre-filled database? '
 options=("1: empty database" "2: pre-generated data")
@@ -8,11 +13,14 @@ do
     case $opt in
         "1: empty database")
             echo "The install will use a new, empty database."
-			sqlite3 database.db "DELETE FROM sensor_data;"
+			sqlite3 src/client/database.db "DELETE FROM sensor_data;"
 			break
             ;;
         "2: pre-generated data")
             echo "The install will use pre-generated data."
+			cd ${bepath}
+			./fillBulkData.py
+			cd ../../../
 			break
             ;;
         *) echo "invalid option $REPLY";;
@@ -20,7 +28,6 @@ do
 done
 
 # compile back-end data handler
-bepath=src/client/broker
 mkdir ${bepath}/build
 cmake -H${bepath} -B${bepath}/build
 make -C ${bepath}/build
@@ -39,6 +46,5 @@ crontab newcron
 crontab newcron
 rm newcron
 
-# initialize webserver server
-cd src/client/webserver
+# setup server
 npm install
