@@ -34,13 +34,13 @@ $ npm start
 *Webserver (JS), Blockchain (Solidity)* - [Xeratec](https://github.com/Xeratec)  
 
 **Marie-Louise Achart**  
-*Backend (Python), Documentation (LaTeX)* - [MarieLouiseAchart](https://github.com/MarieLouiseAchart)
+*Broker (Python), Documentation (LaTeX)* - [MarieLouiseAchart](https://github.com/MarieLouiseAchart)
 
 **Yannick Niedermayr**  
-*Database (C++), Misc.* - [guetzli32](https://github.com/guetzli32)  
+*Broker (C++, Python), Misc.* - [guetzli32](https://github.com/guetzli32)  
 
 **Manuel Winkler**  
-*Database (C++)* - [manuel5975p](https://github.com/manuel5975p)  
+*Broker (C++)* - [manuel5975p](https://github.com/manuel5975p)  
 
 # Usage
 ### Dependencies
