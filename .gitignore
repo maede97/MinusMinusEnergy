@@ -35,3 +35,6 @@ config.json
 **/CMakeFiles/*
 **/Makefile
 *.cmake
+
+## Binary
+/src/client/broker/datahandler
