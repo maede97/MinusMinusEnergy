@@ -46,7 +46,7 @@ arch$ sudo pacman -S sqlite3 make cmake python gcc
 ```
 
 **Ubuntu**  
-```sh
+```bash
 ubuntu$ sudo apt install sqlite3 libsqlite3-dev make cmake python3 gcc
 ```
 
