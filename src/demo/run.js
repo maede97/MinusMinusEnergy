@@ -26,8 +26,8 @@ console.log(chalk.yellow("(1) Startup"));
 console.log("    (Re)start Ganache and open Chrome");
 console.log("    In Chrome, go to \"localhost:3000\"");
 console.log("        (No connection possible)");
-
 askUser();
+
 console.log(chalk.yellow("(2) Reset MetaMask:"));
 console.log("   - Settings->Reset Account");
 console.log("   - Switch to another network");
@@ -48,10 +48,10 @@ console.log(chalk.green("    Address: " + BillABI.networks['5777'].address));
 console.log("    Getting Address of MMETokenContract");
 var MMETokenABI = require("../smartcontracts/build/contracts/MMEToken.json");
 console.log(chalk.green("    Address: " + MMETokenABI.networks['5777'].address));
-console.log("");
+askUser();
+
 
 console.log(chalk.yellow("(4) Keys / Address (use Keys from Ganache (eg. Account 3))"));
-
 var address = readline.question(chalk.green("    Please enter your address: (with 0x-prefix):\n")).toString();
 var key = readline.question(chalk.green("    Please enter your private key (without 0x-prefix):\n")).toString();
 console.log("");
@@ -63,6 +63,7 @@ json_content["test_env"] = true;
 json_content["BillAddress"] = BillABI.networks['5777'].address;
 json_content["MMETokenAddress"] = MMETokenABI.networks['5777'].address;
 fs.writeFileSync('examples/config.json',JSON.stringify(json_content, null, "\t"));
+askUser();
 
 console.log(chalk.yellow("(5) Creating Fake Data"));
 console.log("    Creating Fake Bill");
@@ -77,13 +78,14 @@ try {
 } catch (err) {
   console.log(chalk.red("    Error occured"));
 }
+askUser();
 
 console.log(chalk.yellow("(6) Writing JSON to webserver"));
 process.chdir("../client/webserver/");
 child.execSync("cp ../../smartcontracts/build/contracts/Bill.json tokens").toString();
 child.execSync("cp ../../smartcontracts/build/contracts/MMEToken.json tokens").toString();
 fs.writeFileSync('config.json',JSON.stringify(json_content,null,'\t'), 'utf8',function(){});
-console.log("");
+askUser();
 
 console.log(chalk.green("(Finished) Please run now 'npm start'!"));
 console.log("    Then, reload \"locahost:3000\" in Chrome");
