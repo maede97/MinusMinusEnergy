@@ -8,6 +8,7 @@
   },
   "scripts": {
     "postinstall": "npm-recursive-install --skip-root",
+    "prestest": "cd src/cliesrc/client/broker/ && ./fillBulkData.py && cd ../../..",
     "test": "node src/demo/run.js",
     "start": "node src/client/webserver/app.js"
   },
