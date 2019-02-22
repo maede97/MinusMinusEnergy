@@ -1,0 +1,156 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\begin{document}
+
+\section{Introduction}
+This report is part of the ETH: Blockchain School for Sustainability, which took place in February 11-15, 2019, at ETH Zurich. More information about this week can be found at: \hyperref[www.beth.ethz.ch]{www.beth.ethz.ch}.\\
+We worked during the hackhaton on the challenge presented by Energy Switzerland:\\ \textit{How could Blockchain technology benefit the climate twice with a solution that documents:\\
+1) CO$_2$ emission reduction by households\\
+2) The reinvestment of saved costs in (local) sustainable projects with direct payments},\\
+with the requirement to provide a solution as energy efficient as possible.\\
+We first will do a literature review of the different aspects of the Blockchain technology that could be relevant for this challenge. Then we will present our solution's concept, implementation and evaluation. Finally we will discuss further developments and alternatives.\\
+
+\section{Literature Review}
+Explained by Satoshi Nakamoto in 2008, with a paper about Bitcoin, the Blockchain is grounded on two technologies: asymetric cryptography and distributed systems. There are already a substantial number of blockchain-based applications related to diverse fields such as finance, integrity verification, governance, citizenship, user services, public sector, voting, internet of things, healthcare management, privacy and security, business and industry, supply chain, energy sector, education, data management.\cite{1} \\
+The well-known Bitcoin is just one use case of the blockchain technology. There is a whole world beyond cryptocurrency that could benefit from the unique confluence of smart contracts and smart devices.\\\\
+Smart-contracts are user-defined programs or protocols that can be automatically enforced once certain preconditions are met. Those executable programs define rules for writing in the distributed ledger, without the need of any centralized control. Building trust in a distributed environment will change the way we share information, interact with each other and thus do business, especially in the IoT industry.\cite{2}\\\\
+As shown in the following figure\cite{3}, the number of electronic devices around us is always growing, with already more than 7 Billions IoT devices in 2019. A large part of the future growth should come from ow-power wide area networtk (LPWAN), a technology allowing an extremely high battery life and a maximum communication range over 20 kilometers. There is already more than 25 Millions devices -the majority of which are smart meters- connected through LPWAN, and this number should increase to more than 2 Billions devices by 2025.\\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{stateofIoT2018.png}
+\end{figure}\\
+\\
+Smart-meters allows to monitor electric energy consumption. These data can be transmitted to energy suppliers for billing. Although a large amount of data provided by smart devices -like the ones recorded by smaart-meters- could be used to adequately adjust energy consumption and/or optimize networks, it may also raise critical privacy issues,\cite{4} that the Blockchain technology might be able to solve.\\
+More general, the specificities of the energy sector could enable major transformations thanks to the Blockchain technology. Indeed it is characterized by millions of transactions to trade and distribute energy, that trusted payments systems build on Blockchain could automate. Plus the existing grids could be optimized based on more data control at the facilities level using a decentralized platform. The potential impact could be massive scale, reaching millions of users currently connected by the regular grid. Although for more than half of the Blockchain initiatives related to Energy, Climate and Environment, the timeframe for impact is two or more years, due to the necessity to negotiate and partner with utility companies.\cite{5}\\\\
+When facing the energy waste issue, monitoring in real time could potentially save 4 650 TWh in 2040, far more than their expected cost of 275 TWh for that same year. Active tracking and predicting the energy performance of buildings would help to reduce peak loads, and control that energy is really consumed when and where it is needed. Useful insights from these data would enhance power system performance and asset diagnostics which can lead to cost reduction when e.g. investments are not performing as expected or when maintenance is needed. Thus energy savings -achieved at a limited energy cost- could benefit to consumers.\cite{6}\\\\
+At the moment there are no suitable solutions for consumers to manage their energy supply either with some active control or with an automated software. What could really affect the energy sector will not be a small group of consumers using blockchain applications in small decentralized networks, but effective and easy to use applications and softwares reaching the majority of consumers. Without those user-friendly applications and/or automated softwares (e.g. using learning algorithms that auto-programme heating and cooling services) that are used on a large scale, the blockchain technology will not affect the energy sector in a noticeable manner.\cite{7}\\\\
+There are two major challenges to overcome if we want the Internet of Things to be widely accepted and adopted: the lack of standardization and trust issues. The actual heterogeneity in the field, resulting from the huge expansion of the IoT, needs to be lessened with the help of standard mechanisms and protocols. Regarding the trust issue, the Blockchain technology could provide a reasonable answer. The threat that untrusted entities alter information according to their own interests can no longer exist if all participants are part of a distributed system where the data are owned by everyone, are easy to verify, and remain immutable. The development of cloud computing did stimulate the IoT applications, but it is characterized by a centralized architecture that do not provide reliable tracability to ensure enough trust among the network participants. Data transparancy is a key for the further adoption of IoT.\cite{21}\\\\
+One of the main leverage to reduce energy consumption lies in the residential sector. Adopting a Home Automation System (HAS): a smart home system that combine Wireless Sensor and Actuator Networks (WSAN) with Computational Intelligence technique could be way to address this issue.\cite{15}\\\\
+Blockchains enable digital peer-to-peer transactions, thus could facilitate machine-to-machine communication and data transfers between smart devices. Digitalisation and IoT platforms promise to improve network efficiency, billing processes and supply chain, offering the opportunity to optimize demand aggregation services and demand response, and lowering management costs with remote maintenance and control.\cite{8}\\
+Indeed the Internet of Things became the main standard for low-power lossy networks (LLN) having constrained ressources, where embedded devices having sensors are interconnected. Those devices' wide acceptance and popularity are the result of the rapid growth in miniaturization, electronics and wireless communication technologies, e.g. adding cognitive radio based networks to the underutilized frequency spectrum to improve bandwidth.\cite{9}\\\\
+The further development of the components of Blockchain-based energy systems, like smartphone app, sensor technology, smart devices, smart homes, etc. will allow smart grids to blossom. In this new vision, interconnected smart devices coordinate and adjust their power consumption to price, availability or grid stability signals. To reach this state with a large number of devices producing high volume of data at high frequency, a centralized approach become inefficient. More suitable are a local decision-making and distributed control. They help to lower the consumption of the computational ressources needed to optimally operate power systems.\cite{8}\\
+Assuring interoperability in smart grids and  IoT applications, the Blockchain technology could improve competition between energy suppliers, by providing a bigger mobility to consumers. They could switch more easily from one energy supplier to another, as the energy market operations could become more efficient and more transparent.\cite{20}\\\\
+Pursuing energy efficiency became a goal for many governments and institutions. There is no one and only appropriate solution to deal with this issue. Policies that apply a more diverse and flexible approach seem more successful. The example of New Zealand, a renewable-rich country could be inspiring for Switzerland, whose electricity consumed come at 62\% from renewable sources\cite{10}. The recommendations for New Zealand include: raising consumer awareness, public procurement, developing strong measurement and verification system, revisiting the housing energy efficiency strategies and promoting the energy efficiency research and product development. One key feature to enforce this environmental beneficial policies is to make the citizens adhere to their challenging way of dealing with these urgent issues. As stated in the same paper, displaying well-designed awareness program in form of television commercials that reached 69\% of New Zealanders, motivated 40\% to take actions to reduce their energy consumption. \cite{11}\\\\
+Besides the traditional television commercials, there are many other ways to create incentives for citizens to act in appropriately regarding environmental agendas. The example of \#SmartME who provides a virtual complementary currency for access and payments of registerd services within a bigger ecosystem, including university canteen,etc. This incentive mechanism is implemented through an Android-based mobile app. This could be a first step toward smart cities. Indeed Blockchain could be a good candidate to turn the smart city concept into reality, since it would enable devices to be more autonomous with easier exchange of trusted information recorded on a distributed open ledger.\cite{12}\\\\
+Another paper presented the reasons why people adopt certain environmental-friendly behaviors related to waste, reusing and recycling. It emerged that both strong belief in an intrinsic value in nature and convenience-based factors were important to enhance actual behaviors. It underlies the importance to design easy to use and convenient ways to reduce energy consumption until those new behaviors become a norm widely accepted among the citizens. Effort to further raise awareness of environmental issues will definitely help to reshape fundamental values of the consumers, but it should go in pair with a more practical approach.\cite{13}\\\\
+There are 3 agendas that could support smart urban development: more control and optimization of urban infrastructure with embedded digital technology, more analysis of the datasets produced in the smart cities with Big Data and more citizen participation with digitally-enabled democratic decision-making in urban governance. A good implementation is the Better Reykjavik platform, where citizen can submit and vote for projects funded by the municipality.\cite{14}\\\\
+To reach an intelligent energy management, the utilization of cross-domain data could support the creation, development, maintenance and exploitation of smart energy services. This shift from data scarcity to data abundance could be done with some big data platform that authorities and local administrations, energy service companies, energy managers and consultants, energy providers could access.\cite{17}\cite{19}\\\\
+The benefits following from a systematic use of large chunk of data, like more effective policies and regulation of techno-socio-economic systems supported by IoT technologies must be balanced against the need for privacy protection. Indeed surveillance and discriminatory actions leading to segregation phenomena could ensue from large-scale access to citizens data. An interesting alternative to this dilemna is a supply-demand system run by computational markets. On one hand the citizen is incentivized, but can decide which level of information he wants to share. On the other hand data aggregators reward citizens that give them the data to realize accurate computing analytics required for more informed decision-making.\cite{18}\\\\
+Not only the cities can affected by the rapidly emerging embedded intelligence, the agriculture could also benefit from this transformative approach. For a further analysis of smart agriculture, you can refer to this paper\cite{16}.\\\\
+Even if the emergence of new ideas and the implementation of pilot projects is resulting from a bottom-up approach, the government has a major role to play to facilitate the funding of those renewable energy projects in most stages. Especially via government policies and building an appropriate regulatory environment. Sustainable projects are still heavily dependent of the support a state can provide, often in the form of subsidies, differential feed-in-tariffs (compared with conventional power tariffs), or regulatory arrangements (such as carbon trading).\cite{22}\\
+
+\section{Presentation of our solution (4pages)}
+\subsection{our solution concept}
+why disruptive solution?
+\subsection{our solution design: architecture, module, code abstracts}
+\subsection{our solution evaluation: features, bugs...}
+blockchain for social impact: methodology from \textit{Stanford Business School, Center for Social Innovation, 2018, Blockchain For Social Impact Moving Beyond The Hype}:\\
+1-what is the problem of your organization is trying to solve? What are your end users?\\
+2-How does your initiative use blockchain, and why is blockchain a good technology for this problem?\\
+3-What technologies or services are available to solve this problem, and how is blockchain a better solution?\\
+4-what is your initiative's intended impact? How do you measure it?\\
+5-In what time do you think you will see meaningful impact from your blockchain initiative?\\
+
+\section{Conclusion}
+...
+
+\begin{thebibliography}{22}
+
+\bibitem{1}
+	Fran Casino, Thomas K.\,Dasaklis, Constantinos Patsakis,
+	\textit{A systematic literature review of blockchain-based applications: Current status, classification and open issues},
+	\hyperref[https://doi.org/10.1016/j.tele.2018.11.006]{https://doi.org/10.1016/j.tele.2018.11.006}
+\bibitem{2}
+	Ana Reyna, Cristian Martín, Jaime Chen, Enrique Soler, Manuel Díaz,\\
+	\textit{On blockchain and its integration with IoT. Challenges and opportunities}\\
+	\hyperref[https://doi.org/10.1016/j.future.2018.05.046]{https://doi.org/10.1016/j.future.2018.05.046}
+\bibitem{3}
+	Knud Lasse Lueth,\\
+	\textit{State of the IoT 2018: Number of IoT devices now at 7B – Market accelerating}\\
+	\hyperref[https://iot-analytics.com/state-of-the-iot-update-q1-q2-2018-number-of-iot-devices-now-7b/]{https://iot-analytics.com/state-of-the-iot-update-q1-q2-2018-number-of-iot-devices-now-7b/}
+\bibitem{4}
+	Marco Conoscenti, Antonio Vetrò, Juan Carlos De Martin,\\
+	\textit{Blockchain for the Internet of Things: a Systematic Literature Review}\\
+	\hyperref[https://ieeexplore.ieee.org/abstract/document/7945805]{https://ieeexplore.ieee.org/abstract/document/7945805}
+\bibitem{5}
+	Doug Galen, Nikki Brand, Lyndsey Boucherle, Rose Davis, Natalie Do, Ben El-Baz, Isadora Kimura, Kate Wharton, Jay Lee,\\
+	\textit{Blockchain for social impact. Moving beyond the hype}\\
+	\hyperref[https://www.gsb.stanford.edu/sites/gsb/files/publication-pdf/study-blockchain-impact-moving-beyond-hype_0.pdf]{https://www.gsb.stanford.edu/sites/gsb/files/publication-pdf/study-blockchain-impact-moving-beyond-hype\_0.pdf}
+\bibitem{6}
+	International Energy Agency,\\
+	\textit{Digitalization \& Energy}\\
+	\hyperref[https://www.iea.org/publications/freepublications/publication/DigitalizationandEnergy3.pdf]{https://www.iea.org/publications/freepublications/publication/DigitalizationandEnergy3.pdf}
+\bibitem{7}
+	PwC global power \& utilities\\
+	\textit{Blockchain – an opportunity for energy producers and consumers?}\\
+	\hyperref[https://www.pwc.com/gx/en/industries/assets/pwc-blockchain-opportunity-for-energy-producers-and-consumers.pdf]{https://www.pwc.com/gx/en/industries/assets/pwc-blockchain-opportunity-for-energy-producers-and-consumers.pdf}
+\bibitem{8}
+	Merlinda Andoni, Valentin Robu, David Flynn, Simone Abram, Dale Geach,  David Jenkins, Peter McCallum, Andrew Peacock,\\
+	\textit{Blockchain technology in the energy sector: A systematic review of challenges and opportunities}\\
+	\hyperref[https://doi.org/10.1016/j.rser.2018.10.014]{https://doi.org/10.1016/j.rser.2018.10.014}
+\bibitem{9}
+	Minhaj Ahmad Khan, Khaled Salah, \\
+	\textit{IoT security: Review, blockchain solutions, and open challenges}\\
+	\hyperref[https://doi.org/10.1016/j.future.2017.11.022]{https://doi.org/10.1016/j.future.2017.11.022}
+\bibitem{10}
+	Office federal de l'energie OFEN, \\
+	\hyperref[https://www.newsd.admin.ch/newsd/message/attachments/51791.pdf]{https://www.newsd.admin.ch/newsd/message/attachments/51791.pdf}\\
+	\hyperref[http://www.bfe.admin.ch/energie]{http://www.bfe.admin.ch/energie}
+\bibitem{11}
+	Piyush Verma, Nitish Patel, Nirmal-Kumar C. Nair, Alan C. Brent, \\
+	\textit{Improving the energy efficiency of the New Zealand economy: A policy comparison with other renewable-rich countries}\\
+	\hyperref[https://doi.org/10.1016/j.enpol.2018.08.002]{https://doi.org/10.1016/j.enpol.2018.08.002}
+\bibitem{12}
+	Dario Bruneo, Salvatore Distefano, Maurizio Giacobbe, Antonino Longo Minnolo, Francesco Longo, Giovanni Merlino, Davide Mulfari, Alfonso Panarello, Giuseppe Patanè, Antonio Puliafito, Carlo Puliafito, Nachiket Tapas, \\
+	\textit{An IoT service ecosystem for Smart Cities: The \#SmartME project}\\
+	\hyperref[https://doi.org/10.1016/j.iot.2018.11.004]{https://doi.org/10.1016/j.iot.2018.11.004}
+\bibitem{13}
+	Stewart Barr, \\
+	\textit{Factors Influencing Environmental Attitudes and Behaviors. A U.K. Case Study of Household Waste Management}\\
+	\hyperref[https://doi.org/10.1177/0013916505283421]{https://doi.org/10.1177/0013916505283421}
+\bibitem{14}
+	Christopher Martin, James Evans, Andrew Karvonen, Dujuan Yang, Trond Linjordet, \\
+	\textit{Smart-sustainability: A new urban fix?}\\
+	\hyperref[https://doi.org/10.1016/j.scs.2018.11.028]{https://doi.org/10.1016/j.scs.2018.11.028}
+\bibitem{15}
+	Geraldo P.R. Filho, Leandro A. Villas, Vinícius P. Gonçalves, Gustavo Pessin, Antonio A.F. Loureiro, Jó Ueyama, \\
+	\textit{Energy-efficient smart home systems: Infrastructure
+		and decision-making process}\\
+	\hyperref[https://doi.org/10.1016/j.iot.2018.12.004]{https://doi.org/10.1016/j.iot.2018.12.004}
+\bibitem{16}
+	Wu Yong, Li Shuaishuai, Li Li, Li Minzan, Li Ming, K.G. Arvanitis, Cs. Georgieva, N. Sigrimis, \\
+	\textit{Smart Sensors from Ground to cloud and Web Intelligence}\\
+	\hyperref[https://www.sciencedirect.com/science/article/pii/S240589631831173X]{https://www.sciencedirect.com/science/article/pii/S240589631831173X}
+\bibitem{17}
+	Francis G.N. Li, Chris Bataille, Steve Pye, Aidan O'Sullivan, \\
+	\textit{Prospects for energy economy modelling with big data: Hype, eliminating blind spots, or revolutionising the state of the art?}\\
+	\hyperref[https://doi.org/10.1016/j.apenergy.2019.02.002]{https://doi.org/10.1016/j.apenergy.2019.02.002}
+\bibitem{18}
+	Pournaras Evangelos, Nikolic Jovan, Velásquez Pablo, Trovati Marcello, Bessis Nik, Helbing Dirk, \\
+	\textit{Self-regulatory information sharing in participatory social sensing}\\
+	\hyperref[https://www.researchgate.net/publication/299550923_Self-regulatory_information_sharing_in_participatory_social_sensing]{https://www.researchgate.net/publication/299550923\_Self-regulatory\_information\_sharing\_in\_participatory\_social\_sensing}
+\bibitem{19}
+	Vangelis Marinakis, Haris Doukas, John Tsapelas, Spyros Mouzakitis, Álvaro Sicilia, Leandro Madrazo, Sgouris Sgouridis, \\
+	\textit{From big data to smart energy services: An application for intelligent energy management}\\
+	\hyperref[https://doi.org/10.1016/j.future.2018.04.062]{https://doi.org/10.1016/j.future.2018.04.062}
+\bibitem{20}
+	Grewal-Carr V, Marshall S., \\
+	\textit{Blockchain enigma paradox opportunity.}\\
+	\hyperref[https://www2.deloitte.com/content/dam/Deloitte/uk/Documents/Innovation/deloitte-uk-blockchain-full-report.pdf]{https://www2.deloitte.com/content/dam/Deloitte/uk/Documents/Innovation/deloitte-uk-blockchain-full-report.pdf}
+\bibitem{21}
+	Ana Reyna, Cristian Martín, Jaime Chen, Enrique Soler, Manuel Díaz, \\
+	\textit{On blockchain and its integration with IoT. Challenges and opportunities.}\\
+	\hyperref[https://doi.org/10.1016/j.future.2018.05.046]{https://doi.org/10.1016/j.future.2018.05.046}
+\bibitem{22}
+	Patrick T.I. Lam, Angel O.K. Law, \\
+	\textit{Financing for renewable energy projects: A decision guide by developmental stages with case studies}\\
+	\hyperref[https://doi.org/10.1016/j.rser.2018.03.083]{https://doi.org/10.1016/j.rser.2018.03.083}
+
+
+\end{thebibliography}
+
+	
+\end{document}
