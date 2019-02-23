@@ -33,6 +33,7 @@ src/client/database.db
 *.nav
 *.snm
 .*.lb
+*.gz
 
 **/CMakeCache.txt
 **/CMakeFiles/*

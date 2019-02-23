@@ -45,7 +45,25 @@ Even if the emergence of new ideas and the implementation of pilot projects is r
 \section{Presentation of our solution (4pages)}
 \subsection{our solution concept}
 why disruptive solution?
-\subsection{our solution design: architecture, module, code abstracts}
+\subsection{Our solution design: architecture, modules, code abstracts}
+\subsubsection{Architecture}
+For the BETH-Event, we created individual modules, each will be discussed later.
+TODO: Add image of our architecture
+\subsubsection{Smart-Contracts}
+Philip?
+
+\subsubsection{Webserver}
+Our webserver runs  with NodeJS. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}. The pages are served with routes from the backend node server.
+
+\subsubsection{Broker}
+Manuel \& Yannick?
+
+\subsubsection{IoT-Sensor}
+Marie-Louise?
+
+\subsection{Code abstracts}
+Everyone?
+
 \subsection{our solution evaluation: features, bugs...}
 blockchain for social impact: methodology from \textit{Stanford Business School, Center for Social Innovation, 2018, Blockchain For Social Impact Moving Beyond The Hype}:\\
 1-what is the problem of your organization is trying to solve? What are your end users?\\
