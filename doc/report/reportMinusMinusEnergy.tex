@@ -57,26 +57,26 @@ Even if the emergence of new ideas and the implementation of pilot projects resu
 
 \subsection{Our solution design: architecture, modules, code abstracts}
 \subsubsection{Architecture}
-For the BETH-Event, we created individual modules, each will be discussed later.
+For the BETH-Event, we created individual modules, each will be discussed later. A short overview is presented in the following graphic.\\
 
-\color{red}TODO: Add image of our architecture $\rightarrow$ Marie-Lou has vector graphic? \color{black}
+\includegraphics[width=20cm]{../presentation/concept.png}\\
 
 \subsubsection{Smart Contracts}
 \color{red} TODO: Philip? \color{black}
 
-\subsubsection{Webserver}
-Our webserver runs  with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
-
+\includegraphics[width=15cm]{../presentation/implementation.png}\\
 
 \subsubsection{IoT-Sensor}
 We envisioned the system to use an IoT Sensor that measures energy consumption, a smart meter. This measured data (preferably given in kilowatt hours or similar) would be used to track the consumption reduction progress of a consumer from cycle to cycle. \\
 Since we did not have such a sensor, the github code from the Hackathon uses a light sensor that provides analog data and is simply used as a proof of concept.
 
-
 \subsubsection{Broker}
-The data broker has two components. \\
-Firstly, we have a python script (src/client/broker/sensorDataHandler.py) that simply extracts sensor data values and writes them to a SQLite3 database. \\
-The data handler is what we call a C++ program (src/client/broker/datahandler.cpp) that is used to determine how much energy a consumer has saved in a cycle. The program first extracts the energy consumption in the current cycle from the SQLite3 database. Afterwards, it creates a signed transaction from the extracted data and sends them to the MMEToken contract on the blockchain.
+The data broker consists of two components. \\
+Firstly, we have a python script\footnote{src/client/broker/sensorDataHandler.py} that simply extracts sensor data values and writes them to a SQLite3 database. \\
+The data handler is what we call a C++ program\footnote{src/client/broker/datahandler.cpp} that is used to determine how much energy a consumer has saved in a cycle. The program first extracts the energy consumption in the current cycle from the SQLite3 database. Afterwards, it creates a signed transaction from the extracted data and sends them to the MMEToken contract on the blockchain.
+
+\subsubsection{Webserver}
+Our webserver runs with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
 
 \subsection{Code abstracts}
 \color{red} TODO: Everyone? \color{black}
