@@ -5,7 +5,13 @@
 
 \usepackage{xcolor}  % temporary, for TODO's
 
+\title{BETH 2019: Report MinusMinusEnergy}
+\author{Marie-Louise Achart, Matthias Busenhart, Yannick Niedermayr, Philip Wiese, Manuel Winkler}
+\date{\today}
+
 \begin{document}
+
+\maketitle
 
 \section{Introduction}
 This report is part of the ETH: Blockchain School for Sustainability, which took place in February 11-15, 2019, at ETH Zurich. More information about this week can be found at: \hyperref[www.beth.ethz.ch]{www.beth.ethz.ch}.\\
@@ -59,7 +65,7 @@ For the BETH-Event, we created individual modules, each will be discussed later.
 \color{red} TODO: Philip? \color{black}
 
 \subsubsection{Webserver}
-Our webserver runs  with NodeJS. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}. The pages are served with routes from the backend node server.
+Our webserver runs  with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
 
 
 \subsubsection{IoT-Sensor}
