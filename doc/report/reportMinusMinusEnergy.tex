@@ -8,7 +8,7 @@
 \usepackage{xcolor}  % temporary, for TODO's
 
 \title{BETH 2019: Report MinusMinusEnergy}
-\author{Marie-Louise Achart, Matthias Busenhart, Yannick Niedermayr, Philip Wiese, Manuel Winkler}
+\author{Marie-Louise Achart, Matthias Busenhart, Yannick Niedermayr,\\Philip Wiese, Manuel Winkler}
 \date{\today}
 
 \begin{document}
@@ -27,12 +27,16 @@ We first will do a literature review of the different aspects of the blockchain 
 Explained by Satoshi Nakamoto in 2008, with a paper about Bitcoin, the blockchain is grounded on two technologies: asymmetric cryptography and distributed systems. There are already a substantial number of blockchain-based applications related to diverse fields such as finance, integrity verification, governance, citizenship, user services, public sector, voting, Internet of Things (IoT), healthcare management, privacy and security, business and industry, supply chain, energy sector, education and data management.\cite{1} \\
 The well-known Bitcoin is just one use case of the blockchain technology. There is a whole world beyond cryptocurrencies that could benefit from the unique confluence of smart contracts and smart devices.\\\\
 Smart contracts are user-defined programs or protocols that can be automatically enforced once certain preconditions are met. Those executable programs define rules for writing in the distributed ledger, without the need of any centralized control. Building trust in a distributed environment will change the way we share information, interact with each other and thus do business, especially in the IoT industry.\cite{2}\\\\
-As shown in the following figure\cite{3}, the number of electronic devices around us is always growing, with already more than seven billion IoT devices in 2018. A large part of the future growth should come from low-power wide area networtk (LPWAN), a technology allowing an extremely high battery life and a maximum communication range over 20 kilometers. There is already more than 25 Millions devices - the majority of which are smart meters - connected through LPWAN, and this number should increase to more than two billion devices by 2025.\\
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1\linewidth]{stateofIoT2018.png}
-\end{figure}\\
-\\
+As shown in figure \ref{img_state} on page \pageref{img_state}, the number of electronic devices around us is always growing, with already more than seven billion IoT devices in 2018. A large part of the future growth should come from low-power wide area networtk (LPWAN), a technology allowing an extremely high battery life and a maximum communication range over 20 kilometers. There is already more than 25 Millions devices - the majority of which are smart meters - connected through LPWAN, and this number should increase to more than two billion devices by 2025.\\
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=0.275]{stateofIoT2018.png}
+		\caption{State of IoT 2018, \cite{3}}
+		\label{img_state}
+	\end{center}
+\end{figure}
+
 Smart meters allows to monitor electric energy consumption. This data can then be transmitted to energy suppliers for billing. Although a large amount of data provided by smart devices - like the ones recorded by smart meters - could be used to adequately adjust energy consumption and/or optimize networks, it may also raise critical privacy issues \cite{4} that the blockchain technology can potentially solve.\\
 Generally, the specificities of the energy sector could enable major transformations thanks to blockchain technology. Indeed it is characterized by millions of transactions to trade and distribute energy that trusted payments systems built on a blockchain could automate. Furthermore, the existing grids could be optimized based on more data control at the facilities level using a decentralized platform. The potential impact could be of a massive scale, reaching millions of users currently connected by the regular grid. Although for more than half of the blockchain initiatives related to energy, climate and the environment, the time frame for impact is two or more years, due to the necessity to negotiate and partner with utility companies.\cite{5}\\\\
 When facing the energy waste issue, monitoring in real time could potentially save 4 650 TWh in 2040, far more than their expected cost of 275 TWh for that same year. Active tracking and predicting the energy performance of buildings would help to reduce peak loads, and control that energy is really consumed when and where it is needed. Useful insights from this data would enhance power system performance and asset diagnostics which can lead to cost reduction when e.g. investments are not performing as expected or when maintenance is needed. Thus energy savings - achieved at a limited energy cost - could benefit consumers.\cite{6}\\\\
@@ -62,6 +66,7 @@ To design a realistic and working solution to the given challenge by SwissEnergy
 	\item The local energy producer can be trusted
 	\item The end consumer are not able to physically manipulate the smart meters
 \end{enumerate}
+
 The basic idea of our solution consists on the concept that the end consumer (client) is rewarded for an energy consumption below a defined target. This target has to be defined by the subsisizing party based on the wanted consumption reduction and the amount of available subsidies. The client is able to claim MME tokens for his consumption reduction and use the tokens to pay part of his bill and/or invest the tokens into the fond. In the future, the fond can be extended voting system to reinvest the saved assest into local or global sustainable projects.
 
 \newpage
@@ -83,19 +88,19 @@ A sample end consumer uses 4940 kWh in one year wich is 5\% below the average. T
 \textbf{Reduction} & \textbf{} & \textbf{Consumption} & \textbf{Costs} & \textbf{Reduction} & \textbf{CO2} & \textbf{Reward} &           \\
                    &           & {[}kWh{]}            & {[}CHF{]}      & {[}kWh{]}          & {[}kg{]}     & {[}MME{]}       & {[}CHF{]} \\ \hline
 Target             & 10\%      & 4680                 & 889            & 520                & 15.5         & 10847           & 108       \\
-Actual             & 5\%       & 4940                 & 939            & 260                & 7.7          & 5424            & 54       
+Actual             & 5\%       & 4940                 & 939            & 260                & 7.7          & 5424            & 54
 \end{tabular}
 \caption{Reduction target and actual reduction reward}
 \label{target_actual}
 \end{table}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1\linewidth]{concept.png}
+	\begin{center}
+		\includegraphics[scale=1.5]{concept.png}
+		\caption{Our concept}
+		\label{img_concept}
+	\end{center}
 \end{figure}
-
-
-
 
 
 \subsection{Solution Design}
@@ -104,12 +109,16 @@ For the BETH-Event, we created individual modules, each will be discussed later.
 Ethereum is a decentralized platform that runs smart contracts. These apps (smart contracts) run on a custom built blockchain, an enormously powerful shared global infrastructure that can move value around and represent the ownership of property.\cite{23}
 
 
+
 \subsubsection{Smart Contracts}
-The smart contracts on the \hyperref[https://www.ethereum.org/]{Ethereum}\footnote{\href{https://www.ethereum.org/}{https://www.ethereum.org/}} blockchain were implemented in the high-level programming language Solidity. The ownership of these contracts belongs ideally to the subsidizing party e.g. the government. 
+The smart contracts on the \hyperref[https://www.ethereum.org/]{Ethereum}\footnote{\href{https://www.ethereum.org/}{https://www.ethereum.org/}} blockchain were implemented in the high-level programming language Solidity. The ownership of these contracts belongs ideally to the subsidizing party e.g. the government.
 We separated the functionality into three different contracts.
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1\linewidth]{implementation.png}
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[scale=1.5]{implementation.png}
+		\caption{Our implementation}
+		\label{img_impl}
+	\end{center}
 \end{figure}
 
 \paragraph{MME Token Contract}
@@ -117,24 +126,24 @@ The MME contract is a ERC20\footnote{https://eips.ethereum.org/EIPS/eip-20} comp
 
 The sensor data is cryptographically signed using elliptic curve cryptography (ECC)\cite{24} inside the sensor and then send to the MME contract. The contract validates the signature of the data and also prevents replay attacks.\footnote{A replay attack is a form of network attack in which a valid data transmission is maliciously or fraudulently. repeated.}
 \paragraph{Bill Contract}
-The bill contract handles the creation of invoices for clients by the energy providers and the payment of these. The currency of the invoices is ether. The owner of the contract is able to add new invoice issuer. When a payment is made to the bill contract the client includes the desired ratio of available tokens to use for a reduction of his invoice.  
+The bill contract handles the creation of invoices for clients by the energy providers and the payment of these. The currency of the invoices is ether. The owner of the contract is able to add new invoice issuer. When a payment is made to the bill contract the client includes the desired ratio of available tokens to use for a reduction of his invoice.
 \paragraph{Fund Contract}
 Test\\
 
-
-\subsubsection{Webserver}
-Our webserver runs  with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
 
 
 \subsubsection{IoT-Sensor}
 We envisioned the system to use an IoT Sensor that measures energy consumption, a smart meter. This measured data (preferably given in kilowatt hours or similar) would be used to track the consumption reduction progress of a consumer from cycle to cycle. \\
 Since we did not have such a sensor, the github code from the Hackathon uses a light sensor that provides analog data and is simply used as a proof of concept.
 
-
 \subsubsection{Broker}
-The data broker has two components. \\
-Firstly, we have a python script (src/client/broker/sensorDataHandler.py) that simply extracts sensor data values and writes them to a SQLite3 database. \\
-The data handler is what we call a C++ program (src/client/broker/datahandler.cpp) that is used to determine how much energy a consumer has saved in a cycle. The program first extracts the energy consumption in the current cycle from the SQLite3 database. Afterwards, it creates a signed transaction from the extracted data and sends them to the MMEToken contract on the blockchain.
+The data broker consists of two components. \\
+Firstly, we have a python script\footnote{src/client/broker/sensorDataHandler.py} that simply extracts sensor data values and writes them to a SQLite3 database. \\
+For our system to work properly it is a requirement for the sensor to add a signature to the data that is later verified by the contract. This signing process must be so hard to reverse-engineer that one cannot generate any profit out of simply breaking the sensor open and extracting a private key.
+The data handler is what we call a C++ program\footnote{src/client/broker/datahandler.cpp} that is used to determine how much energy a consumer has saved in a cycle. The program first extracts the energy consumption in the current cycle from the SQLite3 database. Afterwards, it creates a signed transaction from the extracted data and sends them to the MMEToken contract on the blockchain.
+
+\subsubsection{Webserver}
+Our webserver runs with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js\footnote{src/client/webserver/app.js}. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
 
 \subsection{Code abstracts}
 \color{red} TODO: Everyone? \color{black}
@@ -251,11 +260,11 @@ Contract and Decentralized Application Platform.}\\
 	\textit{Use of elliptic curves in cryptography. In H. C. Williams, editor, CRYPTO, volume 218 of
 LNCS,}\\
 	  pages 417–426. Springer, 1986.
-	
+
 
 
 
 \end{thebibliography}
 
-	
+
 \end{document}
