@@ -89,6 +89,7 @@ Since we did not have such a sensor, the github code from the Hackathon uses a l
 \subsubsection{Broker}
 The data broker consists of two components. \\
 Firstly, we have a python script\footnote{src/client/broker/sensorDataHandler.py} that simply extracts sensor data values and writes them to a SQLite3 database. \\
+For our system to work properly it is a requirement for the sensor to add a signature to the data that is later verified by the contract. This signing process must be so hard to reverse-engineer that one cannot generate any profit out of simply breaking the sensor open and extracting a private key.
 The data handler is what we call a C++ program\footnote{src/client/broker/datahandler.cpp} that is used to determine how much energy a consumer has saved in a cycle. The program first extracts the energy consumption in the current cycle from the SQLite3 database. Afterwards, it creates a signed transaction from the extracted data and sends them to the MMEToken contract on the blockchain.
 
 \subsubsection{Webserver}
