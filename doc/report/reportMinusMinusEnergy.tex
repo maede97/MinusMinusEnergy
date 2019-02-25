@@ -25,12 +25,16 @@ We first will do a literature review of the different aspects of the blockchain 
 Explained by Satoshi Nakamoto in 2008, with a paper about Bitcoin, the blockchain is grounded on two technologies: asymmetric cryptography and distributed systems. There are already a substantial number of blockchain-based applications related to diverse fields such as finance, integrity verification, governance, citizenship, user services, public sector, voting, Internet of Things (IoT), healthcare management, privacy and security, business and industry, supply chain, energy sector, education and data management.\cite{1} \\
 The well-known Bitcoin is just one use case of the blockchain technology. There is a whole world beyond cryptocurrencies that could benefit from the unique confluence of smart contracts and smart devices.\\\\
 Smart contracts are user-defined programs or protocols that can be automatically enforced once certain preconditions are met. Those executable programs define rules for writing in the distributed ledger, without the need of any centralized control. Building trust in a distributed environment will change the way we share information, interact with each other and thus do business, especially in the IoT industry.\cite{2}\\\\
-As shown in the following figure\cite{3}, the number of electronic devices around us is always growing, with already more than seven billion IoT devices in 2018. A large part of the future growth should come from low-power wide area networtk (LPWAN), a technology allowing an extremely high battery life and a maximum communication range over 20 kilometers. There is already more than 25 Millions devices - the majority of which are smart meters - connected through LPWAN, and this number should increase to more than two billion devices by 2025.\\
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1\linewidth]{stateofIoT2018.png}
-\end{figure}\\
-\\
+As shown in figure \ref{img_state} on page \pageref{img_state}, the number of electronic devices around us is always growing, with already more than seven billion IoT devices in 2018. A large part of the future growth should come from low-power wide area networtk (LPWAN), a technology allowing an extremely high battery life and a maximum communication range over 20 kilometers. There is already more than 25 Millions devices - the majority of which are smart meters - connected through LPWAN, and this number should increase to more than two billion devices by 2025.\\
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=0.3]{stateofIoT2018.png}
+		\caption{State of IoT 2018, \cite{3}}
+		\label{img_state}
+	\end{center}
+\end{figure}
+
 Smart meters allows to monitor electric energy consumption. This data can then be transmitted to energy suppliers for billing. Although a large amount of data provided by smart devices - like the ones recorded by smart meters - could be used to adequately adjust energy consumption and/or optimize networks, it may also raise critical privacy issues \cite{4} that the blockchain technology can potentially solve.\\
 Generally, the specificities of the energy sector could enable major transformations thanks to blockchain technology. Indeed it is characterized by millions of transactions to trade and distribute energy that trusted payments systems built on a blockchain could automate. Furthermore, the existing grids could be optimized based on more data control at the facilities level using a decentralized platform. The potential impact could be of a massive scale, reaching millions of users currently connected by the regular grid. Although for more than half of the blockchain initiatives related to energy, climate and the environment, the time frame for impact is two or more years, due to the necessity to negotiate and partner with utility companies.\cite{5}\\\\
 When facing the energy waste issue, monitoring in real time could potentially save 4 650 TWh in 2040, far more than their expected cost of 275 TWh for that same year. Active tracking and predicting the energy performance of buildings would help to reduce peak loads, and control that energy is really consumed when and where it is needed. Useful insights from this data would enhance power system performance and asset diagnostics which can lead to cost reduction when e.g. investments are not performing as expected or when maintenance is needed. Thus energy savings - achieved at a limited energy cost - could benefit consumers.\cite{6}\\\\
@@ -55,25 +59,23 @@ Even if the emergence of new ideas and the implementation of pilot projects resu
 
 \color{red} TODO: why disruptive solution? \color{black}
 % note: reference image via \ref{img_concept} and page-number \pageref{img_concept}
-
 \begin{figure}
-\begin{center}
-\includegraphics[scale=1.5]{../presentation/concept.png}
-\caption{Our concept}
-\label{img_concept}
-\end{center}
+	\begin{center}
+		\includegraphics[scale=1.5]{../presentation/concept.png}
+		\caption{Our concept}
+		\label{img_concept}
+	\end{center}
 \end{figure}
 
 \subsection{Our solution design: architecture, modules, code abstracts}
 \subsubsection{Architecture}
 For the BETH-Event, we created individual modules, each will be discussed later. A small overview is presented in figure \ref{img_impl} on page \pageref{img_impl}.
-
 \begin{figure}
-\begin{center}
-\includegraphics[scale=1.5]{../presentation/implementation.png}
-\caption{Our implementation}
-\label{img_impl}
-\end{center}
+	\begin{center}
+		\includegraphics[scale=1.5]{../presentation/implementation.png}
+		\caption{Our implementation}
+		\label{img_impl}
+	\end{center}
 \end{figure}
 
 \subsubsection{Smart Contracts}
