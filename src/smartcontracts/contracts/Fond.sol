@@ -1,7 +1,7 @@
 pragma solidity >=0.4.0 <0.6.0;
 contract Fond {
-  mapping(address => uint) investors; // how much did each investors send to me?
-  address[] invs;
+  mapping(address => uint) public investors; // how much did each investors send to me?
+  address[] public invs;
 
   address public _owner; // stores address of bill contract
 
