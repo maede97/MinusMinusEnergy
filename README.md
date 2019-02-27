@@ -116,7 +116,7 @@ $ pdflatex reportMinusMinusEnergy.tex
 * Bug fixing
 * Tweak frontend appearance
 
-# Links for Developer
+# Links for developers
 **Ethereum**
 * [Ethereum Doc](http://ethdocs.org/en/latest/index.html#)
 * [Solidity Doc](https://solidity.readthedocs.io/en/v0.5.3/structure-of-a-contract.html#functions)
