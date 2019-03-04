@@ -33,7 +33,7 @@ truffle(development)> (await MMETokenInstance.balanceOf(accounts[2])).toString()
 '0'
 
 # Add Energy Producer
-BillInstance.addEnergyProducer(accounts[1])
+truffle(development)> BillInstance.addEnergyProducer(accounts[1])
 
 # Check for Bill
 truffle(development)> await BillInstance.hasBill(accounts[2])
