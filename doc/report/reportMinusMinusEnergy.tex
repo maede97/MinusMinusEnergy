@@ -8,13 +8,16 @@
 \usepackage{footnote}
 \usepackage{mathtools}
 
-\title{BETH 2019: Report MinusMinusEnergy}
-\author{Marie-Louise Achart, Matthias Busenhart, Yannick Niedermayr,\\Philip Wiese, Manuel Winkler}
+\title{BETH 2019:\\Report MinusMinusEnergy}
+\author{Marie-Louise Achart, Matthias Busenhart, Yannick Niedermayr,\\Philip Wiese and Manuel Winkler}
 \date{\today}
 
 \begin{document}
 
 \maketitle
+\thispagestyle{empty}
+\newpage
+\tableofcontents
 
 \section{Introduction}
 This report is part of the ETH: Blockchain School for Sustainability, which took place in February 11-15, 2019, at ETH Zurich. More information about this week can be found at: \hyperref[www.beth.ethz.ch]{www.beth.ethz.ch}.\\
@@ -48,7 +51,7 @@ Blockchains enable digital peer-to-peer transactions, thus could facilitate mach
 Indeed the Internet of Things became the main standard for low-power lossy networks (LLN) having constrained ressources, where embedded devices having sensors are interconnected. Those devices' wide acceptance and popularity are the result of the rapid growth in miniaturization, electronics and wireless communication technologies, e.g. adding cognitive radio based networks to the underutilized frequency spectrum to improve bandwidth.\cite{9}\\\\
 The further development of the components of blockchain-based energy systems, like smartphone apps, sensor technologies, smart devices, smart homes, etc. will allow smart grids to blossom. In this new vision, interconnected smart devices coordinate and adjust their power consumption to price, availability or grid stability signals. To reach this state with a large number of devices producing high volume of data at high frequency, a centralized approach becomes inefficient. Thus, local decision-making and distributed control is more suitable. They help to lower the consumption of the computational ressources needed to optimally operate power systems.\cite{8}\\
 Assuring interoperability in smart grids and IoT applications, the blockchain technology could improve competition between energy suppliers, by providing better felxibility to consumers. They could switch more easily from one energy supplier to another, as the energy market operations could become more efficient and more transparent.\cite{20}\\\\
-Pursuing energy efficiency became a goal for many governments and institutions. There is no one and only appropriate solution to deal with this issue. Policies that apply a more diverse and flexible approach seem more successful. The example of New Zealand, a renewable-rich country could be inspiring for Switzerland, where only 62\% of consumed electricity comes from renewable sources\cite{10}. The recommendations for New Zealand include: raising consumer awareness, public procurement, developing strong measurement and verification systems, revisiting the housing energy efficiency strategies and promoting the energy efficiency research and product development. \{\color{red} DID: I tried to rewrite it... Feel free to revert, I don't know if I even got the meaning right. \color{black}\}    One important step of implementing those beneficial policies is to make the citizens adhere to their improvements in dealing with urgent environmental issues. As stated in the same paper, displaying well-designed awareness programs in form of television commercials that reached 69\% of New Zealanders, motivated 40\% to take actions to reduce their energy consumption. \cite{11}\\\\
+Pursuing energy efficiency became a goal for many governments and institutions. There is no one and only appropriate solution to deal with this issue. Policies that apply a more diverse and flexible approach seem more successful. The example of New Zealand, a renewable-rich country could be inspiring for Switzerland, where only 62\% of consumed electricity comes from renewable sources\cite{10}. The recommendations for New Zealand include: raising consumer awareness, public procurement, developing strong measurement and verification systems, revisiting the housing energy efficiency strategies and promoting the energy efficiency research and product development. One important step of implementing those beneficial policies is to make the citizens adhere to their improvements in dealing with urgent environmental issues. As stated in the same paper, displaying well-designed awareness programs in form of television commercials that reached 69\% of New Zealanders, motivated 40\% to take actions to reduce their energy consumption. \cite{11}\\\\
 Besides the traditional television commercials, there are many other ways to create incentives for citizens to act appropriately regarding environmental agendas. The example of \#SmartME which provides a virtual complementary currency for access and payments of registered services within a bigger ecosystem, including university cafeterias, etc. The \#SmartME incentive mechanism is implemented through an Android-based mobile app. This concept could be a first step toward smart cities. Indeed blockchain could be a good candidate to turn the smart city concept into reality, since it would enable devices to be more autonomous with easier exchange of trusted information recorded on a distributed open ledger.\cite{12}\\\\
 Another paper presented the reasons why people adopt certain environmental-friendly behaviors related to waste, reusing and recycling. It emerged that both strong belief in an intrinsic value in nature and convenience-based factors were important to enhance actual behaviors. It underlies the importance to design easy to use and convenient ways to reduce energy consumption until those new behaviors become a norm widely accepted among citizens. Efforts to further raise awareness of environmental issues will definitely help to reshape fundamental values of the consumers, but it should go in pair with a more practical approach.\cite{13}\\\\
 There are 3 agendas that could support smart urban development: more control and optimization of urban infrastructure with embedded digital technology, more analysis of the datasets produced in the smart cities using big data and more citizen participation with digitally-enabled democratic decision-making in urban governance. A good implementation is the Better Reykjavik platform, where citizens can submit and vote for projects funded by the municipality.\cite{14}\\\\
@@ -58,8 +61,6 @@ Not only the cities can affected by the rapidly emerging embedded intelligence, 
 Even if the emergence of new ideas and the implementation of pilot projects results from a bottom-up approach, the government has a major role to play to facilitate the funding of those renewable energy projects in most stages, especially via government policies and building an appropriate regulatory environment. Sustainable projects are still heavily dependent on the support a state can provide, often in the form of subsidies, differential feed-in-tariffs (compared with conventional power tariffs), or regulatory arrangements (such as carbon trading).\cite{22}\\
 
 \section{Presentation of our solution}
-
-\color{red} TODO: why disruptive solution? \color{black}
 
 \subsection{Solution Concept}
 To design a realistic and working solution to the given challenge by SwissEnergy some boundary conditions had first to be defined. We assumed that
@@ -72,7 +73,10 @@ The basic idea of our solution consists on the concept that the end consumer (cl
 
 \newpage
 \subsubsection{Example}
-\begin{wraptable}{r}{4cm}
+A Swiss household in a one-family house with 4 persons consumes on average 5200 kWh per year\footnote{\href{https://www.bundespublikationen.admin.ch/cshop_mimes_bbl/2C/2C59E545D7371ED5BB89418480F1B62D.pdf}{Bundespublikationen 805.902.D}}, paying around 1372.- CHF.\footnote{\href{https://www.ewz.ch/content/dam/ewz/services/dokumentencenter/energie-beziehen/dokumente/gruener-strom-fuer-mein-zuhause/stromtarif-2018-zh-private.pdf}{EWZ Zürich}: 26.39 Rp./kWh} The government defines a target reduction of 10\% of the average energy consumption equal to a reduction of 84.8 kg CO\textsubscript{2}\footnote{\href{https://www.bafu.admin.ch/bafu/de/home/suche.html\#R071-1222}{BAFU R071-1222}: 169 g CO\textsubscript{2}/kWh} per year and subsidizes a maximum of 120.- CHF per household.
+\begin{table}[h]
+\begin{center}
+%\begin{wraptable}{r}{4cm}
 \begin{tabular}{ll}
 Rp. / kWh & 26.39 \\ \hline
 g CO\textsubscript{2} / kWh                                                                                                                               & 169 \\ \hline
@@ -81,8 +85,10 @@ CHF / MME                                                                       
 \end{tabular}
 \caption{Parameter}
 \label{table_parameter}
-\end{wraptable}
-A Swiss household in a one-family house with 4 persons consumes on average 5200 kWh per year\footnote{\href{https://www.bundespublikationen.admin.ch/cshop_mimes_bbl/2C/2C59E545D7371ED5BB89418480F1B62D.pdf}{Bundespublikationen 805.902.D}}, paying around 1372.- CHF.\footnote{\href{https://www.ewz.ch/content/dam/ewz/services/dokumentencenter/energie-beziehen/dokumente/gruener-strom-fuer-mein-zuhause/stromtarif-2018-zh-private.pdf}{EWZ Zürich}: 26.39 Rp./kWh} The government defines a target reduction of 10\% of the average energy consumption equal to a reduction of 84.8 kg CO\textsubscript{2}\footnote{\href{https://www.bafu.admin.ch/bafu/de/home/suche.html\#R071-1222}{BAFU R071-1222}: 169 g CO\textsubscript{2}/kWh} per year and subsidizes a maximum of 120.- CHF per household. \\\\
+\end{center}
+\end{table}
+%\end{wraptable}
+\\
 An end consumer uses 4940 kWh in one year equal to 5\% below the average consumption. These values are measures by a smart meter installed by the energy provider. The data is regularly sent to a client server to analyze and visualize the energy consumption for the end consumer. Furthermore, the sensor data is used on a monthly basis to claim tokens for the reduced energy consumption.
 
 \begin{table}[ht]
@@ -159,19 +165,21 @@ that is built into the sensor casing. This would however open up another possibi
 \subsubsection{Webserver}
 Our webserver runs with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js\footnote{src/client/webserver/app.js}. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
 
-\subsection{Code abstracts}
-\color{red} TODO: Everyone? \color{black}
-
-\subsection{our solution evaluation: features, bugs...}
+\section{Conclusion: Evaluation of our Solution}
+\color{red}
 blockchain for social impact: methodology from \textit{Stanford Business School, Center for Social Innovation, 2018, Blockchain For Social Impact Moving Beyond The Hype}:\\
 1-what is the problem of your organization is trying to solve? What are your end users?\\
 2-How does your initiative use blockchain, and why is blockchain a good technology for this problem?\\
 3-What technologies or services are available to solve this problem, and how is blockchain a better solution?\\
 4-what is your initiative's intended impact? How do you measure it?\\
-5-In what time do you think you will see meaningful impact from your blockchain initiative?\\
+5-In what time do you think you will see meaningful impact from your blockchain initiative?\\\\
+\color{white}
 
-\section{Conclusion}
-\color{red} TODO \color{black}
+
+We tried to tackle the problem of energy consumers faking their power usage data. The idea of using blockchain technology to mitigate the consumers providing false usage numbers, the chain will store the verified sensor data, therefore the consumers cannot submit or retroactively alter their actual usage.\\
+A big problem we see with our current implementation, is transparency of data that should not be transparent, e.g. bills, anonymity of power usage. Especially in Switzerland, this will be a legal issue, that must be resolved before any actual implementation can occur.\\
+Another problem we see arising is the mechanical building of the sensor-blackbox. The box should be built, such that it cannot tempered with (because our solution insists that the data received from this box is valid).
+
 
 \begin{thebibliography}{22}
 
