@@ -73,7 +73,7 @@ The basic idea of our solution consists on the concept that the end consumer (cl
 
 \newpage
 \subsubsection{Example}
-A Swiss household in a one-family house with 4 persons consumes on average 5200 kWh per year\footnote{\href{https://www.bundespublikationen.admin.ch/cshop_mimes_bbl/2C/2C59E545D7371ED5BB89418480F1B62D.pdf}{Bundespublikationen 805.902.D}}, paying around 1372.- CHF.\footnote{\href{https://www.ewz.ch/content/dam/ewz/services/dokumentencenter/energie-beziehen/dokumente/gruener-strom-fuer-mein-zuhause/stromtarif-2018-zh-private.pdf}{EWZ Zürich}: 26.39 Rp./kWh} The government defines a target reduction of 10\% of the average energy consumption equal to a reduction of 84.8 kg CO\textsubscript{2}\footnote{\href{https://www.bafu.admin.ch/bafu/de/home/suche.html\#R071-1222}{BAFU R071-1222}: 169 g CO\textsubscript{2}/kWh} per year and subsidizes a maximum of 120.- CHF per household.
+A Swiss household in a one-family house with 4 persons consumes on average 5200 kWh per year\footnote{\href{https://www.bundespublikationen.admin.ch/cshop_mimes_bbl/2C/2C59E545D7371ED5BB89418480F1B62D.pdf}{Bundespublikationen 805.902.D}}, paying around 1372.- CHF.\footnote{\href{https://www.ewz.ch/content/dam/ewz/services/dokumentencenter/energie-beziehen/dokumente/gruener-strom-fuer-mein-zuhause/stromtarif-2018-zh-private.pdf}{EWZ Zürich}: 26.39 Rp./kWh} The government defines a target reduction of 10\% of the average energy consumption equal to a reduction of 84.8 kg CO\textsubscript{2}\footnote{\href{https://www.bafu.admin.ch/bafu/de/home/suche.html\#R071-1222}{BAFU R071-1222}: 169 g CO$_2$/kWh} per year and subsidizes a maximum of 120.- CHF per household.
 \begin{table}[h]
 \begin{center}
 %\begin{wraptable}{r}{4cm}
@@ -93,7 +93,7 @@ An end consumer uses 4940 kWh in one year equal to 5\% below the average consump
 
 \begin{table}[ht]
 \begin{tabular}{ll|llllll|lll}
-\textbf{Reduction} & \textbf{} & \textbf{Consumption} & \textbf{Costs} & \textbf{Reduction} & \textbf{CO2} & \textbf{Reward} &           \\
+\textbf{Reduction} & \textbf{} & \textbf{Consumption} & \textbf{Costs} & \textbf{Reduction} & \textbf{CO$_2$} & \textbf{Reward} &           \\
                    &           & {[}kWh{]}            & {[}CHF{]}      & {[}kWh{]}          & {[}kg{]}     & {[}MME{]}       & {[}CHF{]} \\ \hline
 Average             & 0\%      & 5200                 & 1372            & 0                & 0        & 0           & 0       \\
 Target             & 10\%      & 4680                 & 1235            & 520                & 87.9         & 11424           & 114       \\
@@ -127,7 +127,7 @@ and the money the subsidizing party is transferring to the fond with a reference
 
 \subsection{Solution Design}
 \subsubsection{Architecture}
-During the BETH-Event, we created individual modules, each will be discussed later. The architecture consist of a sensor, the client server and three smart contract on the ethereum blockchain. A small overview is presented in figure \ref{img_impl} on page \pageref{img_impl}.\\\\
+During the BETH-Event, we developed a project divided into individual modules, each of which will be discussed later. The architecture consists of a sensor, the client server and three smart contracts on the ethereum blockchain. A small overview is presented in figure \ref{img_impl} on page \pageref{img_impl}.\\\\
 \begin{figure}[ht]
 	\begin{center}
 		\includegraphics[scale=1.5]{implementation.png}
@@ -162,7 +162,7 @@ The data handler is what we call a C++ program\footnote{src/client/broker/dataha
 A relatively small problem that however we have yet to solve is performance-related: The calculation step of the tokens can be non-trivial, especially if the evaluation of the statistics should be as fair as possible i.e. taking into account the number of persons consuming power that passes through this sensor, the heating system of the house and many more similar factors. These small calculations eventually pile up to a very large amount of computation power used by the blockchain that possibly could be saved by moving this calculation onto a small computer
 that is built into the sensor casing. This would however open up another possibility for fraudsters to exploit the system by hijacking this computer.
 
-\subsubsection{Webserver}
+\subsubsection{Web server}
 Our webserver runs with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fond. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js\footnote{src/client/webserver/app.js}. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
 
 \section{Conclusion: Evaluation of our Solution}
@@ -174,13 +174,20 @@ blockchain for social impact: methodology from \textit{Stanford Business School,
 4-what is your initiative's intended impact? How do you measure it?\\
 5-In what time do you think you will see meaningful impact from your blockchain initiative?\\\\
 \color{black}
-
-
-We tried to tackle the problem of energy consumers faking their power usage data. The idea of using blockchain technology to mitigate the consumers providing false usage numbers, the chain will store the verified sensor data, therefore the consumers cannot submit or retroactively alter their actual usage.\\
-A big problem we see with our current implementation, is transparency of data that should not be transparent, e.g. bills, anonymity of power usage. Especially in Switzerland, this will be a legal issue, that must be resolved before any actual implementation can occur.\\
-Another problem we see arising is the mechanical building of the sensor-blackbox. The box should be built, such that it cannot tempered with (because our solution insists that the data received from this box is valid).
-
-
+\subsection{Final goal}
+The initial goal of our project was based on a challenge posed by the Swiss Federal Office of Energy. The final goal of said challenge was to reduce the CO$_2$ emission across Switzerland by encouraging the consumers to do so using an incentive reward system.\\
+We focused on reducing energy consumption across the country, which will automatically reduce CO$_2$ emissions due to the two being strongly linked by the remaining reliance on fossil fuels in the area of energy production.\\
+We tried to tackle the problem of energy consumers faking their power usage data. The idea of using blockchain technology to mitigate any consumers from providing false usage numbers, the chain will store the verified sensor data and therefore the consumers cannot submit or retroactively alter their actual recorded usage. As such, a blockchain fulfills all requirements for decentralizing oversight of the reward system presented in this report.
+\subsection{Current issues}
+\subsubsection{Privacy concerns} \label{concl:privacy}
+A big problem we see with our current implementation, is transparency of data that should not be transparent. A central goal of the blockchain implementation is to make all data involved in the system viewable to every client on the network. However, with our current smart contracts, any user may engage in profiling other all other users based on their blockchain addresses. This exposes bills, power usage statistics and perhaps even the location of a user because everything is absolutely transparent. Aside from many consumers likely being deterred from taking part in this project due to privacy concerns, this is also a legal issue. Especially in Switzerland, this must be resolved before any actual implementation can occur.
+\subsubsection{Construction of the consumer unit}
+Another problem we see arising is the exact construction of the consumer unit. This unit consists of the consumption sensor and a Raspberry Pi for computing power. Ideally, the box should be built in a blackbox style to prevent any intentional or unintentional tampering. This is necessary to ensure that any data gathered and sent by the unit is guaranteed to be valied and thus ready for proper usage on a blockchain system.
+\subsection{Further development}
+\subsubsection{Voting system}
+Currently, the implementation lacks any sort of voting system which would be used to give back to local communities. This would of course have to be implemented, along with a way for the system to know which sustainability projects are relevant to a consumer. Our first design idea was based on only showing projects in a consumer's hometown. This however ties in with the privacy concerns mentioned in section \ref{concl:privacy} and thus needs refinement. 
+\subsubsection{Scalability}
+As with any blockchain based system, we have also thought about scalability of our project. We believe that our current architecture will work well and in a time frame of a few months to reduce power consumption on a very small scale, e.g. a neighbourhood of single family homes or an apartment building block. This claim is based on the assumption that the competition aspect of potentially knowing and wanting to one-up a familiar face is more encouraging compared to just being a drop in the water of a large scale network. Furthermore, the higher the competition within the consumer group, the higher the potential effort (reduced power consumption) an individual is willing to make. \color{red} //TODO: 1. thoughts on how to scale up the system; 2. write proper, less abrupt ending \color{black}
 \begin{thebibliography}{22}
 
 \bibitem{1}
