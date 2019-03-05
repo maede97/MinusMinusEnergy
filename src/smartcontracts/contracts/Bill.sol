@@ -6,7 +6,7 @@ import "./Fund.sol";
 contract Bill {
 
   event AddEnergyProducer(address producer);
-  event Debug(string text, uint value);
+  event PayedBill(address issuer, address client, uint share, uint toFond);
 
   // Contract owner who can add new energy provider
   address public _owner;
@@ -73,7 +73,6 @@ contract Bill {
     uint billAmount = openBills[msg.sender].amount;
 
     require(msg.value >= (billAmount - (perToken * tokenAmount * _MMEExchangeRate) / 100), "Not enought ether send.");
-    emit Debug("(perToken * tokenAmount * _MMEExchangeRate) / 100", (perToken * tokenAmount * _MMEExchangeRate) / 100);
 
     openBills[msg.sender].amount -= msg.value;
     _tokenContract.useToken(msg.sender);
@@ -85,11 +84,17 @@ contract Bill {
 
     // Pay ether to fund
     uint toFund = (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;
-    emit Debug("(_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;", (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100);
     require(address(this).balance >= toFund, 'Subsidizing pool empty!');
     _fundContract.invest.value(toFund)(msg.sender);
-  }
 
+    emit PayedBill(
+      openBills[msg.sender].issuer,
+      msg.sender,
+      perToken,
+      toFund
+    );
+
+  }
 
   function() external payable {
     require(msg.sender == _owner, "You are not the subsidizing party");

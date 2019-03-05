@@ -9,7 +9,7 @@ contract('MMEToken', async(accounts) => {
     MMETokenInstance = await MMEToken.deployed();
   }
 
-  function signClaim(amount, nonce) {
+  function signClaim(amount, _nonce) {
     var hash = web3.utils.soliditySha3(
       {
         type: "address",
@@ -21,7 +21,7 @@ contract('MMEToken', async(accounts) => {
       },
       {
         type: "uint256",
-        value: nonce
+        value: _nonce
     }).toString("hex");
     return web3.eth.sign(hash, accounts[2]);
   }
