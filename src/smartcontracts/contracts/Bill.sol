@@ -73,18 +73,16 @@ contract Bill {
     uint billAmount = openBills[msg.sender].amount;
 
     require(msg.value >= (billAmount - (perToken * tokenAmount * _MMEExchangeRate) / 100), "Not enought ether send.");
+    uint toFund = (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;
+    require(address(this).balance >= toFund, 'Subsidizing pool empty!');
 
-    openBills[msg.sender].amount -= msg.value;
     _tokenContract.useToken(msg.sender);
 
     // Pay ether to issuer
     openBills[msg.sender].issuer.transfer(openBills[msg.sender].amount);
-    //openBills[msg.sender].amount -= msg.value;
     openBills[msg.sender].amount = 0;
 
     // Pay ether to fund
-    uint toFund = (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;
-    require(address(this).balance >= toFund, 'Subsidizing pool empty!');
     _fundContract.invest.value(toFund)(msg.sender);
 
     emit PayedBill(

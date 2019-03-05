@@ -10,6 +10,6 @@ module.exports = async function(deployer) {
   MMETokenInstance.setFundContract(FundContract.address);
   BillContractInstance.setFundContract(FundContract.address);
   BillContractInstance.setMMETokenContract(MMETokenInstance.address);
-  BillContractInstance.setMMEExchangeRate(100);
+  BillContractInstance.setMMEExchangeRate(1);
 
 };

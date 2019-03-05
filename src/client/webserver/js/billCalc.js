@@ -9,6 +9,13 @@ if (typeof web3 !== 'undefined') {
   web3 = new Web3(App.web3Provider);
 }
 
+let _billAmount;
+let _tokenAmount;
+let _toFondAmount;
+let _toBillAmount;
+var _percentage;
+const MMEExchangeRate = 1;
+
 
 $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
   $.getJSON("./tokens/Bill.json",function(BillArtifact) {
@@ -20,9 +27,8 @@ $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
 
     $('#sendMoney').click(function() {
       contracts.Bill.deployed().then(function(BillInstance){
-        var payAmount = web3.toBigNumber($("#invoiceAmount").html()).minus(web3.toBigNumber($("#bill").html()));
-
-        BillInstance.payBill($('#fond').html(),{gas: 2000000, value: payAmount}).then(function(){
+        var payAmount = web3.toBigNumber(_billAmount).minus(_toBillAmount);
+        BillInstance.payBill(_percentage,{gas: 2000000, value: payAmount}).then(function(){
           location.reload();
         });
       });
@@ -32,8 +38,12 @@ $.getJSON("./tokens/MMEToken.json",function(MMETokenArtifact){
 
 function updateVals() {
   // updates values
-  $('#bill').html(parseFloat($('#tokens').html()) * parseFloat($('#slider').val()) / 100.0);
-  $('#fond').html(Math.round((parseFloat($('#tokens').html()) * (1.0-(parseFloat($('#slider').val()) / 100.0)))*100)/100.0);
+   _percentage = Math.floor(parseInt($('#slider').val()));
+  _toBillAmount = parseFloat(_tokenAmount * MMEExchangeRate) * _percentage / 100.0;
+  _toFondAmount = parseFloat(_tokenAmount * MMEExchangeRate) * (100 - _percentage )/100;
+
+  $('#bill').html(web3.fromWei(_toBillAmount)+" ether");
+  $('#fond').html(web3.fromWei(_toFondAmount)+" ether");
 }
 
 $(document).on('input', '#slider', updateVals);
@@ -51,8 +61,10 @@ $(document).ready(function(){
           // get Token amount
           MMETokenInstance.balanceOf(web3.eth.accounts[0]).then(function(tokenAmount){
             BillInstance.getInvoiceAmount().then(function(invoiceAmount){
-              $("#tokens").html(tokenAmount.toNumber());
-              $("#invoiceAmount").html(invoiceAmount.toNumber());
+              _tokenAmount = tokenAmount.toNumber();
+              _billAmount = invoiceAmount.toNumber();
+              $("#tokens").html(_tokenAmount + " MME = " + web3.fromWei(_tokenAmount * MMEExchangeRate) + " ether");
+              $("#invoiceAmount").html(web3.fromWei(_billAmount) + " ether");
               updateVals();
             });
           });
