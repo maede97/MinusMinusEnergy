@@ -4,7 +4,7 @@
 MinusMinusEnergy is a blockchain project which was created in February 2019 during the BETH Hackathon at ETH Zurich.
 
 ![Full Demo](doc/demo/fullDemo.gif)
-#### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fond
+#### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fund
 
 # Demo #
 
@@ -68,11 +68,11 @@ ubuntu$ sudo apt install sqlite3 libsqlite3-dev make cmake python3 gcc
 
 ### Demo
 **Description**  
-The demo deploys the MMEToken, Bill and Fond contract on a local Ganache instance and adds an energy provider to the bill contract. The energy provider can issue new bills to a specific address.
+The demo deploys the MMEToken, Bill and Fund contract on a local Ganache instance and adds an energy provider to the bill contract. The energy provider can issue new bills to a specific address.
 
 The demo script also generates a signed transaction with the trusted private key of the sensor to claim MMETokens on the MMEToken contract for reduced energy consumption.
 
-On the webinterface the client can analyze his energy consumption and pay his bills. He can decide to use some of his MMEToken to pay for his bill or invest them into a fond. The money in the fund could be used to finance local clima-pro projects, optionally with a integrated voting system (not implemented).
+On the webinterface the client can analyze his energy consumption and pay his bills. He can decide to use some of his MMEToken to pay for his bill or invest them into a fund. The money in the fund could be used to finance local clima-pro projects, optionally with a integrated voting system (not implemented).
 
 ##### Information
 * **Ganache**  
