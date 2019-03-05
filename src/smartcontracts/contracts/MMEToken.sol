@@ -13,7 +13,7 @@ contract MMEToken is ERC20Detailed, ERC20Mintable, ERC20Pausable {
   mapping(address => mapping(uint256 => bool)) seenNonces;
 
   address public _billContract;
-  address public _fondContract;
+  address public _fundContract;
   address public _owner;
 
   constructor()
@@ -43,9 +43,9 @@ contract MMEToken is ERC20Detailed, ERC20Mintable, ERC20Pausable {
     _mint(signer, amount);
   }
 
-  function setFondContract(address fondContract) public {
+  function setFundContract(address fundContract) public {
     require(msg.sender == _owner);
-    _fondContract = fondContract;
+    _fundContract = fundContract;
   }
 
   function setBillContract(address billContract) public {

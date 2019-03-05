@@ -26,7 +26,7 @@ truffle(development)> accounts = await web3.eth.getAccounts()
 # Get deployed Contracts
 truffle(development)> MMETokenInstance = await MMEToken.deployed()
 truffle(development)> BillInstance = await Bill.deployed()
-truffle(development)> FondInstance = await Fond.deployed()
+truffle(development)> FundInstance = await Fund.deployed()
 
 # Get Token balance of account[2]
 truffle(development)> (await MMETokenInstance.balanceOf(accounts[2])).toString()

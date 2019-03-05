@@ -1,7 +1,7 @@
-const FondContract = artifacts.require("Fond");
+const FundContract = artifacts.require("Fund");
 
 module.exports = function(deployer) {
-  // Deploy BillContract, then deploy FondContract, passing in BillContract address
+  // Deploy BillContract, then deploy FundContract, passing in BillContract address
 
-    deployer.deploy(FondContract);
+    deployer.deploy(FundContract);
 };

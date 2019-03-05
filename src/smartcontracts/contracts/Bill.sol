@@ -1,7 +1,7 @@
 pragma solidity >=0.4.0 <0.6.0;
 
 import "./MMEToken.sol";
-import "./Fond.sol";
+import "./Fund.sol";
 
 contract Bill {
 
@@ -10,7 +10,7 @@ contract Bill {
 
   // Contract owner who can add new energy provider
   address public _owner;
-  Fond private _fundContract;
+  Fund private _fundContract;
   MMEToken private _tokenContract;
 
   // wei / MME (default 1)
@@ -29,8 +29,8 @@ contract Bill {
     _MMEExchangeRate = 1;
   }
 
-  function setFondContract(address fund) public {
-    _fundContract = Fond(fund);
+  function setFundContract(address fund) public {
+    _fundContract = Fund(fund);
   }
 
   function setMMETokenContract(address mmeToken) public {
@@ -84,10 +84,10 @@ contract Bill {
     openBills[msg.sender].amount = 0;
 
     // Pay ether to fund
-    uint toFond = (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;
+    uint toFund = (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;
     emit Debug("(_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;", (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100);
-    require(address(this).balance >= toFond, 'Subsidizing pool empty!');
-    _fundContract.invest.value(toFond)(msg.sender);
+    require(address(this).balance >= toFund, 'Subsidizing pool empty!');
+    _fundContract.invest.value(toFund)(msg.sender);
   }
 
 

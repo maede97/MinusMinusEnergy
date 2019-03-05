@@ -3,7 +3,7 @@ module.exports = async function() {
 
   var BillInstance = await Bill.deployed()
   var MMETokenInstance = await MMEToken.deployed()
-  var FondInstance = await Fond.deployed()
+  var FundInstance = await Fund.deployed()
 
   var accounts = await web3.eth.getAccounts()
 

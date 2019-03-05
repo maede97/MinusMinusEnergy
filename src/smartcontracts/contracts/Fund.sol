@@ -1,5 +1,5 @@
 pragma solidity >=0.4.0 <0.6.0;
-contract Fond {
+contract Fund {
   mapping(address => uint) public investors; // how much did each investors send to me?
   address[] public invs;
 
@@ -14,7 +14,7 @@ contract Fond {
     invs.push(consumer);
   }
 
-  function releaseFond() public {
+  function releaseFund() public {
     require(msg.sender == _owner);
     // reset all tokens invested
     for (uint i = 0; i < invs.length; i++)
