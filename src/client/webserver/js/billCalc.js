@@ -11,7 +11,7 @@ if (typeof web3 !== 'undefined') {
 
 let _billAmount;
 let _tokenAmount;
-let _toFondAmount;
+let _toFundAmount;
 let _toBillAmount;
 var _percentage;
 const MMEExchangeRate = 1;
@@ -40,10 +40,10 @@ function updateVals() {
   // updates values
    _percentage = Math.floor(parseInt($('#slider').val()));
   _toBillAmount = parseFloat(_tokenAmount * MMEExchangeRate) * _percentage / 100.0;
-  _toFondAmount = parseFloat(_tokenAmount * MMEExchangeRate) * (100 - _percentage )/100;
+  _toFundAmount = parseFloat(_tokenAmount * MMEExchangeRate) * (100 - _percentage )/100;
 
   $('#bill').html(web3.fromWei(_toBillAmount)+" ether");
-  $('#fond').html(web3.fromWei(_toFondAmount)+" ether");
+  $('#fund').html(web3.fromWei(_toFundAmount)+" ether");
 }
 
 $(document).on('input', '#slider', updateVals);
