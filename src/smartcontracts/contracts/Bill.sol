@@ -6,14 +6,18 @@ import "./Fond.sol";
 contract Bill {
 
   event AddEnergyProducer(address producer);
+  event Debug(string text, uint value);
 
   // Contract owner who can add new energy provider
   address public _owner;
-  Fond private _fondContract;
+  Fond private _fundContract;
   MMEToken private _tokenContract;
 
+  // wei / MME (default 1)
+  uint private _MMEExchangeRate;
+
   struct Invoice {
-    address issuer;
+    address payable issuer;
     uint amount;
   }
 
@@ -22,14 +26,20 @@ contract Bill {
 
   constructor() public {
     _owner = msg.sender;
+    _MMEExchangeRate = 1;
   }
 
-  function setFondContract(address fond) public {
-    _fondContract = Fond(fond);
+  function setFondContract(address fund) public {
+    _fundContract = Fond(fund);
   }
 
   function setMMETokenContract(address mmeToken) public {
     _tokenContract = MMEToken(mmeToken);
+  }
+
+  function setMMEExchangeRate(uint MMEExchangeRate) public {
+    require(msg.sender == _owner);
+    _MMEExchangeRate = MMEExchangeRate;
   }
 
   function addEnergyProducer(address producer) public {
@@ -55,29 +65,34 @@ contract Bill {
     return openBills[msg.sender].amount;
   }
 
-  function payBill(uint toFond) public payable {
+  // perToken = percetage of token to use for paying the bill (x 100)
+  function payBill(uint perToken) public payable {
     // Check for open bill
     require(this.hasBill(msg.sender),"sender needs bill");
-
     uint tokenAmount = _tokenContract.balanceOf(msg.sender);
+    uint billAmount = openBills[msg.sender].amount;
 
-    // Check for sufficant tokens
-    require(toFond <= tokenAmount,"enough tokens to give to fond");
+    require(msg.value >= (billAmount - (perToken * tokenAmount * _MMEExchangeRate) / 100), "Not enought ether send.");
+    emit Debug("(perToken * tokenAmount * _MMEExchangeRate) / 100", (perToken * tokenAmount * _MMEExchangeRate) / 100);
 
-    // Check for sufficant ehter
-    require(msg.value+toFond <= openBills[msg.sender].amount,"not sufficient ether");
-
-    // Reduce bill with tokens
-    openBills[msg.sender].amount -= tokenAmount-toFond;
+    openBills[msg.sender].amount -= msg.value;
     _tokenContract.useToken(msg.sender);
 
     // Pay ether to issuer
-    //openBills[msg.sender].issuer.transfer(openBills[msg.sender].amount);
+    openBills[msg.sender].issuer.transfer(openBills[msg.sender].amount);
     //openBills[msg.sender].amount -= msg.value;
     openBills[msg.sender].amount = 0;
 
-    // Pay ether to fond
-    _fondContract.invest.value(toFond)(msg.sender);
+    // Pay ether to fund
+    uint toFond = (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;
+    emit Debug("(_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;", (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100);
+    require(address(this).balance >= toFond, 'Subsidizing pool empty!');
+    _fundContract.invest.value(toFond)(msg.sender);
+  }
+
+
+  function() external payable {
+    require(msg.sender == _owner, "You are not the subsidizing party");
   }
 
 }
