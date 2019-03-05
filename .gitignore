@@ -43,3 +43,6 @@ src/client/database.db
 
 ## Binary
 /src/client/broker/datahandler
+
+## Webstorm
+**/.idea

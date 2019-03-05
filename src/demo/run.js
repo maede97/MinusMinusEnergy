@@ -70,13 +70,13 @@ console.log("    Creating Fake Bill");
 try {
   response = child.execSync("truffle exec examples/fakeBill.js", {stdio: 'ignore'});
 } catch (err) {
-  console.log(chalk.red("   Error occured"));
+  console.log(chalk.red("   Error occured while creating fake Bill"));
 }
 console.log("    Creating Fake Tokens");
 try {
   response = child.execSync("node examples/claimToken.js", {stdio: 'ignore'});
 } catch (err) {
-  console.log(chalk.red("    Error occured"));
+  console.log(chalk.red("    Error occured while creating Tokens"));
 }
 askUser();
 
