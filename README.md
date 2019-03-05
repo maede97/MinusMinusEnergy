@@ -72,7 +72,7 @@ The demo deploys the MMEToken, Bill and Fond contract on a local Ganache instanc
 
 The demo script also generates a signed transaction with the trusted private key of the sensor to claim MMETokens on the MMEToken contract for reduced energy consumption.
 
-On the webinterface the client can analyze his energy consumption and pay his bills. He can decide to use some of his MMEToken to pay for his bill or invest them into a fond. The money in the fond could be used to finance local clima-pro projects, optionally with a integrated voting system (not implemented).
+On the webinterface the client can analyze his energy consumption and pay his bills. He can decide to use some of his MMEToken to pay for his bill or invest them into a fond. The money in the fund could be used to finance local clima-pro projects, optionally with a integrated voting system (not implemented).
 
 ##### Information
 * **Ganache**  
@@ -112,7 +112,7 @@ $ pdflatex reportMinusMinusEnergy.tex
 
 # ToDo
 * Security improvement
-* Voting system for Fond
+* Voting system for Fund
 * Bug fixing
 * Tweak frontend appearance
 
