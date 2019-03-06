@@ -4,9 +4,49 @@
 \usepackage{hyperref}
 \usepackage[utf8x]{inputenc}
 \usepackage{wrapfig}
-\usepackage{xcolor}  % temporary, for TODO's
+\usepackage{xcolor} 
 \usepackage{footnote}
 \usepackage{mathtools}
+\usepackage{listings}
+
+% solidity highlighting
+% Copyright 2017 Sergei Tikhomirov, MIT License
+% https://github.com/s-tikhomirov/solidity-latex-highlighting/
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{Solidity}{
+	keywords=[1]{anonymous, assembly, assert, balance, break, call, callcode, case, catch, class, constant, continue, contract, debugger, default, delegatecall, delete, do, else, event, export, external, false, finally, for, function, gas, if, implements, import, in, indexed, instanceof, interface, internal, is, length, library, log0, log1, log2, log3, log4, memory, modifier, new, payable, pragma, private, protected, public, pure, push, require, return, returns, revert, selfdestruct, send, storage, struct, suicide, super, switch, then, this, throw, transfer, true, try, typeof, using, value, view, while, with, addmod, ecrecover, keccak256, mulmod, ripemd160, sha256, sha3}, % generic keywords including crypto operations
+	keywordstyle=[1]\color{blue}\bfseries,
+	keywords=[2]{address, bool, byte, bytes, bytes1, bytes2, bytes3, bytes4, bytes5, bytes6, bytes7, bytes8, bytes9, bytes10, bytes11, bytes12, bytes13, bytes14, bytes15, bytes16, bytes17, bytes18, bytes19, bytes20, bytes21, bytes22, bytes23, bytes24, bytes25, bytes26, bytes27, bytes28, bytes29, bytes30, bytes31, bytes32, enum, int, int8, int16, int24, int32, int40, int48, int56, int64, int72, int80, int88, int96, int104, int112, int120, int128, int136, int144, int152, int160, int168, int176, int184, int192, int200, int208, int216, int224, int232, int240, int248, int256, mapping, string, uint, uint8, uint16, uint24, uint32, uint40, uint48, uint56, uint64, uint72, uint80, uint88, uint96, uint104, uint112, uint120, uint128, uint136, uint144, uint152, uint160, uint168, uint176, uint184, uint192, uint200, uint208, uint216, uint224, uint232, uint240, uint248, uint256, var, void, ether, finney, szabo, wei, days, hours, minutes, seconds, weeks, years},	% types; money and time units
+	keywordstyle=[2]\color{teal}\bfseries,
+	keywords=[3]{block, blockhash, coinbase, difficulty, gaslimit, number, timestamp, msg, data, gas, sender, sig, value, now, tx, gasprice, origin},	% environment variables
+	keywordstyle=[3]\color{violet}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=Solidity,
+	backgroundcolor=\color{verylightgray},
+	extendedchars=true,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=left,
+	numberstyle=\footnotesize,
+	numbersep=9pt,
+	tabsize=2,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
 
 \title{BETH 2019:\\Report MinusMinusEnergy}
 \author{Marie-Louise Achart, Matthias Busenhart, Yannick Niedermayr,\\Philip Wiese and Manuel Winkler}
@@ -19,6 +59,7 @@
 \newpage
 \tableofcontents
 
+\pagebreak
 \section{Introduction}
 This report is part of the ETH: Blockchain School for Sustainability, which took place in February 11-15, 2019, at ETH Zurich. More information about this week can be found at: \hyperref[www.beth.ethz.ch]{www.beth.ethz.ch}.\\
 We worked during the Hackathon on the challenge presented by Energy Switzerland:\\ \textit{How could Blockchain technology benefit the climate twice with a solution that documents:\\
@@ -27,6 +68,7 @@ We worked during the Hackathon on the challenge presented by Energy Switzerland:
 with the requirement to provide a solution as energy efficient as possible.\\
 We first will do a literature review of the different aspects of the blockchain technology that could be relevant for this challenge. Then we will present our solution's concept, implementation and evaluation. Finally we will discuss further developments and alternatives.\\
 
+\pagebreak
 \section{Literature Review}
 Explained by Satoshi Nakamoto in 2008, with a paper about Bitcoin, the blockchain is grounded on two technologies: asymmetric cryptography and distributed systems. There are already a substantial number of blockchain-based applications related to diverse fields such as finance, integrity verification, governance, citizenship, user services, public sector, voting, Internet of Things (IoT), healthcare management, privacy and security, business and industry, supply chain, energy sector, education and data management.\cite{1} \\
 The well-known Bitcoin is just one use case of the blockchain technology. There is a whole world beyond cryptocurrencies that could benefit from the unique confluence of smart contracts and smart devices.\\\\
@@ -60,6 +102,7 @@ The benefits following from a systematic use of large chunk of data, like more e
 Not only the cities can affected by the rapidly emerging embedded intelligence, the agriculture could also benefit from this transformative approach. For a further analysis of smart agriculture, you can refer to this paper\cite{21}.\\\\
 Even if the emergence of new ideas and the implementation of pilot projects results from a bottom-up approach, the government has a major role to play to facilitate the funding of those renewable energy projects in most stages, especially via government policies and building an appropriate regulatory environment. Sustainable projects are still heavily dependent on the support a state can provide, often in the form of subsidies, differential feed-in-tariffs (compared with conventional power tariffs), or regulatory arrangements (such as carbon trading).\cite{22}\\
 
+\pagebreak
 \section{Presentation of our solution}
 
 \subsection{Solution Concept}
@@ -144,11 +187,80 @@ We separated the functionality into three different contracts. A small overview 
 
 \paragraph{MME Token Contract}
 The MME token contract is a ERC20\footnote{\href{https://eips.ethereum.org/EIPS/eip-20}{https://eips.ethereum.org/EIPS/eip-20}} compliant token contract. It manages the token balance of addresses and allows to claim new token in exchange for the proof of energy consumption reduction. \\\\
-The sensor data is cryptographically secured using elliptic curve cryptography signature (ECC) \cite{24} inside the sensor and then sent to the MME contract. The contract validates the signature of the data and also prevents replay attacks.\footnote{A replay attack is a form of network attack in which a valid data transmission is maliciously or fraudulently repeated.}
+The sensor data is cryptographically secured using elliptic curve cryptography signature (ECC) \cite{24} inside the sensor and then sent to the MME contract. The contract validates the signature of the data and also prevents replay attacks.\footnote{A replay attack is a form of network attack in which a valid data transmission is maliciously or fraudulently repeated.}\\\\
+
+step 1 from figure \ref{img_impl} on page \pageref{img_impl}
+\begin{lstlisting}[language=Solidity, firstnumber=28]
+function claimToken(address sender, uint256 amount, uint256 nonce, bytes memory signature) public  {
+
+	// Recreates the message hash that was signed on the client
+	bytes32 hash = keccak256(abi.encodePacked(sender, amount, nonce));
+	bytes32 messageHash = hash.toEthSignedMessageHash();
+
+	// Verify that the message's signer is the owner of the order
+	address signer = messageHash.recover(signature);
+	require(signer == sender, "Invalid signature");
+
+	// Prevent ReplayAttacks
+	require(!seenNonces[signer][nonce], "Tokens already claimed");
+	seenNonces[signer][nonce] = true;
+
+	// Reward Token
+	_mint(signer, amount);
+}
+\end{lstlisting}
+
 \paragraph{Bill Contract}
-The bill contract handles the creation of invoices for clients by the energy providers and the payment of those. The currency of the invoices is Ether and all transaction handled on the Ethereum platform. The owner of the contract is able to add new invoice issuer. When a payment is made to the bill contract the client includes the desired ratio of available tokens to use for a reduction of their invoice.
+The bill contract handles the creation of invoices for clients by the energy providers and the payment of those. The currency of the invoices is Ether and all transaction handled on the Ethereum platform. The owner of the contract is able to add new invoice issuer. When a payment is made to the bill contract the client includes the desired ratio of available tokens to use for a reduction of their invoice.\\\\
+
+step 5 from figure \ref{img_impl} on page \pageref{img_impl}
+\begin{lstlisting}[language=Solidity, firstnumber=68]
+// perToken = percetage of token to use for paying the bill (x 100)
+function payBill(uint perToken) public payable {
+	// Check for open bill
+	require(this.hasBill(msg.sender),"sender needs bill");
+	uint tokenAmount = _tokenContract.balanceOf(msg.sender);
+	uint billAmount = openBills[msg.sender].amount;
+
+	require(msg.value >= (billAmount - (perToken * tokenAmount * _MMEExchangeRate) / 100), "Not enought ether send.");
+	uint toFund = (_MMEExchangeRate * tokenAmount * (100-perToken)) / 100;
+	require(address(this).balance >= toFund, 'Subsidizing pool empty!');
+
+	_tokenContract.useToken(msg.sender);
+
+	// Pay ether to issuer
+	openBills[msg.sender].issuer.transfer(openBills[msg.sender].amount);
+	openBills[msg.sender].amount = 0;
+
+	// Pay ether to fund
+	_fundContract.invest.value(toFund)(msg.sender);
+
+	emit PayedBill(
+	openBills[msg.sender].issuer,
+	msg.sender,
+	perToken,
+	toFund
+	);
+
+}
+\end{lstlisting}
+
+
 \paragraph{Fund Contract}
-The fund contract stores the amount of money each client has invested. In the future the fund contract can be extended with a voting system to reinvest the saved assets. In the currently implemented state only the owner of the fund is able to release the assets.
+The fund contract stores the amount of money each client has invested. In the future the fund contract can be extended with a voting system to reinvest the saved assets. In the currently implemented state only the owner of the fund is able to release the assets.\\\\
+
+step 6 from figure \ref{img_impl} on page \pageref{img_impl}
+\begin{lstlisting}[language=Solidity, firstnumber=17]
+function releaseFund() public {
+	require(msg.sender == _owner);
+	// reset all tokens invested
+	for (uint i = 0; i < invs.length; i++)
+	investors[invs[i]] = 0;
+	delete invs;
+	
+	// send all money to owner
+}
+\end{lstlisting}
 
 \subsubsection{IoT-Sensor}
 We envisioned the system to use an IoT Sensor that measures energy consumption, a smart meter. This measured data (preferably given in kilowatt hours or similar) would be used to track the consumption reduction progress of a consumer from cycle to cycle. \\
