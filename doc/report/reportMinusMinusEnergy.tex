@@ -192,7 +192,7 @@ The MME token contract is a ERC20\footnote{\href{https://eips.ethereum.org/EIPS/
 The sensor data is cryptographically secured using elliptic curve cryptography signature (ECC) \cite{24} inside the sensor and then sent to the MME contract. The contract validates the signature of the data and also prevents replay attacks.\footnote{A replay attack is a form of network attack in which a valid data transmission is maliciously or fraudulently repeated.}\\
 
 The step 1 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
-\begin{lstlisting}[language=Solidity, firstnumber=28]
+\begin{lstlisting}[language=Solidity, firstnumber=28,caption={src/smartcontracts/contracts/MMEToken.sol},captionpos=b]
 function claimToken(address sender, uint256 amount, uint256 nonce, bytes memory signature) public  {
 
 	// Recreates the message hash that was signed on the client
@@ -216,7 +216,7 @@ function claimToken(address sender, uint256 amount, uint256 nonce, bytes memory 
 The bill contract handles the creation of invoices for clients by the energy providers and the payment of those. The currency of the invoices is Ether and all transaction handled on the Ethereum platform. The owner of the contract is able to add new invoice issuer. When a payment is made to the bill contract the client includes the desired ratio of available tokens to use for a reduction of their invoice.\\\\
 
 The step 5 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
-\begin{lstlisting}[language=Solidity, firstnumber=68]
+\begin{lstlisting}[language=Solidity, firstnumber=68,caption={src/smartcontracts/contracts/Bill.sol},captionpos=b]
 // perToken = percetage of token to use for paying the bill (x 100)
 function payBill(uint perToken) public payable {
 	// Check for open bill
@@ -252,7 +252,7 @@ function payBill(uint perToken) public payable {
 The fund contract stores the amount of money each client has invested. In the future the fund contract can be extended with a voting system to reinvest the saved assets. In the currently implemented state only the owner of the fund is able to release the assets.\\\\
 
 The step 6 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
-\begin{lstlisting}[language=Solidity, firstnumber=17]
+\begin{lstlisting}[language=Solidity, firstnumber=17,caption={src/smartcontracts/contracts/Fund.sol},captionpos=b]
 function releaseFund() public {
 	require(msg.sender == _owner);
 	// reset all tokens invested
@@ -264,7 +264,7 @@ function releaseFund() public {
 	// not done here!
 }
 \end{lstlisting}
-As one can see, the distribution of the money from the fund is not yet implemented. This is not done already, because we asked ourselves, how the gas is payed (which is needed for the transactions). We couldn't decide wether we just subtract the amount needed from the fund or if we just assume that a third party will pay for the cost.
+As one can see, the distribution of the money from the fund is not yet implemented. This is not done already, because we asked ourselves how the gas needed for the transactions is paid. We could not decide whether the amount needed should simply be subtracted from the fund or to just assume that a third party will pay for the cost.
 \subsubsection{IoT-Sensor}
 We envisioned the system to use an IoT Sensor that measures energy consumption, a smart meter. This measured data (preferably given in kilowatt hours or similar) would be used to track the consumption reduction progress of a consumer from cycle to cycle. \\
 Since we did not have such a sensor, the github code from the Hackathon uses a light sensor that provides analog data and is simply used as a proof of concept.
@@ -272,13 +272,13 @@ Since we did not have such a sensor, the github code from the Hackathon uses a l
 \subsubsection{Broker}
 The data broker consists of two components. \\
 Firstly, we have a python script\footnote{src/client/broker/sensorDataHandler.py} that simply extracts sensor data values and writes them to a SQLite3 database. \\
-For our system to work properly it is a requirement for the sensor to add a signature to the data that is later verified by the contract. This signing process must be so hard to reverse-engineer that one cannot generate any profit out of simply breaking the sensor open and extracting a private key.
+For our system to work properly it is a requirement for the sensor to add a signature to the data that is later verified by the contract. This signing process must be difficult enough to reverse-engineer that one cannot generate any profit out of simply breaking the sensor open and extracting a private key.\\
 The data handler is what we call a C++ program\footnote{src/client/broker/datahandler.cpp} that is used to determine how much energy a consumer has saved in a cycle. The program first extracts the energy consumption in the current cycle from the SQLite3 database. Afterwards, it creates a signed transaction from the extracted data and sends them to the MMEToken contract on the blockchain.\\
 A relatively small problem that however we have yet to solve is performance-related: The calculation step of the tokens can be non-trivial, especially if the evaluation of the statistics should be as fair as possible i.e. taking into account the number of persons consuming power that passes through this sensor, the heating system of the house and many more similar factors. These small calculations eventually pile up to a very large amount of computation power used by the blockchain that possibly could be saved by moving this calculation onto a small computer
 that is built into the sensor casing. This would however open up another possibility for fraudsters to exploit the system by hijacking this computer.
 
 \subsubsection{Web server}
-Our webserver runs with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fund. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js\footnote{src/client/webserver/app.js}. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
+Our webserver runs with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view their own energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if they received an invoice, they can choose how many of their tokens they will spend for lowering the current bill and how many should go to the fund. At last, they can submit their payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js\footnote{src/client/webserver/app.js}. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
 
 \pagebreak
 \section{Conclusion: Evaluation of our Solution}
@@ -300,9 +300,9 @@ In the current fund smart contract, there is only one way to retrieve the stored
 Currently, the implementation lacks any sort of voting system which would be used to give back the money from the fund to local communities (and projects they choose). This would of course have to be implemented, along with a way for the system to know which sustainability projects are relevant to a consumer. Our first design idea was based on only showing projects in a consumer's hometown. This however ties in with the privacy concerns mentioned in section \ref{concl:privacy} and thus needs further refinement. 
 \subsubsection{Scalability}
 As with any blockchain based system, we have also thought about scalability of our project. We believe that our current architecture will work well and in a time frame of a few months to reduce power consumption on a very small scale, e.g. a neighbourhood of single family homes or an apartment building block. This claim is based on the assumption that the competition aspect of potentially knowing and wanting to one-up a familiar face is more encouraging compared to just being a drop in the water of a large scale network. Furthermore, the higher the competition within the consumer group, the higher the potential effort (reduced power consumption) an individual is willing to make.\\
-By shifting the role of consumers, giving them the ability to control their energy consumption and the power to choose the projects in which to reinvest, this Blockchain technology's application should be quite fast accepted and appreciated from the local population. This could be a first step toward a more distributed energy system in the future, when consumers will start producing electricity, becoming so-called "prosumers". This raise the additional challenge of interoperability between technology solutions. But upstream of those transitions, the legal framework -and the necessary advertisement campaigns- will play a prevailing role.\cite{25} \\\\
+By shifting the role of consumers through giving them the ability to control their energy consumption and the power to choose the projects in which to reinvest, this Blockchain technology's application should be quite fast accepted and appreciated from the local population. This could be a first step toward a more distributed energy system in the future, when consumers will start producing electricity, becoming so-called "prosumers". This raises the additional challenge of interoperability between technology solutions. But upstream of those transitions, the legal framework and the necessary advertising campaigns will play a prevailing role.\cite{25} \\\\
 
-We were glad to have the opportunity to work on such a challenging project, which is highly relevant outside of this hackaton's context. We believe that the combination of multilevel answers is an appropriate approach to shift to a more sustainable world. And we hope the aspect we chose to implement during this week might have a meaningful impact if it is further developed and adjusted with the feedback of Energy Switzerland.
+We were glad to have the opportunity to work on such a challenging project, which is highly relevant outside of this hackaton's context. We believe that the combination of multilevel answers is an appropriate approach to shift to a more sustainable world. Furthermore, we hope the aspect we chose to implement during this week might have a meaningful impact if it is further developed and adjusted with the feedback of Energy Switzerland.
 
 \pagebreak
 \begin{thebibliography}{25}
