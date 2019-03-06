@@ -61,12 +61,13 @@
 
 \pagebreak
 \section{Introduction}
-This report is part of the ETH: Blockchain School for Sustainability, which took place in February 11-15, 2019, at ETH Zurich. More information about this week can be found at: \hyperref[www.beth.ethz.ch]{www.beth.ethz.ch}.\\
+This report is part of the ETH: Blockchain School for Sustainability, which took place in February 11-15, 2019, at ETH Zurich. More information about this week can be found at: \href{www.beth.ethz.ch}{www.beth.ethz.ch}.\\\\
 We worked during the Hackathon on the challenge presented by Energy Switzerland:\\ \textit{How could Blockchain technology benefit the climate twice with a solution that documents:\\
 1) CO$_2$ emission reduction by households\\
 2) The reinvestment of saved costs in (local) sustainable projects with direct payments},\\
-with the requirement to provide a solution as energy efficient as possible.\\
-We first will do a literature review of the different aspects of the blockchain technology that could be relevant for this challenge. Then we will present our solution's concept, implementation and evaluation. Finally we will discuss further developments and alternatives.\\
+with the requirement to provide a solution as energy efficient as possible.\\\\
+We first will do a literature review of the different aspects of the blockchain technology that could be relevant for this challenge. Then we will present our solution's concept, implementation and evaluation. Finally we will discuss further developments and alternatives.\\\\
+All the source code is open-source and available at:\\ \href{https://github.com/maede97/MinusMinusEnergy}{https://github.com/maede97/MinusMinusEnergy}\\
 
 \pagebreak
 \section{Literature Review}
@@ -187,9 +188,9 @@ We separated the functionality into three different contracts. A small overview 
 
 \paragraph{MME Token Contract}
 The MME token contract is a ERC20\footnote{\href{https://eips.ethereum.org/EIPS/eip-20}{https://eips.ethereum.org/EIPS/eip-20}} compliant token contract. It manages the token balance of addresses and allows to claim new token in exchange for the proof of energy consumption reduction. \\\\
-The sensor data is cryptographically secured using elliptic curve cryptography signature (ECC) \cite{24} inside the sensor and then sent to the MME contract. The contract validates the signature of the data and also prevents replay attacks.\footnote{A replay attack is a form of network attack in which a valid data transmission is maliciously or fraudulently repeated.}\\\\
+The sensor data is cryptographically secured using elliptic curve cryptography signature (ECC) \cite{24} inside the sensor and then sent to the MME contract. The contract validates the signature of the data and also prevents replay attacks.\footnote{A replay attack is a form of network attack in which a valid data transmission is maliciously or fraudulently repeated.}\\
 
-step 1 from figure \ref{img_impl} on page \pageref{img_impl}
+The step 1 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
 \begin{lstlisting}[language=Solidity, firstnumber=28]
 function claimToken(address sender, uint256 amount, uint256 nonce, bytes memory signature) public  {
 
@@ -213,7 +214,7 @@ function claimToken(address sender, uint256 amount, uint256 nonce, bytes memory 
 \paragraph{Bill Contract}
 The bill contract handles the creation of invoices for clients by the energy providers and the payment of those. The currency of the invoices is Ether and all transaction handled on the Ethereum platform. The owner of the contract is able to add new invoice issuer. When a payment is made to the bill contract the client includes the desired ratio of available tokens to use for a reduction of their invoice.\\\\
 
-step 5 from figure \ref{img_impl} on page \pageref{img_impl}
+The step 5 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
 \begin{lstlisting}[language=Solidity, firstnumber=68]
 // perToken = percetage of token to use for paying the bill (x 100)
 function payBill(uint perToken) public payable {
@@ -249,7 +250,7 @@ function payBill(uint perToken) public payable {
 \paragraph{Fund Contract}
 The fund contract stores the amount of money each client has invested. In the future the fund contract can be extended with a voting system to reinvest the saved assets. In the currently implemented state only the owner of the fund is able to release the assets.\\\\
 
-step 6 from figure \ref{img_impl} on page \pageref{img_impl}
+The step 6 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
 \begin{lstlisting}[language=Solidity, firstnumber=17]
 function releaseFund() public {
 	require(msg.sender == _owner);
@@ -277,15 +278,9 @@ that is built into the sensor casing. This would however open up another possibi
 \subsubsection{Web server}
 Our webserver runs with NodeJS\footnote{https://nodejs.org}. It connects to the database created by the Broker and serves a frontpage with the data shown in a graph. The user can select two distinct dates and view his energy consumption between those dates. In the navigation menu, the user can go to the bill page, where, if he received an invoice, he can choose how many of his tokens he will spend for lowering his bill and how many should go to the fund. At last, he can submit his payment via MetaMask. The backend of the server runs a simple javascript-file, namely app.js\footnote{src/client/webserver/app.js}. It loads from the config-file several values (i.e. contract address, wallet address, and more). This data will be used for connecting to the contract on the Ethereum blockchain and later for checking if the user has a new invoice to pay. The frontend of the page is written in the template engine \hyperref[https://pugjs.org]{PugJS}\footnote{https://pugjs.org}. The pages are served with routes from the backend node server.
 
+\pagebreak
 \section{Conclusion: Evaluation of our Solution}
-\color{red}
-blockchain for social impact: methodology from \textit{Stanford Business School, Center for Social Innovation, 2018, Blockchain For Social Impact Moving Beyond The Hype}:\\
-1-what is the problem of your organization is trying to solve? What are your end users?\\
-2-How does your initiative use blockchain, and why is blockchain a good technology for this problem?\\
-3-What technologies or services are available to solve this problem, and how is blockchain a better solution?\\
-4-what is your initiative's intended impact? How do you measure it?\\
-5-In what time do you think you will see meaningful impact from your blockchain initiative?\\\\
-\color{black}
+
 \subsection{Final goal}
 The initial goal of our project was based on a challenge posed by the Swiss Federal Office of Energy. The final goal of said challenge was to reduce the CO$_2$ emission across Switzerland by encouraging the consumers to do so using an incentive reward system.\\
 We focused on reducing energy consumption across the country, which will automatically reduce CO$_2$ emissions due to the two being strongly linked by the remaining reliance on fossil fuels in the area of energy production.\\
@@ -297,15 +292,18 @@ A big problem we see with our current implementation, is transparency of data th
 Another problem we see arising is the exact construction of the consumer unit. This unit consists of the consumption sensor and a Raspberry Pi for computing power. Ideally, the box should be built in a blackbox style to prevent any intentional or unintentional tampering. This is necessary to ensure that any data gathered and sent by the unit is guaranteed to be valied and thus ready for proper usage on a blockchain system.
 \subsubsection{Fund authority}
 In the current fund smart contract, there is only one way to retrieve the stored money, which can be done by the fund owner. This is of course a trust issue as well as a contradiction to the decentralization premise of the system. A possible solution to this issue is the introduction of another module that enables consensus-based payout directly to sustainability projects.
+
 \subsection{Further development}
 \subsubsection{Voting system}
 Currently, the implementation lacks any sort of voting system which would be used to give back the money from the fund to local communities (and projects they choose). This would of course have to be implemented, along with a way for the system to know which sustainability projects are relevant to a consumer. Our first design idea was based on only showing projects in a consumer's hometown. This however ties in with the privacy concerns mentioned in section \ref{concl:privacy} and thus needs further refinement. 
 \subsubsection{Scalability}
-As with any blockchain based system, we have also thought about scalability of our project. We believe that our current architecture will work well and in a time frame of a few months to reduce power consumption on a very small scale, e.g. a neighbourhood of single family homes or an apartment building block. This claim is based on the assumption that the competition aspect of potentially knowing and wanting to one-up a familiar face is more encouraging compared to just being a drop in the water of a large scale network. Furthermore, the higher the competition within the consumer group, the higher the potential effort (reduced power consumption) an individual is willing to make.
-\color{red} //TODO: 1. thoughts on how to scale up the system; 2. write proper, less abrupt ending \color{black}
+As with any blockchain based system, we have also thought about scalability of our project. We believe that our current architecture will work well and in a time frame of a few months to reduce power consumption on a very small scale, e.g. a neighbourhood of single family homes or an apartment building block. This claim is based on the assumption that the competition aspect of potentially knowing and wanting to one-up a familiar face is more encouraging compared to just being a drop in the water of a large scale network. Furthermore, the higher the competition within the consumer group, the higher the potential effort (reduced power consumption) an individual is willing to make.\\
+By shifting the role of consumers, giving them the ability to control their energy consumption and the power to choose the projects in which to reinvest, this Blockchain technology's application should be quite fast accepted and appreciated from the local population. This could be a first step toward a more distributed energy system in the future, when consumers will start producing electricity, becoming so-called "prosumers". This raise the additional challenge of interoperability between technology solutions. But upstream of those transitions, the legal framework -and the necessary advertisement campaigns- will play a prevailing role.\cite{25} \\\\
+
+We were glad to have the opportunity to work on such a challenging project, which is highly relevant outside of this hackaton's context. We believe that the combination of multilevel answers is an appropriate approach to shift to a more sustainable world. And we hope the aspect we chose to implement during this week might have a meaningful impact if it is further developed and adjusted with the feedback of Energy Switzerland.
 
 \pagebreak
-\begin{thebibliography}{24}
+\begin{thebibliography}{25}
 
 \bibitem{1}
 	Fran Casino, Thomas K.\,Dasaklis, Constantinos Patsakis,
@@ -406,6 +404,10 @@ Contract and Decentralized Application Platform.}\\
 	\textit{Use of elliptic curves in cryptography. In H. C. Williams, editor, CRYPTO, volume 218 of
 LNCS,}\\
 	  pages 417–426. Springer, 1986.
+\bibitem{25}
+	Lea Diestelmeier, \\
+	\textit{Changing power: Shifting the role of electricity consumers with blockchain technology – Policy implications for EU electricity law} \\
+	\hyperref[https://doi.org/10.1016/j.enpol.2018.12.065]{https://doi.org/10.1016/j.enpol.2018.12.065}
 
 
 
