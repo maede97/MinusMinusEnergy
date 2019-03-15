@@ -2,7 +2,7 @@
 
 ### A BETH2019 project for the SwissEnergy Challenge
 MinusMinusEnergy is a blockchain project which was created in February 2019 during the BETH Hackathon at ETH Zurich.  
-A list of features added after the challange is provided in [Changelog after BETH2019](#changelog-after-beth2019)
+A list of features added after the challange is provided in [After BETH2019](#after-beth2019)
 
 ![Full Demo](doc/demo/fullDemo.gif)
 #### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fund
@@ -24,7 +24,6 @@ Or watch the GIF above (shortened, hence the black flicker in the middle)
 * **[Pitch Presentation](doc/presentation/presentationMinusMinusEnergy.pdf)**
 * **[Repo wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
 * **["BETH Friday Code"](https://github.com/maede97/MinusMinusEnergy/tree/alpha-1.0.0)**
-
 
 * [SmartContracts (how to use truffle)](src/smartcontracts/README.md)
 * [DataBroker](src/client/broker/README.md)
