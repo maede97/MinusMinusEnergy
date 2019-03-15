@@ -1,15 +1,14 @@
 # MinusMinusEnergy
 
 ### A BETH2019 project for the SwissEnergy Challenge
-MinusMinusEnergy is a blockchain project which was created in February 2019 during the BETH Hackathon at ETH Zurich.
+MinusMinusEnergy is a blockchain project which was created in February 2019 during the BETH Hackathon at ETH Zurich.  
+A list of features added after the challange is provided in [Changelog after BETH2019](#changelog-after-beth2019)
 
 ![Full Demo](doc/demo/fullDemo.gif)
 #### Web interface that allows the user to select the amount of tokens he wants to pay and how much should go to the fund
 
-# Demo #
-
-**Run Demo**
-* Run these commands
+#### Demo
+Run these commands
 ```sh
 $ git clone https://github.com/maede97/MinusMinusEnergy.git
 $ cd MinusMinusEnergy
@@ -17,15 +16,33 @@ $ npm install
 $ npm test
 $ npm start
 ```
-* Or watch the GIF above (shortened, hence the black flicker in the middle)
+Or watch the GIF above (shortened, hence the black flicker in the middle)
 
 #### Further Information is available here:
 
 * **[Project Report](doc/report/reportMinusMinusEnergy.pdf)**
 * **[Pitch Presentation](doc/presentation/presentationMinusMinusEnergy.pdf)**
 * **[Repo wiki](https://github.com/maede97/MinusMinusEnergy/wiki/Client)**
+* **["BETH Friday Code"](https://github.com/maede97/MinusMinusEnergy/tree/alpha-1.0.0)**
+
+
 * [SmartContracts (how to use truffle)](src/smartcontracts/README.md)
 * [DataBroker](src/client/broker/README.md)
+
+# Table of Contents
+- [The Team](#the-team)
+- [Usage](#usage)
+	- [Dependencies](#dependencies)
+	- [Demo](#demo-1)
+- [Installation](#installation)
+- [Presentation & Report](#presentation--report)
+	- [Presentation](#presentation)
+	- [Report](#report)
+- [Future Development](#future-development)
+	- [ToDo](#todo)
+	- [After BETH2019](#after-beth2019)
+- [Links for developers](#links-for-developers)
+
 
 # The Team
 **Matthias Busenhart** (ETHZ Bsc RW/CSE)  
@@ -74,7 +91,7 @@ The demo script also generates a signed transaction with the trusted private key
 
 On the webinterface the client can analyze his energy consumption and pay his bills. He can decide to use some of his MMEToken to pay for his bill or invest them into a fund. The money in the fund could be used to finance local clima-pro projects, optionally with a integrated voting system (not implemented).
 
-##### Information
+**Information**
 * **Ganache**  
 Port: 7545  
 Network ID: 5777  
@@ -110,11 +127,16 @@ $ cd /doc/report
 $ pdflatex reportMinusMinusEnergy.tex
 ```
 
-# ToDo
+# Future Development
+## ToDo
 * Security improvement
 * Voting system for Fund
-* Bug fixing
-* Tweak frontend appearance
+* Angular Fronted
+
+## After BETH2019
+The "BETH Friday" Version of the code can be found under the tag [alpha-1.0.0](https://github.com/maede97/MinusMinusEnergy/tree/alpha-1.0.0)
+* Bugfix for Bill SmartContracts
+* Minor Improvement in the fronted
 
 # Links for developers
 **Ethereum**
