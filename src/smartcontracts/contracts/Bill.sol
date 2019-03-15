@@ -65,6 +65,8 @@ contract Bill {
     return openBills[msg.sender].amount;
   }
 
+  // NOTE:  This function was changed after the challange and is not backwards
+  //        compatible
   // perToken = percetage of token to use for paying the bill (x 100)
   function payBill(uint perToken) public payable {
     // Check for open bill
