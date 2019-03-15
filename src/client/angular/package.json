@@ -1,5 +1,5 @@
 {
-  "name": "ng7-pre",
+  "name": "angular",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -12,15 +12,26 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~7.2.0",
+    "@angular/cdk": "~7.3.3",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
     "@angular/core": "~7.2.0",
+    "@angular/flex-layout": "^7.0.0-beta.23",
     "@angular/forms": "~7.2.0",
+    "@angular/material": "^7.3.3",
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "@fortawesome/fontawesome-free": "^5.7.2",
+    "@types/chart.js": "^2.7.48",
+    "angular-bootstrap-md": "^7.4.2",
+    "angular-chart.js": "^1.1.1",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.5.0",
     "core-js": "^2.5.4",
+    "hammerjs": "^2.0.8",
     "rxjs": "~6.3.3",
+    "rxjs-compat": "^6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
