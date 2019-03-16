@@ -46,7 +46,7 @@ template<>
 inline std::ostream& operator<<<char>(std::ostream& o,const std::vector<char>& vec){
     o << "[";
     for(unsigned int i = 0;i < vec.size();i++){
-        o << (int)vec[i];
+        o << (char)vec[i];
         if(i < vec.size() - 1)o << ", ";
     }
     o << "]";

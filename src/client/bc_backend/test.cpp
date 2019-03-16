@@ -6,16 +6,13 @@
 #include <siostream.hpp>
 #include <socket_streambuf.hpp>
 #include <util.hpp>
+#include <udpsocket.hpp>
 int main(){
     udpsocket sock(25025);
     socket_ostreambuf ob(&sock, "127.0.0.1", 10000);
-    std::ostream out(&ob);
-    socket_istreambuf ib(&sock);
-    std::istream in(&ib);
-    char x;
-    in >> x;
-    std::cout << x << "\n";
-    in >> x;
-    std::cout << x << "\n";
-    out << "sdssdf";
+    while(true){
+        packet pack = sock.receiveP();
+        std::cout << pack.content << std::endl;
+        std::cout << inet_ntoa(pack.addr.sin_addr) << std::endl;
+    }
 }

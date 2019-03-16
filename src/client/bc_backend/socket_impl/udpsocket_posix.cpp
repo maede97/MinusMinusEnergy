@@ -1,6 +1,7 @@
 #include <udpsocket.hpp>
 #include <cstdint>
 #include <hash.hpp>
+#include <util.hpp>
 #include <algorithm>
 std::uint64_t global_id_counter = 0;
 packet::packet(const std::vector<char>& content, const std::string& dest, int port) : m_port(port), id(global_id_counter++){
@@ -22,6 +23,11 @@ packet::packet(const std::vector<char>& content, const std::string& dest, int po
     for(int i = 0;i < 8;i++)
     this->content.pop_back();
 }
+packet::packet(const std::vector<char>& content, sockaddr_in addr){
+    this->addr = addr;
+    this->content = content;
+}
+
 void packet::setContent(const std::vector<char>& _content){
 	this->content = _content;
 	char* id_it = (char*)&id;
@@ -86,19 +92,37 @@ void udpsocket::write(const packet& pack)const{
             output.push_back((pack.checksum[i] & (0xFFULL << ih * 8)) >> (ih * 8));
     for(int ih = 0;ih < 8;ih++)
         output.push_back((pack.id & (0xFFULL << ih * 8)) >> (ih * 8));
-    for(int i = 0;i < 4;i++){
-        std::cout << pack.checksum[i] << ", ";
-    }
     std::copy(pack.content.begin(), pack.content.end(), std::back_inserter(output));
 	if(sendto(s, output.data(), output.size(), 0,(const sockaddr*)&pack.addr, sizeof(pack.addr)) < 0){
 		throw std::logic_error(std::string("Could not send packet: ") + strerror(errno));
 	}
 }
-
+packet udpsocket::receiveP()const{
+    auto data_addr = receiveFrom();
+    char addrString[sizeof(data_addr.second)];
+    inet_ntop(AF_INET, &(((struct sockaddr_in *)&data_addr.second)->sin_addr),addrString, sizeof(data_addr.second));
+    packet pack(data_addr.first, data_addr.second);
+    return pack;
+}
+std::pair<std::vector<char>, sockaddr_in> udpsocket::receiveFrom()const{
+	std::vector<char> ret(1024);
+	int l = 0;
+    sockaddr_in a;
+    socklen_t len = sizeof(sockaddr);
+	if ((l = recvfrom(s, ret.data(), 1024, 0, (sockaddr*)&a, &len)) <= 0) {
+    //if ((l = read(s, ret.data(), 1024)) <= 0) {
+		throw std::logic_error(std::string("Could not receive packet: ") + strerror(errno));
+	}
+	ret.resize(l);
+	return {ret, a};
+}
 std::vector<char> udpsocket::receive()const{
 	std::vector<char> ret(1024);
-	int l;
-	if ((l = read(s, ret.data(), 1024)) <= 0) {
+	int l = 0;
+    sockaddr_in a;
+    socklen_t len = sizeof(sockaddr);
+	if ((l = recvfrom(s, ret.data(), 1024, 0, (sockaddr*)&a, &len)) <= 0) {
+    //if ((l = read(s, ret.data(), 1024)) <= 0) {
 		throw std::logic_error(std::string("Could not receive packet: ") + strerror(errno));
 	}
 	ret.resize(l);

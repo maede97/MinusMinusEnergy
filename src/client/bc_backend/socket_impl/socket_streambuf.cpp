@@ -24,40 +24,40 @@ int socket_istreambuf::pbackfail(int c){
     m_buf.push_back(c);
     return c;
 }*/
-socket_istreambuf::socket_istreambuf(udpsocket* ptr) : m_sock(ptr), m_buf(1024){m_buf.push_back('a');m_buf.push_back('o');}
+socket_istreambuf::socket_istreambuf(udpsocket* ptr) : m_sock(ptr), m_buf(1024){}
 std::streamsize socket_istreambuf::xsgetn(char* dest, std::streamsize n){
-    std::cout << "xsgetn" << std::endl;
     assert(n >= 0);
     n = std::min((std::size_t)n, m_buf.size());
+    if(n == 0)return EOF;
     std::copy(m_buf.begin(), m_buf.begin() + n, dest);
     for(int i = 0;i < n;i++)m_buf.pop_front();
     return n;
 }
 int socket_istreambuf::overflow(int c){
-    std::cout << "Overflow" << c << std::endl;
+    m_buf.push_back(c);
     return c;
 }
 int socket_istreambuf::underflow(){
-    std::cout << "Underflow" << std::endl;
+    if(m_buf.size() == 0)return EOF;
     return *m_buf.begin();
 }
 int socket_istreambuf::sync(){
-    std::cout << "Sync" << std::endl;
-    return 0;
+    return EOF;
 }
 std::streampos socket_istreambuf::seekoff(std::streamoff off, std::ios_base::seekdir way, std::ios_base::openmode which){
-    std::cout << "Seekoff\n";
+    return EOF;
 }
 std::streampos socket_istreambuf::seekpos(std::streampos sp, std::ios_base::openmode which){
-    std::cout << "Seekpos\n";
+    return EOF;
 }
 std::streambuf* socket_istreambuf::setbuf(char* s, std::streamsize n){
-    std::cout << "sdfsdfsdf\n";
+    return nullptr;
 }
 int socket_istreambuf::uflow(){
+    if(m_buf.size() == 0)return EOF;
     int c = *m_buf.begin();
     m_buf.pop_front();
-    std::cout << "uflow\n";
+    std::cout << "sdfs";
     return c;
 }
 /*char socket_istreambuf::sgetc(){

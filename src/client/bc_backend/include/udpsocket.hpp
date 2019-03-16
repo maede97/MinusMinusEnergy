@@ -1,3 +1,6 @@
+#ifndef UDP_SOCKET_HPP
+#define UDP_SOCKET_HPP
+
 #include <arpa/inet.h>
 #include <iostream>
 #include <stdexcept>
@@ -10,6 +13,7 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <vector>
+
 struct packet{
 	struct sockaddr_in addr;
 	int m_port;
@@ -18,6 +22,7 @@ struct packet{
 	std::vector<char> content;
 	packet(const std::vector<char>& content, const std::string& dest, int port);
 	packet(const std::string& content, const std::string& dest, int port);
+    packet(const std::vector<char>& content, sockaddr_in addr);
 	void setContent(const std::vector<char>&);
 };
 class udpsocket {
@@ -34,7 +39,9 @@ class udpsocket {
 	void write(const std::vector<char>&,const std::string& dest, int port)const;
 	void write(const packet&)const;
 	std::vector<char> receive()const;
+    std::pair<std::vector<char>, sockaddr_in> receiveFrom()const;
+    packet receiveP()const;
 	void close();
 	int port()const;
 };
-
+#endif
