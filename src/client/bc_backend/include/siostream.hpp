@@ -6,7 +6,7 @@
 #include <ios>
 #include <array>
 #include <string>
-#include "udpsocket.hpp"
+#include <udpsocket.hpp>
 class circular_buffer{
 public:
 	using size_t = std::size_t;
@@ -16,9 +16,10 @@ public:
 	struct const_iterator;
 	void push_front(char c);
 	void push_back(char c);
-	void pop_front(char c);
-	void pop_back(char c);
+	void pop_front();
+	void pop_back();
     bool full()const;
+    size_t size()const;
     void clear();
 	struct iterator{
 		iterator(const circular_buffer* p, char* source, std::size_t period, std::size_t offset);

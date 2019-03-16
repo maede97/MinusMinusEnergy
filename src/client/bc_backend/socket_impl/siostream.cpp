@@ -175,18 +175,23 @@ void circular_buffer::push_front(char c){
 bool circular_buffer::full()const{
     return m_full;
 }
+size_t circular_buffer::size()const{
+    return m_end - m_begin;
+}
 void circular_buffer::push_back(char c){
+    if(m_end + 1 == m_begin)
+        resize(size() * 2);
 	*m_end = c;
 	++m_end;
 	if(m_begin.offset == m_end.offset){
 		m_full = true;
 	}
 }
-void circular_buffer::pop_front(char c){
+void circular_buffer::pop_front(){
 	++m_begin;
 	m_full = false;
 }
-void circular_buffer::pop_back(char c){
+void circular_buffer::pop_back(){
 	--m_end;
 	m_full = false;
 }

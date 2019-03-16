@@ -2,7 +2,8 @@
 #include <cstdint>
 #include <hash.hpp>
 #include <algorithm>
-packet::packet(const std::vector<char>& content, const std::string& dest, int port) : m_port(port){
+std::uint64_t global_id_counter = 0;
+packet::packet(const std::vector<char>& content, const std::string& dest, int port) : m_port(port), id(global_id_counter++){
 	hostent *server_host;
 	errno = 0;
 	server_host = gethostbyname(dest.c_str());
@@ -78,7 +79,18 @@ void udpsocket::write(const std::vector<char>& msg, const std::string& dest, int
 }
 
 void udpsocket::write(const packet& pack)const{
-	if(sendto(s, pack.content.data(), pack.content.size(), 0,(const sockaddr*)&pack.addr, sizeof(pack.addr)) < 0){
+    std::vector<char> output;
+    output.reserve(pack.content.size() + 32 + 8);
+    for(int i = 0;i < 4;i++)
+        for(int ih = 0;ih < 8;ih++)
+            output.push_back((pack.checksum[i] & (0xFFULL << ih * 8)) >> (ih * 8));
+    for(int ih = 0;ih < 8;ih++)
+        output.push_back((pack.id & (0xFFULL << ih * 8)) >> (ih * 8));
+    for(int i = 0;i < 4;i++){
+        std::cout << pack.checksum[i] << ", ";
+    }
+    std::copy(pack.content.begin(), pack.content.end(), std::back_inserter(output));
+	if(sendto(s, output.data(), output.size(), 0,(const sockaddr*)&pack.addr, sizeof(pack.addr)) < 0){
 		throw std::logic_error(std::string("Could not send packet: ") + strerror(errno));
 	}
 }
