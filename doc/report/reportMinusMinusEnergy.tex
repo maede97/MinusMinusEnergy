@@ -111,16 +111,16 @@ Even if the emergence of new ideas and the implementation of pilot projects resu
 \section{Presentation of our Solution}
 
 \subsection{Solution Concept}
-To design a realistic and working solution to the given challenge by SwissEnergy some boundary conditions had first to be defined. We assumed that
+To design a realistic and working solution to the given challenge by SwissEnergy some boundary conditions had to be defined first. We assumed that
 \begin{enumerate}\itemsep0pt
 	\item There is a subsidizing party (e.g. government, NGO\footnote{Non-governmental organization})
 	\item The local energy producer can be trusted
 	\item The end consumer are not able to physically manipulate the smart meters
 \end{enumerate}
-The basic idea of our solution consists on the concept that the end consumer (client) is rewarded for an energy consumption below a defined target by positive incentives. The target has to be defined by the subsidizing party based on the desired consumption reduction and the amount of available subsidies. The client is able to claim MME tokens for his consumption reduction and use the tokens to pay part of his bill and/or invest the tokens into the fund. In the future, the fund can be extended with a voting system to reinvest the saved assets into local or global sustainable projects. The concept is illustrated in figure \ref{img_concept} on page \pageref{img_concept}.
+The basic idea of our solution consists on the concept that the end consumer (client) is rewarded for an energy consumption below a defined target by positive incentives. The target has to be defined by the subsidizing party based on the desired consumption reduction and the amount of available subsidies. The client is able to claim MME tokens\footnote{MinusMinusEnergy tokens} for his consumption reduction and use the tokens to pay part of his bill and/or invest the tokens into the fund. In the future, the fund can be extended with a voting system to reinvest the saved assets into local or global sustainable projects. The concept is illustrated in figure \ref{img_concept} on page \pageref{img_concept}.
 
 \subsubsection{Example}
-A Swiss household in a one-family house with 4 persons consumes on average 5200 kWh per year\footnote{\href{https://www.bundespublikationen.admin.ch/cshop_mimes_bbl/2C/2C59E545D7371ED5BB89418480F1B62D.pdf}{Bundespublikationen 805.902.D}}, paying around 1372.- CHF.\footnote{\href{https://www.ewz.ch/content/dam/ewz/services/dokumentencenter/energie-beziehen/dokumente/gruener-strom-fuer-mein-zuhause/stromtarif-2018-zh-private.pdf}{EWZ Zürich}: 26.39 Rp./kWh} The government defines a target reduction of 10\% of the average energy consumption equal to a reduction of 84.8 kg CO\textsubscript{2}\footnote{\href{https://www.bafu.admin.ch/bafu/de/home/suche.html\#R071-1222}{BAFU R071-1222}: 169 g CO$_2$/kWh} per year and subsidizes a maximum of 120.- CHF per household.
+A swiss household in a one-family house with 4 persons consumes on average 5200 kWh per year\footnote{\href{https://www.bundespublikationen.admin.ch/cshop_mimes_bbl/2C/2C59E545D7371ED5BB89418480F1B62D.pdf}{Bundespublikationen 805.902.D}}, paying around 1372.- CHF.\footnote{\href{https://www.ewz.ch/content/dam/ewz/services/dokumentencenter/energie-beziehen/dokumente/gruener-strom-fuer-mein-zuhause/stromtarif-2018-zh-private.pdf}{EWZ Zürich}: 26.39 Rp./kWh} The government defines a target reduction of 10\% of the average energy consumption equal to a reduction of 84.8 kg CO\textsubscript{2}\footnote{\href{https://www.bafu.admin.ch/bafu/de/home/suche.html\#R071-1222}{BAFU R071-1222}: 169 g CO$_2$/kWh} per year and subsidizes a maximum of 120.- CHF per household.
 \begin{table}[h]
 \begin{center}
 %\begin{wraptable}{r}{4cm}
@@ -159,7 +159,7 @@ Actual             & 5\%       & 4940                 & 1304            & 260   
 \end{figure}
 
 \noindent
-At the end of the year the energy provider charges the end consumer with 939.- CHF for their usage. The end consumer decides to split their tokens into a 40/60 ratio between their own invoice and the fund. Therefore the consumer has to pay the energy provider
+At the end of the year the energy provider charges the end consumer with 1304.- CHF for their usage. The end consumer decides to split their tokens into a 40/60 ratio between their own invoice and the fund. Therefore the consumer has to pay the energy provider
 \begin{equation}
 1304-0.4\cdot57=1281  \textrm{ CHF}
 \end{equation}
@@ -167,7 +167,7 @@ The amount of money the subsidizing party is paying to the energy provider is eq
 \begin{equation}
 0.4\cdot57=23 \textrm{ CHF}
 \end{equation}
-and the money the subsidizing party is transferring to the fund with a reference of the end consumer (for voting rights and shares) amounts to
+and the money the subsidizing party is transferring to the fund with a reference to the end consumer (for voting rights and shares) amounts to
 \begin{equation}
 0.6\cdot57=34 \textrm{ CHF}
 \end{equation}
@@ -184,15 +184,13 @@ During the BETH-Event, we developed a project divided into individual modules, e
 \end{figure}
 
 \subsubsection{Smart Contracts}
-The smart contracts were implemented on the \hyperref[https://www.ethereum.org/]{Ethereum}\footnote{\href{https://www.ethereum.org/}{https://www.ethereum.org/}} blockchain in the high-level programming language Solidity. Ethereum is a decentralized platform that runs smart contracts. These apps (smart contracts) run on a custom built blockchain, an enormously powerful shared global infrastructure that can move value around and represent the ownership of property.\cite{23}\\\\
+The smart contracts were implemented on the \hyperref[https://www.ethereum.org/]{Ethereum}\footnote{\href{https://www.ethereum.org/}{https://www.ethereum.org/}} blockchain in the high-level programming language Solidity. Ethereum is a decentralized platform used for cryptocurrencies (namely Ether) but also allow to run smart contracts. These apps (smart contracts) run on a custom built blockchain, an enormously powerful shared global infrastructure that can move value around and represent the ownership of property.\cite{23}\\\\
 The ownership of these contracts belongs to the subsidizing party.
-We separated the functionality into three different contracts. A small overview is presented in figure \ref{img_impl} on page \pageref{img_impl}.
-
+We separated the functionality into three different contracts.
 
 \paragraph{MME Token Contract}
 The MME token contract is a ERC20\footnote{\href{https://eips.ethereum.org/EIPS/eip-20}{https://eips.ethereum.org/EIPS/eip-20}} compliant token contract. It manages the token balance of addresses and allows to claim new token in exchange for the proof of energy consumption reduction. \\\\
 The sensor data is cryptographically secured using elliptic curve cryptography signature (ECC) \cite{24} inside the sensor and then sent to the MME contract. The contract validates the signature of the data and also prevents replay attacks.\footnote{A replay attack is a form of network attack in which a valid data transmission is maliciously or fraudulently repeated.}\\
-
 The step 1 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
 \begin{lstlisting}[language=Solidity, firstnumber=28,caption={src/smartcontracts/contracts/MMEToken.sol},captionpos=b]
 function claimToken(address sender, uint256 amount, uint256 nonce, bytes memory signature) public  {
@@ -215,8 +213,7 @@ function claimToken(address sender, uint256 amount, uint256 nonce, bytes memory 
 \end{lstlisting}
 
 \paragraph{Bill Contract}
-The bill contract handles the creation of invoices for clients by the energy providers and the payment of those. The currency of the invoices is Ether and all transaction handled on the Ethereum platform. The owner of the contract is able to add new invoice issuer. When a payment is made to the bill contract the client includes the desired ratio of available tokens to use for a reduction of their invoice.\\\\
-
+The bill contract handles the creation of invoices for clients by the energy providers and the payment of those. The currency of the invoices is Ether and all transaction handled on the Ethereum platform. The owner of the contract is able to add new invoice issuer. When a payment is made to the bill contract the client includes the desired ratio of available tokens to use for a reduction of their invoice.\\
 The step 5 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
 \begin{lstlisting}[language=Solidity, firstnumber=68,caption={src/smartcontracts/contracts/Bill.sol},captionpos=b]
 // perToken = percetage of token to use for paying the bill (x 100)
@@ -251,8 +248,7 @@ function payBill(uint perToken) public payable {
 
 
 \paragraph{Fund Contract}
-The fund contract stores the amount of money each client has invested. In the future the fund contract can be extended with a voting system to reinvest the saved assets. In the currently implemented state only the owner of the fund is able to release the assets.\\\\
-
+The fund contract stores the amount of money each client has invested. In the future the fund contract can be extended with a voting system to reinvest the saved assets. In the currently implemented state only the owner of the fund is able to release the assets.\\
 The step 6 from figure \ref{img_impl} on page \pageref{img_impl} is implemented thanks to the following function:
 \begin{lstlisting}[language=Solidity, firstnumber=17,caption={src/smartcontracts/contracts/Fund.sol},captionpos=b]
 function releaseFund() public {
@@ -275,7 +271,7 @@ Since we did not have such a sensor, the github code from the Hackathon uses a l
 The data broker consists of two components.
 \paragraph{Sensor Data Extraction}
 Firstly, we have a python script\footnote{src/client/broker/sensorDataHandler.py} that simply extracts sensor data values and writes them to a SQL database. \\
-For our system to work properly it is a requirement for the sensor to add a signature to the data that is later verified by the contract. This signing process must be difficult enough to reverse-engineer that one cannot generate any profit out of simply breaking the sensor open and extracting a private key.
+For our system to work properly it is a requirement for the sensor to add a signature to the data that is later verified by the contract. This signing process must be difficult enough to reverse-engineer that one cannot generate any profit without simply breaking the sensor open and extracting a private key.
 \paragraph{Data Handler}
 The data handler is what we call a C++ program\footnote{src/client/broker/datahandler.cpp} that is used to determine how much energy a consumer has saved in a cycle. The program first extracts the energy consumption in the current cycle from the SQLite3 database. Afterwards, it creates a signed transaction from the extracted data and sends them to the MMEToken contract on the blockchain.\\\\
 A relatively small problem that however we have yet to solve is performance-related: The calculation step of the tokens can be non-trivial, especially if the evaluation of the statistics should be as fair as possible i.e. taking into account the number of persons consuming power that passes through this sensor, the heating system of the house and many more similar factors. These small calculations eventually pile up to a very large amount of computation power used by the blockchain that possibly could be saved by moving this calculation onto a small computer
