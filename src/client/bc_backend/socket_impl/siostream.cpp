@@ -15,7 +15,7 @@ socket_ostream::socket_ostream(const std::string& target_ip,int port, udpsocket&
 			sizeof(struct in_addr)); 
 			target_addr.sin_port = htons(port);
 }
-circular_buffer::circular_buffer(size_t size) : m_full(false), m_data(size), m_begin(this, m_data.data(), size, 0), m_end(this, m_data.data(), size, 0){
+circular_buffer::circular_buffer(size_t size) :  m_data(size), m_begin(this, m_data.data(), size, 0), m_end(this, m_data.data(), size, 0), m_full(false){
 	
 }
 circular_buffer::iterator::iterator(const circular_buffer* p, char* _source, size_t _period, size_t _offset):parent(p), source(_source),period(_period), offset(_offset){
@@ -26,14 +26,15 @@ circular_buffer::const_iterator::const_iterator(const circular_buffer* p, const 
 }
 void circular_buffer::resize(size_t size){
 	std::vector<char> newdata(size);
-	size_t os = m_end - m_begin;
-	if(size >= (m_begin - m_end))
+    assert(m_end - m_begin > 0);
+	size_t os = (size_t)(m_end - m_begin);
+	if(size >= os)
 		std::copy(m_begin, m_begin, newdata.begin());
 	else
 		std::copy(m_begin, m_begin + size, newdata.begin());
 	std::swap(m_data, newdata);
 	m_begin = iterator(this, m_data.data(),size,0);
-	m_end = iterator(this, m_data.data(),size,os);
+	m_end = iterator(this, m_data.data(),size, os);
 }
 void circular_buffer::clear(){
     m_begin.offset = 0;
@@ -179,8 +180,9 @@ size_t circular_buffer::size()const{
     return m_end - m_begin;
 }
 void circular_buffer::push_back(char c){
-    if(m_end + 1 == m_begin)
+    if(m_end + 1 == m_begin){
         resize(size() * 2);
+    }
 	*m_end = c;
 	++m_end;
 	if(m_begin.offset == m_end.offset){

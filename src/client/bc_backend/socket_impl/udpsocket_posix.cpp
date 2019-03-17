@@ -23,9 +23,11 @@ packet::packet(const std::vector<char>& content, const std::string& dest, int po
     for(int i = 0;i < 8;i++)
     this->content.pop_back();
 }
-packet::packet(const std::vector<char>& content, sockaddr_in addr){
+packet::packet(const std::vector<char>& content, sockaddr_in addr, std::uint64_t id, std::uint64_t* checksum){
     this->addr = addr;
     this->content = content;
+    this->id = id;
+    std::copy(checksum, checksum + 4, this->checksum);
 }
 
 void packet::setContent(const std::vector<char>& _content){
@@ -36,6 +38,18 @@ void packet::setContent(const std::vector<char>& _content){
     for(int i = 0;i < 8;i++)
         this->content.pop_back();
 }
+bool packet::valid() const{
+    std::vector<char> c = content;
+    std::uint64_t ch[4];
+    char* id_it = (char*)&id;
+    c.insert(c.end(), id_it, id_it + 8);
+    hash_checksum(ch, c);
+    for(unsigned int i = 0;i < 4;i++){
+        if(ch[i] != checksum[i])return false;
+    }
+    return true;
+}
+
 packet::packet(const std::string& content, const std::string& dest, int port) : packet(std::vector<char>(content.begin(), content.end()),dest,port){}
 udpsocket::udpsocket(int port) : m_port(port){
 	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
@@ -87,21 +101,38 @@ void udpsocket::write(const std::vector<char>& msg, const std::string& dest, int
 void udpsocket::write(const packet& pack)const{
     std::vector<char> output;
     output.reserve(pack.content.size() + 32 + 8);
-    for(int i = 0;i < 4;i++)
-        for(int ih = 0;ih < 8;ih++)
-            output.push_back((pack.checksum[i] & (0xFFULL << ih * 8)) >> (ih * 8));
-    for(int ih = 0;ih < 8;ih++)
-        output.push_back((pack.id & (0xFFULL << ih * 8)) >> (ih * 8));
     std::copy(pack.content.begin(), pack.content.end(), std::back_inserter(output));
-	if(sendto(s, output.data(), output.size(), 0,(const sockaddr*)&pack.addr, sizeof(pack.addr)) < 0){
-		throw std::logic_error(std::string("Could not send packet: ") + strerror(errno));
-	}
+    for(int i = 0;i < 4;i++)
+        for(int ih = 7;ih >= 0;ih--)
+            output.push_back((pack.checksum[i] & (0xFFULL << ih * 8)) >> (ih * 8));
+    for(int ih = 7;ih >= 0;ih--)
+        output.push_back((pack.id & (0xFFULL << ih * 8)) >> (ih * 8));
+    
+    if(sendto(s, output.data(), output.size(), 0,(const sockaddr*)&pack.addr, sizeof(pack.addr)) < 0){
+        throw std::logic_error(std::string("Could not send packet: ") + strerror(errno));
+    }
 }
 packet udpsocket::receiveP()const{
     auto data_addr = receiveFrom();
-    char addrString[sizeof(data_addr.second)];
-    inet_ntop(AF_INET, &(((struct sockaddr_in *)&data_addr.second)->sin_addr),addrString, sizeof(data_addr.second));
-    packet pack(data_addr.first, data_addr.second);
+    char addrString[sizeof(data_addr.second.sin_addr)];
+    inet_ntop(AF_INET, &(((struct sockaddr_in *)&data_addr.second)->sin_addr),addrString, sizeof(data_addr.second.sin_addr));
+    std::vector<char> data = std::move(data_addr.first);
+    std::uint64_t _id = 0;
+    std::uint64_t _checksum[4] = {0};
+    for(unsigned int i = 0;i < 8;i++){
+        char c = data.back();
+        data.pop_back();
+        _id |= (((std::uint64_t)c) << (i * 8));
+    }
+    
+    for(int i = 4 - 1;i >= 0;i--) {
+        for(unsigned int ih = 0;ih < 8;ih++) {
+            unsigned char c = data.back();
+            data.pop_back();
+            _checksum[i] |= (((std::uint64_t)c) << (ih * 8));
+        }
+    }
+    packet pack(data, data_addr.second, _id, _checksum);
     return pack;
 }
 std::pair<std::vector<char>, sockaddr_in> udpsocket::receiveFrom()const{

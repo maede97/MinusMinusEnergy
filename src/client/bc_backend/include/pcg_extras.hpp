@@ -230,6 +230,7 @@ operator>>(std::basic_istream<CharT,Traits>& in, uint8_t target)
         in.setstate(std::ios::failbit);
         value = ~0U;
     }
+    (void)target;
     target = uint8_t(value);
     return in;
 }

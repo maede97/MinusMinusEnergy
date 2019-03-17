@@ -7,12 +7,18 @@
 #include <socket_streambuf.hpp>
 #include <util.hpp>
 #include <udpsocket.hpp>
+unsigned short swapBytes(unsigned short k){
+    return (k << 8) | (k >> 8);
+}
 int main(){
     udpsocket sock(25025);
-    socket_ostreambuf ob(&sock, "127.0.0.1", 10000);
+    //socket_ostreambuf ob(&sock, "127.0.0.1", 10000);
+    socket_istreambuf ib(&sock);
+    std::cout << sizeof(std::istream) << std::endl;
+    std::istream is(&ib);
+    char a;
     while(true){
-        packet pack = sock.receiveP();
-        std::cout << pack.content << std::endl;
-        std::cout << inet_ntoa(pack.addr.sin_addr) << std::endl;
+        is.read(&a, 1);
+        std::cout << ": "<< a << std::endl;
     }
 }

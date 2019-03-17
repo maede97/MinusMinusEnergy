@@ -215,7 +215,6 @@ void sha256_(std::uint64_t* dest, const std::vector<char>& input){
     ctx.init();
     ctx.update((const unsigned char*)input.data(), input.size());
     ctx.final(digest);
-    unsigned char* cdest = (unsigned char*) dest;
 	memcpy(dest, digest, SHA256::DIGEST_SIZE);
 }
 
@@ -364,7 +363,6 @@ void sha512_(std::uint64_t* dest, const std::vector<char>& input){
     ctx.init();
     ctx.update((unsigned char*)input.data(), input.size());
     ctx.final(digest);
-	unsigned char* cdest = (unsigned char*) dest;
 	memcpy(dest, digest, SHA512::DIGEST_SIZE);
 }
 

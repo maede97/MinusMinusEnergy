@@ -1,37 +1,42 @@
 [
 {
   "directory": "/home/manuel/Documents/socket/build",
-  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -flto -O3 -DNDEBUG   -o CMakeFiles/toast.dir/test.cpp.o -c /home/manuel/Documents/socket/test.cpp",
+  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -Wall -Wextra -O3 -DNDEBUG   -o CMakeFiles/toast.dir/test.cpp.o -c /home/manuel/Documents/socket/test.cpp",
   "file": "/home/manuel/Documents/socket/test.cpp"
 },
 {
+  "directory": "/home/manuel/Documents/socket/build",
+  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -Wall -Wextra -O3 -DNDEBUG   -o CMakeFiles/sender.dir/sender.cpp.o -c /home/manuel/Documents/socket/sender.cpp",
+  "file": "/home/manuel/Documents/socket/sender.cpp"
+},
+{
   "directory": "/home/manuel/Documents/socket/build/socket_impl",
-  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -flto -O3 -DNDEBUG   -o CMakeFiles/sio.dir/socket_streambuf.cpp.o -c /home/manuel/Documents/socket/socket_impl/socket_streambuf.cpp",
+  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -Wall -Wextra -O3 -DNDEBUG   -o CMakeFiles/sio.dir/socket_streambuf.cpp.o -c /home/manuel/Documents/socket/socket_impl/socket_streambuf.cpp",
   "file": "/home/manuel/Documents/socket/socket_impl/socket_streambuf.cpp"
 },
 {
   "directory": "/home/manuel/Documents/socket/build/socket_impl",
-  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -flto -O3 -DNDEBUG   -o CMakeFiles/sio.dir/siostream.cpp.o -c /home/manuel/Documents/socket/socket_impl/siostream.cpp",
+  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -Wall -Wextra -O3 -DNDEBUG   -o CMakeFiles/sio.dir/siostream.cpp.o -c /home/manuel/Documents/socket/socket_impl/siostream.cpp",
   "file": "/home/manuel/Documents/socket/socket_impl/siostream.cpp"
 },
 {
   "directory": "/home/manuel/Documents/socket/build/socket_impl",
-  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -flto -O3 -DNDEBUG   -o CMakeFiles/sio.dir/hash.cpp.o -c /home/manuel/Documents/socket/socket_impl/hash.cpp",
+  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -Wall -Wextra -O3 -DNDEBUG   -o CMakeFiles/sio.dir/hash.cpp.o -c /home/manuel/Documents/socket/socket_impl/hash.cpp",
   "file": "/home/manuel/Documents/socket/socket_impl/hash.cpp"
 },
 {
   "directory": "/home/manuel/Documents/socket/build/socket_impl",
-  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -flto -O3 -DNDEBUG   -o CMakeFiles/sio.dir/udpsocket_posix.cpp.o -c /home/manuel/Documents/socket/socket_impl/udpsocket_posix.cpp",
+  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -Wall -Wextra -O3 -DNDEBUG   -o CMakeFiles/sio.dir/udpsocket_posix.cpp.o -c /home/manuel/Documents/socket/socket_impl/udpsocket_posix.cpp",
   "file": "/home/manuel/Documents/socket/socket_impl/udpsocket_posix.cpp"
 },
 {
   "directory": "/home/manuel/Documents/socket/build/socket_impl",
-  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -flto -O3 -DNDEBUG   -o CMakeFiles/sio.dir/socketio_posix.cpp.o -c /home/manuel/Documents/socket/socket_impl/socketio_posix.cpp",
+  "command": "g++   -I/home/manuel/Documents/socket/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -Wall -Wextra -O3 -DNDEBUG   -o CMakeFiles/sio.dir/socketio_posix.cpp.o -c /home/manuel/Documents/socket/socket_impl/socketio_posix.cpp",
   "file": "/home/manuel/Documents/socket/socket_impl/socketio_posix.cpp"
 },
 {
   "directory": "/home/manuel/Documents/socket/build/blockchain_app",
-  "command": "g++   -I/home/manuel/Documents/socket/include -I/home/manuel/Documents/socket/blockchain_app/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -flto -O3 -DNDEBUG   -o CMakeFiles/keygen.dir/keygen.cpp.o -c /home/manuel/Documents/socket/blockchain_app/keygen.cpp",
+  "command": "g++   -I/home/manuel/Documents/socket/include -I/home/manuel/Documents/socket/blockchain_app/include  -std=c++2a -O3 -march=native -funroll-loops -fomit-frame-pointer -ftree-vectorize -Wall -Wextra -O3 -DNDEBUG   -o CMakeFiles/keygen.dir/keygen.cpp.o -c /home/manuel/Documents/socket/blockchain_app/keygen.cpp",
   "file": "/home/manuel/Documents/socket/blockchain_app/keygen.cpp"
 }
 ]

@@ -23,6 +23,8 @@ public:
     void clear();
 	struct iterator{
 		iterator(const circular_buffer* p, char* source, std::size_t period, std::size_t offset);
+        iterator(iterator&) = default;
+        iterator(iterator&&) = default;
 		const circular_buffer* parent;
 		char* source;
 		size_t period;
@@ -42,6 +44,8 @@ public:
 	};
 	struct const_iterator{
 		const_iterator(const circular_buffer* p, const char* source, std::size_t period, std::size_t offset);
+        const_iterator(const_iterator&) = default;
+        const_iterator(const_iterator&&) = default;
 		const circular_buffer* parent;
 		const char* source;
 		size_t period;

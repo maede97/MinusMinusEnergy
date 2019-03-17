@@ -57,7 +57,7 @@ std::vector<char> encrypt(const keyPair<number_t, complete, size>& key, const st
 		mpz_export(chiffrat.data() + i, &_size, 1, 1, 0, 0, exc.get_mpz_t());
 	}
 	
-	return std::move(chiffrat);
+	return chiffrat;
 }
 int main(){
 	gmp_randinit_mt(state);
@@ -68,7 +68,7 @@ int main(){
 	std::vector<char> randData(8192 << 4);
 	std::generate(randData.begin(), randData.end(), std::ref(gen));
 	std::vector<char> f = encrypt(kp, randData);
-	for(int i = 0;i < f.size();i++){
+	for(size_t i = 0;i < f.size();i++){
 		//std::cout << (int)f[i] << ", ";
 	}
 	std::cout << "\n";

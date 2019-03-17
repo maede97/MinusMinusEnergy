@@ -22,7 +22,8 @@ struct packet{
 	std::vector<char> content;
 	packet(const std::vector<char>& content, const std::string& dest, int port);
 	packet(const std::string& content, const std::string& dest, int port);
-    packet(const std::vector<char>& content, sockaddr_in addr);
+    packet(const std::vector<char>& content, sockaddr_in addr, std::uint64_t id, std::uint64_t* checksum);
+    bool valid()const;
 	void setContent(const std::vector<char>&);
 };
 class udpsocket {
