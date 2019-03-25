@@ -152,9 +152,16 @@ Actual             & 5\%       & 4940                 & 1304            & 260   
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[scale=1.5]{../presentation/concept.png}
+		\includegraphics[scale=1.3]{../presentation/concept.png}
 		\caption{Concept Design}
 		\label{img_concept}
+	\end{center}
+\end{figure}
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[scale=1.3]{../presentation/implementation.png}
+		\caption{Implementation Overview}
+		\label{img_impl}
 	\end{center}
 \end{figure}
 
@@ -171,17 +178,11 @@ and the money the subsidizing party is transferring to the fund with a reference
 \begin{equation}
 0.6\cdot57=34 \textrm{ CHF}
 \end{equation}
-
+\newpage
 \subsection{Solution Design}
 \subsubsection{Architecture}
 During the BETH-Event, we developed a project divided into individual modules, each of which will be discussed later. The architecture consists of a sensor, the client server and three smart contracts on the ethereum blockchain. An overview is presented in figure \ref{img_impl} on page \pageref{img_impl}.\\\\
-\begin{figure}[ht]
-	\begin{center}
-		\includegraphics[scale=1.5]{../presentation/implementation.png}
-		\caption{Implementation Overview}
-		\label{img_impl}
-	\end{center}
-\end{figure}
+
 
 \subsubsection{Smart Contracts}
 The smart contracts were implemented on the \hyperref[https://www.ethereum.org/]{Ethereum}\footnote{\href{https://www.ethereum.org/}{https://www.ethereum.org/}} blockchain in the high-level programming language Solidity. Ethereum is a decentralized platform used for cryptocurrencies (namely Ether) but also allow to run smart contracts. These apps (smart contracts) run on a custom built blockchain, an enormously powerful shared global infrastructure that can move value around and represent the ownership of property.\cite{23}\\\\
