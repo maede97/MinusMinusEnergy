@@ -38,3 +38,13 @@ a:active {
   margin: 0;
   width: 85%;
 }
+
+@media (max-width: 575.98px) {
+  mat-toolbar  {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+  }
+}

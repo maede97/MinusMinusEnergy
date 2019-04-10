@@ -9,15 +9,15 @@ import {
   MatMenuModule,
 } from '@angular/material';
 
-import { MaterialDashboardComponent } from './material-dashboard.component';
+import { HomeDashboardComponent } from './home-dashboard.component';
 
-describe('MaterialDashboardComponent', () => {
-  let component: MaterialDashboardComponent;
-  let fixture: ComponentFixture<MaterialDashboardComponent>;
+describe('HomeDashboardComponent', () => {
+  let component: HomeDashboardComponent;
+  let fixture: ComponentFixture<HomeDashboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MaterialDashboardComponent],
+      declarations: [HomeDashboardComponent],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
@@ -31,7 +31,7 @@ describe('MaterialDashboardComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MaterialDashboardComponent);
+    fixture = TestBed.createComponent(HomeDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

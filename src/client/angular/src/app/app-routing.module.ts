@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MaterialDashboardComponent} from './material-dashboard/material-dashboard.component';
-import { BillComponent} from './bill/bill.component';
+import { HomeDashboardComponent} from './home-dashboard/home-dashboard.component';
+import { BillDashboardComponent} from './bill-dashboard/bill-dashboard.component';
 
 const routes: Routes = [
-  {path: '', component: MaterialDashboardComponent},
-  {path: 'bill', component: BillComponent},
+  {path: '', component: HomeDashboardComponent},
+  {path: 'bill', component: BillDashboardComponent},
 ];
 
 @NgModule({

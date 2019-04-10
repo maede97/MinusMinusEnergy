@@ -1,8 +1,8 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
-  <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="space-evenly">
+  <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="space-evenly">
     <ng-container *ngFor="let number of [0,1,2,3,4]">
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card col-md-12 col-lg-5" >
         <mat-card-header>
           <mat-card-title>
             Test
@@ -16,7 +16,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div style="max-width: 350px;" class="container">
+          <div class="container">
             <canvas mdbChart
                     [chartType]="chartType"
                     [datasets]="chartDatasets"
