@@ -54,7 +54,7 @@ Or watch the GIF above (shortened, hence the black flicker in the middle)
 *Broker (Python), Documentation (LaTeX)* - [MarieLouiseAchart](https://github.com/MarieLouiseAchart)
 
 **Yannick Niedermayr** (ETHZ Bsc RW/CSE)  
-*Broker (C++, Python), Misc.* - [guetzli32](https://github.com/guetzli32)  
+*Broker (C++, Python), Misc.* - [yniederm](https://github.com/yniederm)  
 
 **Manuel Winkler** (ETHZ Bsc RW/CSE)  
 *Broker (C++)* - [manuel5975p](https://github.com/manuel5975p)  
